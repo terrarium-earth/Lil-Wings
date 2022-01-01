@@ -1,0 +1,108 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://maven.parchmentmc.org' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.parchmentmc:librarian:1.+'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply plugin: 'maven-publish'
+
+version = project.version
+group = project.group
+archivesBaseName = project.modid
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'parchment', version: project.mappings_version
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                lilwings {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                lilwings {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'lilwings', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                lilwings {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+repositories {
+    maven { url = "https://dvs1.progwml6.com/files/maven/" }
+    maven { url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/" }
+    maven { url = "https://maven.k-4u.nl/"}
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${project.forge_version}"
+    implementation fg.deobf("mezz.jei:${project.jei_version}")
+    implementation fg.deobf(group: "software.bernie.geckolib", name: "geckolib-1.18-forge", version: project.gecko_version)
+    runtimeOnly fg.deobf("mcjty.theoneprobe:theoneprobe:${project.top_version}") {
+        transitive = false
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : project.mod_name,
+                "Specification-Vendor"    : project.vendor,
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.mod_name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : project.vendor,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
