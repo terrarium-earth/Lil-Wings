@@ -4,6 +4,7 @@ import dev.willowworks.lilwings.LilWings;
 import dev.willowworks.lilwings.registry.entity.Butterfly;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -22,9 +23,19 @@ public class ButterflyItems extends ItemModelProvider {
             if (butterfly.spawnEggItem() != null)
                 withExistingParent(butterfly.spawnEggItem().getRegistryName().toString(), SPAWN_EGG_PARENT);
 
-            if (butterfly.wings() != null)
-                withExistingParent(butterfly.wings().getRegistryName().toString(), ITEM_GENERATED)
-                        .texture("layer0", new ResourceLocation(LilWings.MODID, "item/" + butterfly.textureName() + "_wings"));
+            if (butterfly.wings().length > 0) {
+                for (Item wing : butterfly.wings()) {
+                    withExistingParent(wing.getRegistryName().toString(), ITEM_GENERATED)
+                            .texture("layer0", new ResourceLocation(LilWings.MODID, "item/" + wing.getRegistryName().getPath()));
+                }
+            }
+
+            if (butterfly.elytras().length > 0) {
+                for (Item elytra : butterfly.elytras()) {
+                    withExistingParent(elytra.getRegistryName().toString(), ITEM_GENERATED)
+                            .texture("layer0", new ResourceLocation(LilWings.MODID, "item/" + elytra.getRegistryName().getPath()));
+                }
+            }
         }
     }
 }

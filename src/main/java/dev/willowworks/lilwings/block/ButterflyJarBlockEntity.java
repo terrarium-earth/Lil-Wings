@@ -1,8 +1,10 @@
 package dev.willowworks.lilwings.block;
 
 import dev.willowworks.lilwings.entity.ButterflyEntity;
+import dev.willowworks.lilwings.entity.jareffects.JarEffect;
 import dev.willowworks.lilwings.registry.ModBlocks;
 import dev.willowworks.lilwings.registry.entity.Butterfly;
+import dev.willowworks.lilwings.registry.entity.GraylingType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -14,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,6 +24,8 @@ public class ButterflyJarBlockEntity extends BlockEntity {
 
     private EntityType<? extends ButterflyEntity> entityType;
     private CompoundTag butterflyData;
+    private JarEffect jarEffect;
+    private GraylingType colorType;
 
     public ButterflyJarBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlocks.BUTTERFLY_JAR_ENTITY.get(), pWorldPosition, pBlockState);
@@ -53,6 +58,10 @@ public class ButterflyJarBlockEntity extends BlockEntity {
 
             if (Butterfly.BUTTERFLIES.containsKey(id)) {
                 entityType = (EntityType<? extends ButterflyEntity>) ForgeRegistries.ENTITIES.getValue(id);
+
+                Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getRegistryName());
+                if (jarEffect == null && butterfly.jarEffect() != null)
+                    jarEffect = butterfly.jarEffect().get();
             }
         }
 
@@ -61,17 +70,26 @@ public class ButterflyJarBlockEntity extends BlockEntity {
         }
     }
 
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, ButterflyJarBlockEntity pBlockEntity) {
+    public static void tick(Level level, BlockPos pos, BlockState state, ButterflyJarBlockEntity blockEntity) {
+        if (blockEntity.getJarEffect() != null)
+            blockEntity.getJarEffect().tickEffect(level, blockEntity);
     }
 
     public void setEntityType(EntityType<? extends ButterflyEntity> entityType) {
+        Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getRegistryName());
         this.entityType = entityType;
+        if (butterfly.jarEffect() != null)
+            this.jarEffect = butterfly.jarEffect().get();
         setChanged();
         level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
     }
 
     public void setButterflyData(CompoundTag tag) {
         this.butterflyData = tag;
+        if (tag != null && tag.contains("colorType")) {
+            colorType = GraylingType.valueOf(tag.getString("colorType"));
+        }
+
         setChanged();
         level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
     }
@@ -82,6 +100,14 @@ public class ButterflyJarBlockEntity extends BlockEntity {
 
     public CompoundTag getButterflyData() {
         return butterflyData;
+    }
+
+    public JarEffect getJarEffect() {
+        return jarEffect;
+    }
+
+    public GraylingType getColorType() {
+        return colorType;
     }
 
     @Nullable
@@ -98,5 +124,10 @@ public class ButterflyJarBlockEntity extends BlockEntity {
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         super.onDataPacket(net, pkt);
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        return super.getRenderBoundingBox();
     }
 }

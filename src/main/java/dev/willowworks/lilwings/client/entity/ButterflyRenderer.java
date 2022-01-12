@@ -7,6 +7,7 @@ import dev.willowworks.lilwings.client.model.ButterflyModel;
 import dev.willowworks.lilwings.entity.ButterflyEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;

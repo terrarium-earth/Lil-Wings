@@ -2,10 +2,13 @@ package dev.willowworks.lilwings.entity;
 
 import dev.willowworks.lilwings.entity.goals.ButterflyBreedGoal;
 import dev.willowworks.lilwings.entity.goals.FindFlowerGoal;
+import dev.willowworks.lilwings.entity.goals.GraylingFlowerGoal;
 import dev.willowworks.lilwings.item.ButterflyNetItem;
 import dev.willowworks.lilwings.registry.ModBlocks;
+import dev.willowworks.lilwings.registry.ModEntities;
 import dev.willowworks.lilwings.registry.ModItems;
 import dev.willowworks.lilwings.registry.entity.Butterfly;
+import dev.willowworks.lilwings.registry.entity.GraylingType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
@@ -45,6 +48,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable {
 
+    private static final EntityDataAccessor<Integer> DATA_COLOR_TYPE = SynchedEntityData.defineId(ButterflyEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_CATCH_AMOUNT = SynchedEntityData.defineId(ButterflyEntity.class, EntityDataSerializers.INT);
     private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.butterfly.idle", true);
     private final AnimationFactory factory = new AnimationFactory(this);
@@ -52,6 +56,10 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable
     private final Butterfly butterfly;
     private int flowerCooldown = Mth.nextInt(random, 400, 600);
     private BlockPos savedFlowerPos;
+
+    private int otherCooldown = Mth.nextInt(random, 300, 600);
+    private BlockPos savedOtherPos;
+    private GraylingType colorType;
 
     public ButterflyEntity(EntityType<? extends ButterflyEntity> entityType, Level level) {
         super(entityType, level);
@@ -61,17 +69,32 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable
         if (butterfly.maxHealth() <= 0)
             setInvulnerable(true);
 
-        if (!level.isClientSide())
-            this.goalSelector.addGoal(3, new TemptGoal(this, 1.08f, Ingredient.of(butterfly.breedingItem()), false));
+        if (!level.isClientSide()) {
+            if (butterfly.breedingItem() != null) {
+                this.goalSelector.addGoal(2, new TemptGoal(this, 1.08f, Ingredient.of(butterfly.breedingItem()), false));
+            }
+
+            if (entityType == ModEntities.GRAYLING_BUTTERFLY.entityType()) {
+                this.goalSelector.addGoal(4, new GraylingFlowerGoal(this));
+            } else {
+                this.goalSelector.addGoal(4, new FindFlowerGoal(this));
+            }
+        }
+    }
+
+    @Override
+    public void defineSynchedData() {
+        super.defineSynchedData();
+        this.getEntityData().define(DATA_CATCH_AMOUNT, 0);
+        this.getEntityData().define(DATA_COLOR_TYPE, GraylingType.NORMAL.ordinal());
     }
 
     @Override
     public void registerGoals() {
-        this.goalSelector.addGoal(0, new PanicGoal(this, 1.15f));
+        this.goalSelector.addGoal(0, new WaterAvoidingRandomFlyingGoal(this, 1.0f));
         this.goalSelector.addGoal(1, new ButterflyBreedGoal(this, 1.0f));
-        this.goalSelector.addGoal(2, new FollowParentGoal(this, 1.08f));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomFlyingGoal(this, 1.0f));
-        this.goalSelector.addGoal(5, new FindFlowerGoal(this));
+        this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.08f));
+        this.goalSelector.addGoal(5, new PanicGoal(this, 1.15f));
     }
 
     @Override
@@ -125,26 +148,45 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable
         return super.mobInteract(player, hand);
     }
 
+    public int getCatchAmount() {
+        return this.getEntityData().get(DATA_CATCH_AMOUNT);
+    }
+
     public void setCatchAmount(int amount) {
         this.getEntityData().set(DATA_CATCH_AMOUNT, amount);
     }
 
-    @Override
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.getEntityData().define(DATA_CATCH_AMOUNT, 0);
+    public void setColorType(GraylingType type) {
+        this.getEntityData().set(DATA_COLOR_TYPE, type.ordinal());
+        this.colorType = type;
+    }
+
+    public void setColorTypeNoUpdate(GraylingType type) {
+        this.colorType = type;
+    }
+
+    public GraylingType getColorType() {
+        return getColorType(false);
+    }
+
+    public GraylingType getColorType(boolean local) {
+        return local ? colorType : GraylingType.values()[getEntityData().get(DATA_COLOR_TYPE)];
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.getEntityData().set(DATA_CATCH_AMOUNT, tag.getInt("catchAmount"));
+        setCatchAmount(tag.getInt("catchAmount"));
+
+        if (tag.contains("colorType"))
+            setColorType(GraylingType.valueOf(tag.getString("colorType")));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putInt("catchAmount", this.getEntityData().get(DATA_CATCH_AMOUNT));
+        tag.putInt("catchAmount", getCatchAmount());
+        tag.putString("colorType", getColorType().name());
     }
 
     @Override
@@ -187,7 +229,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable
 
     @Override
     public boolean isFood(ItemStack pStack) {
-        return pStack.is(butterfly.breedingItem());
+        return butterfly.breedingItem() != null && pStack.is(butterfly.breedingItem());
     }
 
     @Nullable
@@ -253,6 +295,22 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable
 
     public void setSavedFlowerPos(BlockPos savedFlowerPos) {
         this.savedFlowerPos = savedFlowerPos;
+    }
+
+    public void setOtherCooldown(int otherCooldown) {
+        this.otherCooldown = otherCooldown;
+    }
+
+    public void setSavedOtherPos(BlockPos savedOtherPos) {
+        this.savedOtherPos = savedOtherPos;
+    }
+
+    public int getOtherCooldown() {
+        return otherCooldown;
+    }
+
+    public BlockPos getSavedOtherPos() {
+        return savedOtherPos;
     }
 
     public Butterfly getButterfly() {

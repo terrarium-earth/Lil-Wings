@@ -2,9 +2,10 @@ package dev.willowworks.lilwings.client.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import dev.willowworks.lilwings.client.entity.ButterflyRenderer;
 import dev.willowworks.lilwings.entity.ButterflyEntity;
 import dev.willowworks.lilwings.registry.ModBlocks;
+import dev.willowworks.lilwings.registry.entity.Butterfly;
+import dev.willowworks.lilwings.registry.entity.GraylingType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -51,9 +52,17 @@ public class JarItemRenderer extends BlockEntityWithoutLevelRenderer {
         CompoundTag tag = itemStack.getTag();
         if (tag != null && tag.contains("butterflyId")) {
             ResourceLocation id = new ResourceLocation(tag.getString("butterflyId"));
+            if (!Butterfly.BUTTERFLIES.containsKey(id)) {
+                stack.popPose();
+                return;
+            }
+
             EntityType<?> type = ForgeRegistries.ENTITIES.getValue(id);
-            ButterflyEntity entity = FAKES.computeIfAbsent(id, resourceLocation -> type.create(mc.level) instanceof ButterflyEntity e ? e : null);
-            if (entity == null) return;
+            ButterflyEntity entity = getOrCreateButterfly(id, (EntityType<? extends ButterflyEntity>) type, tag.getCompound("butterfly"));
+            if (entity == null) {
+                stack.popPose();
+                return;
+            }
 
             float reverseScale = 1.0f / entity.getButterfly().spawnScale();
             float scale = 0.10f;
@@ -75,5 +84,24 @@ public class JarItemRenderer extends BlockEntityWithoutLevelRenderer {
         }
 
         stack.popPose();
+    }
+
+    public static ButterflyEntity getOrCreateButterfly(ResourceLocation id, EntityType<? extends ButterflyEntity> entityType, CompoundTag butterflyData) {
+        ButterflyEntity entity = JarItemRenderer.FAKES.computeIfAbsent(id, resourceLocation -> JarItemRenderer.createFakeEntity(entityType, butterflyData));
+        if (entity != null && butterflyData != null && butterflyData.contains("colorType")) {
+            GraylingType color = GraylingType.valueOf(butterflyData.getString("colorType"));
+
+            if (color != entity.getColorType(false)) {
+                entity.setColorType(color);
+            }
+        }
+
+        return entity;
+    }
+
+    public static ButterflyEntity createFakeEntity(EntityType<? extends ButterflyEntity> entityType, CompoundTag butterflyData) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.level == null) return null;
+        return entityType.create(mc.level);
     }
 }

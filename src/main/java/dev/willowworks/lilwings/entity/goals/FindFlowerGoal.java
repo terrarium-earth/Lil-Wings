@@ -18,15 +18,15 @@ import java.util.function.Predicate;
  */
 public class FindFlowerGoal extends Goal {
 
-    private static final ArrayList<BlockPos> positionOffsets = new ArrayList<>();
-    private final ButterflyEntity butterfly;
+    public static final ArrayList<BlockPos> positionOffsets = new ArrayList<>();
+    protected final ButterflyEntity butterfly;
 
-    private int ticks;
-    private int pollinationTicks;
-    private boolean running = false;
-    private boolean completed = false;
-    private Vec3 nextTarget;
-    private Vec3 boundingBox;
+    protected int ticks;
+    protected int pollinationTicks;
+    protected boolean running = false;
+    protected boolean completed = false;
+    protected Vec3 nextTarget;
+    protected Vec3 boundingBox;
 
     static {
         for (int i = 0; (double) i <= 5; i = i > 0 ? -i : 1 - i) {
@@ -53,7 +53,7 @@ public class FindFlowerGoal extends Goal {
         if (ticks >= 600) this.clearTasks();
         else handleFlower();
 
-        if (pollinationTicks > 400)
+        if (pollinationTicks > getPollinationTime())
             completed = true;
     }
 
@@ -70,7 +70,7 @@ public class FindFlowerGoal extends Goal {
         super.stop();
         running = false;
         butterfly.getNavigation().stop();
-        butterfly.setFlowerCooldown(200);
+        updateCooldown(200);
     }
 
     @Override
@@ -80,12 +80,10 @@ public class FindFlowerGoal extends Goal {
         } else {
             Optional<BlockPos> flowerPos = findFlower();
             if (flowerPos.isPresent()) {
-                butterfly.setSavedFlowerPos(flowerPos.get());
-                butterfly.getNavigation().moveTo(butterfly.getSavedFlowerPos().getX() + 0.5D, butterfly.getSavedFlowerPos().getY() + 0.5D, butterfly.getSavedFlowerPos().getZ() + 0.5D, 1.2D);
-
+                moveToFlower(flowerPos.get());
                 return true;
             } else {
-                butterfly.setFlowerCooldown(Mth.nextInt(butterfly.getRandom(), 400, 500));
+                updateCooldown(Mth.nextInt(butterfly.getRandom(), 400, 500));
             }
         }
 
@@ -95,12 +93,12 @@ public class FindFlowerGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return running && butterfly.getSavedFlowerPos() != null && !this.completed;
+        return running && getSavedPos() != null && !this.completed;
     }
 
-    private void handleFlower() {
-        if (butterfly.getSavedFlowerPos() != null) {
-            Vec3 bottom = Vec3.atBottomCenterOf(butterfly.getSavedFlowerPos()).add(0, 0.6f, 0);
+    protected void handleFlower() {
+        if (getSavedPos() != null) {
+            Vec3 bottom = Vec3.atBottomCenterOf(getSavedPos()).add(0, 0.6f, 0);
             if (boundingBox != null) {
                 bottom = boundingBox;
             }
@@ -168,6 +166,23 @@ public class FindFlowerGoal extends Goal {
     public void clearTasks() {
         butterfly.setSavedFlowerPos(null);
         boundingBox = null;
+    }
+
+    protected void moveToFlower(BlockPos flowerPos) {
+        butterfly.setSavedFlowerPos(flowerPos);
+        butterfly.getNavigation().moveTo(flowerPos.getX() + 0.5D, flowerPos.getY() + 0.5D, flowerPos.getZ() + 0.5D, 1.2D);
+    }
+
+    public int getPollinationTime() {
+        return 400;
+    }
+
+    protected void updateCooldown(int amount) {
+        butterfly.setFlowerCooldown(amount);
+    }
+
+    protected BlockPos getSavedPos() {
+        return butterfly.getSavedFlowerPos();
     }
 
     public Predicate<BlockPos> getFlowerBlockPredicate() {
