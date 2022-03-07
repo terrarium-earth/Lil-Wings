@@ -3,7 +3,6 @@ package dev.willowworks.lilwings.block;
 import dev.willowworks.lilwings.entity.ButterflyEntity;
 import dev.willowworks.lilwings.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -50,7 +49,7 @@ public class ButterflyJarBlock extends BaseEntityBlock {
                 butterfly.setCatchAmount(0);
                 butterfly.setPos(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f);
 
-                if(butterfly.getButterfly().particleType() != null) {
+                if (butterfly.getButterfly().particleType() != null) {
                     serverLevel.sendParticles(butterfly.getButterfly().particleType(), pos.getX() + 0.5, pos.getY() + 0.08f, pos.getZ() + 0.5, 25, 0, 0, 0, 0.5f);
                 }
                 level.addFreshEntity(butterfly);
