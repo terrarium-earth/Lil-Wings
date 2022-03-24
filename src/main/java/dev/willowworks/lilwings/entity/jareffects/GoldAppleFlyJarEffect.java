@@ -9,8 +9,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class CloudyPuffJarEffect implements JarEffect {
-
+public class GoldAppleFlyJarEffect implements JarEffect {
     private static final int MAX_COOLDOWN = 4 * 20;
     public int cooldown = 0;
 
@@ -21,14 +20,16 @@ public class CloudyPuffJarEffect implements JarEffect {
 
         if (random.nextFloat() <= 0.15) {
             ServerLevel serverLevel = (ServerLevel) level;
-            serverLevel.sendParticles(getParticleType(), blockEntity.getBlockPos().getX() + 0.5, blockEntity.getBlockPos().getY() + 0.8, blockEntity.getBlockPos().getZ() + 0.5, 1, 0, 0, 0, 0.1);
+            serverLevel.sendParticles(getParticleType(), blockEntity.getBlockPos().getX() + 0.5, blockEntity.getBlockPos().getY() + 0.8, blockEntity.getBlockPos().getZ() + 0.5, 1, 0.5, 0.5, 0.5, 0.1);
         }
 
         if (cooldown >= MAX_COOLDOWN) {
             Player player = level.getNearestPlayer(blockEntity.getBlockPos().getX(), blockEntity.getBlockPos().getY(), blockEntity.getBlockPos().getZ(), 5, false);
 
             if(player != null) {
-                player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, MAX_COOLDOWN, 0));
+                player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, MAX_COOLDOWN * 2, 0));
+                player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, MAX_COOLDOWN * 2, 4));
+
             }
 
             cooldown = 0;
@@ -37,8 +38,6 @@ public class CloudyPuffJarEffect implements JarEffect {
 
     @Override
     public ParticleOptions getParticleType() {
-        return ParticleTypes.CAMPFIRE_COSY_SMOKE;
+        return ParticleTypes.HEART;
     }
-
-
 }

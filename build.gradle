@@ -74,9 +74,6 @@ dependencies {
     minecraft "net.minecraftforge:forge:${project.forge_version}"
     implementation fg.deobf("mezz.jei:${project.jei_version}")
     implementation fg.deobf(group: "software.bernie.geckolib", name: "geckolib-1.18-forge", version: project.gecko_version)
-    runtimeOnly fg.deobf("mcjty.theoneprobe:theoneprobe:${project.top_version}") {
-        transitive = false
-    }
 }
 
 jar {

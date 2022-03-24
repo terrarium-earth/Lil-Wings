@@ -2,7 +2,7 @@ package dev.willowworks.lilwings.block;
 
 import dev.willowworks.lilwings.client.item.JarItemRenderer;
 import dev.willowworks.lilwings.entity.ButterflyEntity;
-import dev.willowworks.lilwings.registry.ModItems;
+import dev.willowworks.lilwings.registry.LilWingsItems;
 import dev.willowworks.lilwings.registry.entity.Butterfly;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 public class ButterflyJarItem extends BlockItem {
 
     public ButterflyJarItem(Block pBlock) {
-        super(pBlock, new Item.Properties().tab(ModItems.TAB));
+        super(pBlock, new Item.Properties().tab(LilWingsItems.TAB));
     }
 
     @Override

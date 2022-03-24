@@ -2,7 +2,7 @@ package dev.willowworks.lilwings.client.model;
 
 import dev.willowworks.lilwings.LilWings;
 import dev.willowworks.lilwings.entity.ButterflyEntity;
-import dev.willowworks.lilwings.registry.ModEntities;
+import dev.willowworks.lilwings.registry.LilWingsEntities;
 import dev.willowworks.lilwings.registry.entity.GraylingType;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
@@ -22,7 +22,7 @@ public class ButterflyModel extends AnimatedGeoModel<ButterflyEntity> {
 
     @Override
     public ResourceLocation getTextureLocation(ButterflyEntity object) {
-        if (object.getType() == ModEntities.GRAYLING_BUTTERFLY.entityType() && object.getColorType() != null) {
+        if (object.getType() == LilWingsEntities.GRAYLING_BUTTERFLY.entityType() && object.getColorType() != null) {
             GraylingType type = object.getColorType();
             return new ResourceLocation(LilWings.MODID, "textures/entity/" + butterflyTexture + type.getTextureColor() + ".png");
         }

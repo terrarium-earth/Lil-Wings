@@ -3,7 +3,7 @@ package dev.willowworks.lilwings.client.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import dev.willowworks.lilwings.entity.ButterflyEntity;
-import dev.willowworks.lilwings.registry.ModBlocks;
+import dev.willowworks.lilwings.registry.LilWingsBlocks;
 import dev.willowworks.lilwings.registry.entity.Butterfly;
 import dev.willowworks.lilwings.registry.entity.GraylingType;
 import net.minecraft.client.Minecraft;
@@ -33,7 +33,7 @@ public class JarItemRenderer extends BlockEntityWithoutLevelRenderer {
     @Override
     public void renderByItem(ItemStack itemStack, ItemTransforms.TransformType transformType, PoseStack stack, MultiBufferSource buffer, int pPackedLight, int pPackedOverlay) {
         Minecraft mc = Minecraft.getInstance();
-        BlockState blockState = ModBlocks.BUTTERFLY_JAR.get().defaultBlockState();
+        BlockState blockState = LilWingsBlocks.BUTTERFLY_JAR.get().defaultBlockState();
         BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(blockState);
 
         stack.pushPose();

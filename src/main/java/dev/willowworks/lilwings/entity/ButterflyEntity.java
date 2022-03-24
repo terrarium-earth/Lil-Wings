@@ -4,9 +4,9 @@ import dev.willowworks.lilwings.entity.goals.ButterflyBreedGoal;
 import dev.willowworks.lilwings.entity.goals.FindFlowerGoal;
 import dev.willowworks.lilwings.entity.goals.GraylingFlowerGoal;
 import dev.willowworks.lilwings.item.ButterflyNetItem;
-import dev.willowworks.lilwings.registry.ModBlocks;
-import dev.willowworks.lilwings.registry.ModEntities;
-import dev.willowworks.lilwings.registry.ModItems;
+import dev.willowworks.lilwings.registry.LilWingsBlocks;
+import dev.willowworks.lilwings.registry.LilWingsEntities;
+import dev.willowworks.lilwings.registry.LilWingsItems;
 import dev.willowworks.lilwings.registry.entity.Butterfly;
 import dev.willowworks.lilwings.registry.entity.GraylingType;
 import net.minecraft.core.BlockPos;
@@ -74,7 +74,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable
                 this.goalSelector.addGoal(2, new TemptGoal(this, 1.08f, Ingredient.of(butterfly.breedingItem()), false));
             }
 
-            if (entityType == ModEntities.GRAYLING_BUTTERFLY.entityType()) {
+            if (entityType == LilWingsEntities.GRAYLING_BUTTERFLY.entityType()) {
                 this.goalSelector.addGoal(4, new GraylingFlowerGoal(this));
             } else {
                 this.goalSelector.addGoal(4, new FindFlowerGoal(this));
@@ -100,13 +100,13 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack handStack = player.getItemInHand(hand);
-        boolean canCatch = butterfly.netItem() == null ? handStack.is(ModItems.BUTTERFLY_NET.get()) || handStack.is(ModItems.ENDERFLY_NET.get()) : handStack.is(butterfly.netItem().get());
+        boolean canCatch = butterfly.netItem() == null ? handStack.is(LilWingsItems.BUTTERFLY_NET.get()) || handStack.is(LilWingsItems.ENDERFLY_NET.get()) : handStack.is(butterfly.netItem().get());
         if (level.isClientSide() && !canCatch && handStack.getItem() instanceof ButterflyNetItem) {
             player.displayClientMessage(new TranslatableComponent("lilwings.error.invalid_net"), true);
         }
 
         if (!level.isClientSide() && hand == InteractionHand.MAIN_HAND && canCatch && butterfly.catchAmount() > 0) {
-            int slot = player.getInventory().findSlotMatchingItem(ModBlocks.BUTTERFLY_JAR_ITEM.get().getDefaultInstance());
+            int slot = player.getInventory().findSlotMatchingItem(LilWingsBlocks.BUTTERFLY_JAR_ITEM.get().getDefaultInstance());
             if (slot < 0) {
                 player.displayClientMessage(new TranslatableComponent("lilwings.error.no_jar"), true);
                 return InteractionResult.FAIL;
@@ -120,7 +120,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable
                 butterfly.catchEffect().onCatch(player, this, catchAmount);
 
             if (catchAmount >= butterfly.catchAmount()) {
-                ItemStack stack = new ItemStack(ModBlocks.BUTTERFLY_JAR_ITEM.get());
+                ItemStack stack = new ItemStack(LilWingsBlocks.BUTTERFLY_JAR_ITEM.get());
                 CompoundTag tag = stack.getOrCreateTag();
 
                 if (tag.contains("butterfly")) {

@@ -4,7 +4,7 @@ import dev.willowworks.lilwings.entity.ButterflyEntity;
 import dev.willowworks.lilwings.entity.effects.CatchEffect;
 import dev.willowworks.lilwings.entity.jareffects.JarEffect;
 import dev.willowworks.lilwings.item.ButterflyElytra;
-import dev.willowworks.lilwings.registry.ModItems;
+import dev.willowworks.lilwings.registry.LilWingsItems;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -60,7 +60,7 @@ public record Butterfly(
         private CatchEffect catchEffect;
         private Supplier<JarEffect> jarEffect;
 
-        private CreativeModeTab creativeTab = ModItems.TAB;
+        private CreativeModeTab creativeTab = LilWingsItems.TAB;
 
         public Builder(String name) {
             this.name = name;

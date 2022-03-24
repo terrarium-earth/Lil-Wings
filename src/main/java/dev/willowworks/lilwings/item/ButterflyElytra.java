@@ -1,6 +1,6 @@
 package dev.willowworks.lilwings.item;
 
-import dev.willowworks.lilwings.registry.ModItems;
+import dev.willowworks.lilwings.registry.LilWingsItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -14,7 +14,7 @@ public class ButterflyElytra extends ElytraItem {
     private final ResourceLocation texture;
 
     public ButterflyElytra(ResourceLocation texture) {
-        super(new Properties().durability(432).rarity(Rarity.RARE).tab(ModItems.TAB));
+        super(new Properties().durability(432).rarity(Rarity.RARE).tab(LilWingsItems.TAB));
         this.texture = texture;
     }
 

@@ -2,7 +2,7 @@ package dev.willowworks.lilwings.block;
 
 import dev.willowworks.lilwings.entity.ButterflyEntity;
 import dev.willowworks.lilwings.entity.jareffects.JarEffect;
-import dev.willowworks.lilwings.registry.ModBlocks;
+import dev.willowworks.lilwings.registry.LilWingsBlocks;
 import dev.willowworks.lilwings.registry.entity.Butterfly;
 import dev.willowworks.lilwings.registry.entity.GraylingType;
 import net.minecraft.core.BlockPos;
@@ -28,15 +28,7 @@ public class ButterflyJarBlockEntity extends BlockEntity {
     private GraylingType colorType;
 
     public ButterflyJarBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(ModBlocks.BUTTERFLY_JAR_ENTITY.get(), pWorldPosition, pBlockState);
-    }
-
-    @Override
-    public CompoundTag save(CompoundTag tag) {
-        super.save(tag);
-        saveAdditional(tag);
-
-        return tag;
+        super(LilWingsBlocks.BUTTERFLY_JAR_ENTITY.get(), pWorldPosition, pBlockState);
     }
 
     @Override
@@ -118,7 +110,7 @@ public class ButterflyJarBlockEntity extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag() {
-        return save(new CompoundTag());
+        return saveAdditional(new CompoundTag());
     }
 
     @Override

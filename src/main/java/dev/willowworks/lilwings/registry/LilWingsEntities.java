@@ -15,7 +15,7 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ModEntities {
+public class LilWingsEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, LilWings.MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, LilWings.MODID);
@@ -73,7 +73,7 @@ public class ModEntities {
             .setMaxHealth(9)
             .setCatchAmount(2)
             .setCatchEffect(new EnderflyCatchEffect())
-            .setNet(ModItems.ENDERFLY_NET)
+            .setNet(LilWingsItems.ENDERFLY_NET)
             .addWings()
             .addElytra()
             .build(LilWings.MODID, ENTITIES, ITEMS);
@@ -98,6 +98,7 @@ public class ModEntities {
     public static Butterfly BUTTER_GOLD_BUTTERFLY = Butterfly.Builder.of("butter_gold")
             .setBreedingItem(Items.DANDELION)
             .addSpawnEgg(0xAE6D26, 0xFAEA2E)
+            .setJarEffect(ButterGoldJarEffect::new)
             .addWings()
             .addElytra()
             .build(LilWings.MODID, ENTITIES, ITEMS);
@@ -113,12 +114,14 @@ public class ModEntities {
     public static Butterfly RED_APPLEFLY_BUTTERFLY = Butterfly.Builder.of("red_applefly")
             .setBreedingItem(Items.APPLE)
             .addSpawnEgg(0x54090E, 0xFF969D)
+            .setJarEffect(AppleFlyJarEffect::new)
             .addWings()
             .addElytra()
             .build(LilWings.MODID, ENTITIES, ITEMS);
 
     public static Butterfly GOLD_APPLEFLY_BUTTERFLY = Butterfly.Builder.of("gold_applefly")
             .addSpawnEgg(0xB26411, 0xECCB45)
+            .setJarEffect(GoldAppleFlyJarEffect::new)
             .addWings()
             .addElytra()
             .build(LilWings.MODID, ENTITIES, ITEMS);

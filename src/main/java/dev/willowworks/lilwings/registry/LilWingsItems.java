@@ -14,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 
-public class ModItems {
+public class LilWingsItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, LilWings.MODID);
     public static CreativeModeTab TAB = new CreativeModeTab("lilwings") {
@@ -26,7 +26,7 @@ public class ModItems {
 
     public static final Map<Item, CauldronInteraction> MILK_INTERACTION = CauldronInteraction.newInteractionMap();
     public static final CauldronInteraction FILL_MILK = (level, blockPos, player, hand, stack, state) ->
-            CauldronInteraction.emptyBucket(blockPos, player, hand, stack, state, ModBlocks.MILK_CAULDRON.get().defaultBlockState(), SoundEvents.BUCKET_EMPTY);
+            CauldronInteraction.emptyBucket(blockPos, player, hand, stack, state, LilWingsBlocks.MILK_CAULDRON.get().defaultBlockState(), SoundEvents.BUCKET_EMPTY);
 
     public static final RegistryObject<Item> BUTTERFLY_NET = ITEMS.register("butterfly_net", () -> new ButterflyNetItem(16));
     public static final RegistryObject<Item> ENDERFLY_NET = ITEMS.register("enderfly_net", () -> new ButterflyNetItem(32));

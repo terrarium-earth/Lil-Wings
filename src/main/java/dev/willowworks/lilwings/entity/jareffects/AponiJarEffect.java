@@ -1,7 +1,7 @@
 package dev.willowworks.lilwings.entity.jareffects;
 
 import dev.willowworks.lilwings.block.ButterflyJarBlockEntity;
-import dev.willowworks.lilwings.registry.ModParticles;
+import dev.willowworks.lilwings.registry.LilWingsParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
@@ -46,7 +46,7 @@ public class AponiJarEffect implements JarEffect {
 
     @Override
     public ParticleOptions getParticleType() {
-        return ModParticles.BROWN_SPORE.get();
+        return LilWingsParticles.BROWN_SPORE.get();
     }
 
     public void addParticles(ServerLevel level, BlockPos pos) {

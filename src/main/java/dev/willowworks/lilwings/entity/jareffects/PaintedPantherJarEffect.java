@@ -1,7 +1,7 @@
 package dev.willowworks.lilwings.entity.jareffects;
 
 import dev.willowworks.lilwings.block.ButterflyJarBlockEntity;
-import dev.willowworks.lilwings.registry.ModItems;
+import dev.willowworks.lilwings.registry.LilWingsItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -54,7 +54,7 @@ public class PaintedPantherJarEffect implements JarEffect {
             if (state.is(Blocks.COCOA) && state.getValue(CocoaBlock.AGE) >= 2) {
                 if (growTime >= MAX_GROW_TIME) {
                     if (level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL)) {
-                        ItemEntity item = new ItemEntity(level, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, new ItemStack(ModItems.CRIMSON_COCOA_BEANS.get(), Math.max(1, random.nextInt(2))));
+                        ItemEntity item = new ItemEntity(level, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, new ItemStack(LilWingsItems.CRIMSON_COCOA_BEANS.get(), Math.max(1, random.nextInt(2))));
                         serverLevel.addFreshEntity(item);
                     }
                     growTime = 0;

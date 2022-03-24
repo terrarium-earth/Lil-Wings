@@ -1,7 +1,7 @@
 package dev.willowworks.lilwings.block;
 
 import dev.willowworks.lilwings.entity.ButterflyEntity;
-import dev.willowworks.lilwings.registry.ModBlocks;
+import dev.willowworks.lilwings.registry.LilWingsBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -62,7 +62,7 @@ public class ButterflyJarBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, ModBlocks.BUTTERFLY_JAR_ENTITY.get(), ButterflyJarBlockEntity::tick);
+        return createTickerHelper(pBlockEntityType, LilWingsBlocks.BUTTERFLY_JAR_ENTITY.get(), ButterflyJarBlockEntity::tick);
     }
 
     @Override

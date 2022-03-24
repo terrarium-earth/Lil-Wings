@@ -1,7 +1,7 @@
 package dev.willowworks.lilwings.entity.jareffects;
 
 import dev.willowworks.lilwings.block.ButterflyJarBlockEntity;
-import dev.willowworks.lilwings.registry.ModParticles;
+import dev.willowworks.lilwings.registry.LilWingsParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
@@ -67,7 +67,7 @@ public class CrystalpuffJarEffect implements JarEffect {
 
     @Override
     public ParticleOptions getParticleType() {
-        return ModParticles.AMETHYST_GROW.get();
+        return LilWingsParticles.AMETHYST_GROW.get();
     }
 
     public BlockPos findNearestCrystal(Level level, BlockPos jarPos) {
