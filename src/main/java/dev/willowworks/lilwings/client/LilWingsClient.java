@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 
-public class ModClient {
+public class LilWingsClient {
 
     public static void init() {
         for (Butterfly butterfly : Butterfly.BUTTERFLIES.values()) {

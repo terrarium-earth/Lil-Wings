@@ -190,8 +190,7 @@ public class FindFlowerGoal extends Goal {
             if (!butterfly.level.isInWorldBounds(butterfly.blockPosition())) return false;
             BlockState state = butterfly.level.getBlockState(pos);
             if (state.isAir()) return false;
-
-            return BlockTags.FLOWERS.contains(state.getBlock());
+            return state.is(BlockTags.FLOWERS);
         };
     }
 }

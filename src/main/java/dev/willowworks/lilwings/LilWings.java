@@ -1,6 +1,6 @@
 package dev.willowworks.lilwings;
 
-import dev.willowworks.lilwings.client.ModClient;
+import dev.willowworks.lilwings.client.LilWingsClient;
 import dev.willowworks.lilwings.registry.LilWingsBlocks;
 import dev.willowworks.lilwings.registry.LilWingsEntities;
 import dev.willowworks.lilwings.registry.LilWingsItems;
@@ -26,8 +26,8 @@ public class LilWings {
         bus.addListener(this::init);
         bus.addListener(this::initClient);
         bus.addListener(LilWingsEntities::attributeEvent);
-        bus.addListener(ModClient::addLayers);
-        bus.addListener(ModClient::particleEvent);
+        bus.addListener(LilWingsClient::addLayers);
+        bus.addListener(LilWingsClient::particleEvent);
         LilWingsEntities.ENTITIES.register(bus);
 
         LilWingsEntities.ITEMS.register(bus);
@@ -47,6 +47,6 @@ public class LilWings {
     }
 
     public void initClient(FMLClientSetupEvent event) {
-        ModClient.init();
+        LilWingsClient.init();
     }
 }
