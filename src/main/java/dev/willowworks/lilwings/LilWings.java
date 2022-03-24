@@ -5,6 +5,7 @@ import dev.willowworks.lilwings.registry.LilWingsBlocks;
 import dev.willowworks.lilwings.registry.LilWingsEntities;
 import dev.willowworks.lilwings.registry.LilWingsItems;
 import dev.willowworks.lilwings.registry.LilWingsParticles;
+import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.ForgeMod;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.GameData;
 import software.bernie.geckolib3.GeckoLib;
 
 @Mod(LilWings.MODID)
@@ -28,6 +30,8 @@ public class LilWings {
         bus.addListener(LilWingsEntities::attributeEvent);
         bus.addListener(LilWingsClient::addLayers);
         bus.addListener(LilWingsClient::particleEvent);
+
+        GameData.unfreezeData();
         LilWingsEntities.ENTITIES.register(bus);
 
         LilWingsEntities.ITEMS.register(bus);
