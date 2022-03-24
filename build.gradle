@@ -28,6 +28,8 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 lilwings {
@@ -68,12 +70,15 @@ repositories {
     maven { url = "https://dvs1.progwml6.com/files/maven/" }
     maven { url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/" }
     maven { url = "https://maven.k-4u.nl/"}
+    maven { url = 'https://maven.blamejared.com' }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${project.forge_version}"
     implementation fg.deobf("mezz.jei:${project.jei_version}")
     implementation fg.deobf(group: "software.bernie.geckolib", name: "geckolib-1.18-forge", version: project.gecko_version)
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${project.patchouli_version}:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${project.patchouli_version}")
 }
 
 jar {
