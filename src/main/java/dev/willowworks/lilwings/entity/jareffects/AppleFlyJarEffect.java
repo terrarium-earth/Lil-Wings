@@ -9,7 +9,7 @@ public class AppleFlyJarEffect implements JarEffect{
     @Override
     public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
         if((int) (Math.random() * 100) == 1) {
-            blockEntity.setEntityType(LilWingsEntities.GOLD_APPLEFLY_BUTTERFLY.entityType());
+            blockEntity.setEntityType(LilWingsEntities.GOLD_APPLEFLY_BUTTERFLY.entityType().get());
         }
     }
 

@@ -74,7 +74,7 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable
                 this.goalSelector.addGoal(2, new TemptGoal(this, 1.08f, Ingredient.of(butterfly.breedingItem()), false));
             }
 
-            if (entityType == LilWingsEntities.GRAYLING_BUTTERFLY.entityType()) {
+            if (entityType == LilWingsEntities.GRAYLING_BUTTERFLY.entityType().get()) {
                 this.goalSelector.addGoal(4, new GraylingFlowerGoal(this));
             } else {
                 this.goalSelector.addGoal(4, new FindFlowerGoal(this));

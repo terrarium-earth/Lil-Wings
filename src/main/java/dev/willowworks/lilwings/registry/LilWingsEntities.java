@@ -136,7 +136,7 @@ public class LilWingsEntities {
 
     public static void attributeEvent(EntityAttributeCreationEvent event) {
         for (Butterfly butterfly : Butterfly.BUTTERFLIES.values()) {
-            event.put(butterfly.entityType(), Mob.createMobAttributes()
+            event.put(butterfly.entityType().get(), Mob.createMobAttributes()
                     .add(Attributes.MAX_HEALTH, butterfly.maxHealth())
                     .add(Attributes.FLYING_SPEED, 1.0f)
                     .build()

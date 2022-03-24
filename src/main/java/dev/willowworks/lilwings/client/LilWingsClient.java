@@ -21,7 +21,8 @@ public class LilWingsClient {
 
     public static void init() {
         for (Butterfly butterfly : Butterfly.BUTTERFLIES.values()) {
-            EntityRenderers.register(butterfly.entityType(), renderProvider -> new ButterflyRenderer(renderProvider, butterfly.textureName()));
+            EntityRenderers.register(butterfly.entityType().get(),
+                    renderProvider -> new ButterflyRenderer(renderProvider, butterfly.textureName()));
         }
 
         ItemBlockRenderTypes.setRenderLayer(LilWingsBlocks.BUTTERFLY_JAR.get(), RenderType.translucent());

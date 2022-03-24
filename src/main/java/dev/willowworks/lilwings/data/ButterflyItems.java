@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ButterflyItems extends ItemModelProvider {
 
@@ -21,19 +22,19 @@ public class ButterflyItems extends ItemModelProvider {
     protected void registerModels() {
         for (Butterfly butterfly : Butterfly.BUTTERFLIES.values()) {
             if (butterfly.spawnEggItem() != null)
-                withExistingParent(butterfly.spawnEggItem().getRegistryName().toString(), SPAWN_EGG_PARENT);
+                withExistingParent(butterfly.spawnEggItem().get().getRegistryName().toString(), SPAWN_EGG_PARENT);
 
             if (butterfly.wings().length > 0) {
-                for (Item wing : butterfly.wings()) {
-                    withExistingParent(wing.getRegistryName().toString(), ITEM_GENERATED)
-                            .texture("layer0", new ResourceLocation(LilWings.MODID, "item/" + wing.getRegistryName().getPath()));
+                for (RegistryObject<Item> wing : butterfly.wings()) {
+                    withExistingParent(wing.get().getRegistryName().toString(), ITEM_GENERATED)
+                            .texture("layer0", new ResourceLocation(LilWings.MODID, "item/" + wing.get().getRegistryName().getPath()));
                 }
             }
 
             if (butterfly.elytras().length > 0) {
-                for (Item elytra : butterfly.elytras()) {
-                    withExistingParent(elytra.getRegistryName().toString(), ITEM_GENERATED)
-                            .texture("layer0", new ResourceLocation(LilWings.MODID, "item/" + elytra.getRegistryName().getPath()));
+                for (RegistryObject<Item> elytra : butterfly.elytras()) {
+                    withExistingParent(elytra.get().getRegistryName().toString(), ITEM_GENERATED)
+                            .texture("layer0", new ResourceLocation(LilWings.MODID, "item/" + elytra.get().getRegistryName().getPath()));
                 }
             }
         }

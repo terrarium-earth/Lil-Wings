@@ -22,7 +22,7 @@ public class ButterflyModel extends AnimatedGeoModel<ButterflyEntity> {
 
     @Override
     public ResourceLocation getTextureLocation(ButterflyEntity object) {
-        if (object.getType() == LilWingsEntities.GRAYLING_BUTTERFLY.entityType() && object.getColorType() != null) {
+        if (object.getType() == LilWingsEntities.GRAYLING_BUTTERFLY.entityType().get() && object.getColorType() != null) {
             GraylingType type = object.getColorType();
             return new ResourceLocation(LilWings.MODID, "textures/entity/" + butterflyTexture + type.getTextureColor() + ".png");
         }

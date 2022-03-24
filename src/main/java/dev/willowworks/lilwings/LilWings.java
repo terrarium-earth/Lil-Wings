@@ -31,9 +31,7 @@ public class LilWings {
         bus.addListener(LilWingsClient::addLayers);
         bus.addListener(LilWingsClient::particleEvent);
 
-        GameData.unfreezeData();
         LilWingsEntities.ENTITIES.register(bus);
-
         LilWingsEntities.ITEMS.register(bus);
         LilWingsItems.ITEMS.register(bus);
 

@@ -21,9 +21,10 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public record Butterfly(
-        EntityType<ButterflyEntity> entityType,
-        ForgeSpawnEggItem spawnEggItem,
-        Item[] wings, Item[] elytras, Item breedingItem, RegistryObject<Item> netItem,
+        RegistryObject<EntityType<ButterflyEntity>> entityType,
+        RegistryObject<ForgeSpawnEggItem> spawnEggItem,
+        RegistryObject<Item>[] wings, RegistryObject<Item>[] elytras,
+        Item breedingItem, RegistryObject<Item> netItem,
         SimpleParticleType particleType, float particleSpawnChance,
         float spawnScale, float childSpawnScale, float maxHealth,
         int catchAmount, CatchEffect catchEffect, Supplier<JarEffect> jarEffect,
@@ -152,26 +153,24 @@ public record Butterfly(
             if (entityRegister == null || itemRegister == null)
                 throw new NullPointerException("Butterfly builder cannot have an invalid DeferredRegister for items or entities!");
 
-            EntityType<ButterflyEntity> entityType = EntityType.Builder.of(ButterflyEntity::new, MobCategory.MISC)
-                    .sized(boundingWidth, boundingHeight).clientTrackingRange(8).build(name + "_butterfly");
-            ForgeSpawnEggItem spawnEggItem = null;
-            Item[] wingItems = new Item[wings != null ? wings.length : 0];
-            Item[] elytraItems = new Item[elytras != null ? elytras.length : 0];
+            RegistryObject<Item>[] wingItems = new RegistryObject[wings != null ? wings.length : 0];
+            RegistryObject<Item>[] elytraItems = new RegistryObject[elytras != null ? elytras.length : 0];
 
-            entityRegister.register(name + "_butterfly", () -> entityType);
+            RegistryObject<EntityType<ButterflyEntity>> entityType = entityRegister.register(name + "_butterfly", () ->
+                    EntityType.Builder.of(ButterflyEntity::new, MobCategory.MISC).sized(boundingWidth, boundingHeight)
+                            .clientTrackingRange(8).build(name + "_butterfly"));
+
+            RegistryObject<ForgeSpawnEggItem> spawnEggItem = null;
             if (spawnEgg) {
-                spawnEggItem = new ForgeSpawnEggItem(() -> entityType, eggBackgroundColor, eggOutlineColor, new Item.Properties().tab(creativeTab));
-                ForgeSpawnEggItem finalEggItem = spawnEggItem;
-                itemRegister.register(name + "_egg", () -> finalEggItem);
+                spawnEggItem = itemRegister.register(name + "_egg", () ->
+                        new ForgeSpawnEggItem(entityType, eggBackgroundColor, eggOutlineColor, new Item.Properties().tab(creativeTab)));
             }
 
             if (wings != null) {
                 for (int i = 0; i < wings.length; i++) {
                     String wingName = wings[i];
-                    Item wingItem = new Item(new Item.Properties().tab(creativeTab));
-                    itemRegister.register(name + (wingName.isEmpty() ? "" : "_" + wingName) + "_wings", () -> wingItem);
-
-                    wingItems[i] = wingItem;
+                    wingItems[i] = itemRegister.register(name + (wingName.isEmpty() ? "" : "_" + wingName) + "_wings", () ->
+                            new Item(new Item.Properties().tab(creativeTab)));
                 }
             }
 
@@ -180,9 +179,8 @@ public record Butterfly(
                     String elytraName = elytras[i];
                     String regName = name + (elytraName.isEmpty() ? "" : "_" + elytraName) + "_elytra";
 
-                    Item elytraItem = new ButterflyElytra(new ResourceLocation(modid, "textures/elytra/" + regName + ".png"));
-                    itemRegister.register(regName, () -> elytraItem);
-                    elytraItems[i] = elytraItem;
+                    elytraItems[i] = itemRegister.register(regName, () ->
+                            new ButterflyElytra(new ResourceLocation(modid, "textures/elytra/" + regName + ".png")));
                 }
             }
 
