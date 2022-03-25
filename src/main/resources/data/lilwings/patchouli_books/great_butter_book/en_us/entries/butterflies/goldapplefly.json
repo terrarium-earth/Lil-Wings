@@ -1,0 +1,20 @@
+{
+  "name": "Gold Applefly",
+  "icon": "lilwings:gold_applefly_wings",
+  "category": "lilwings:butterflies",
+  "pages": [
+    {
+      "type": "lilwings:main_page_template",
+      "text": "It turns out the red applefly can be turned into a $(#e6b800)gold applefly$() by putting a red applefly in a jar ontop of a golden block. A player does not need to lure $(#e6b800)the gold applefly towards them as the gold apple fly will always try to follow the player$(). When in a bottle, the golden applefly will provide $(#e6b800)buffed potion effects to nearby players.$()",
+      "title": "Gold Applefly",
+      "color": "e6b800"
+    },
+    {
+      "type": "lilwings:image_template",
+      "text": "Page 2",
+      "color": "e6b800",
+      "entity": "lilwings:gold_applefly_butterfly",
+      "image": "lilwings:textures/item/gold_applefly_wings.png"
+    }
+  ]
+}
