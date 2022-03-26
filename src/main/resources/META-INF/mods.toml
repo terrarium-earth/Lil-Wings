@@ -7,7 +7,7 @@ modId="lilwings"
 version="${file.jarVersion}"
 displayName="Lil' Wings"
 #logoFile="logo.png"
-authors="Kekie6, abused_master"
+authors="Kekie6, abused_master, CodexAdrian"
 description='''
 Lil' Adorable butterflies dancing on rainbows!
 '''
