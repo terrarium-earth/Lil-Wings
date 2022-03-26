@@ -1,0 +1,22 @@
+{
+  "name": "Cloudypuff",
+  "icon": "lilwings:cloudy_puff_wings",
+  "category": "lilwings:butterflies",
+  "pages": [
+    {
+      "type": "lilwings:main_page_template",
+      "text": "This butterfly can only be found in the $(#f5d016)meadows$(). In nature, this type of butterfly $(#f5d016)can be milked for jelly.$() A player can lure the cloudypuff towards them by placing a $(#f5d016)campfire$(). When put into a bottle, the cloudypuff will make $(#f5d016)clouds.$()",
+      "title": "Cloudypuff",
+      "color": "f5d016"
+    },
+    {
+      "type": "lilwings:image_template",
+      "text": "Page 2",
+      "color": "f5d016",
+      "entity": "lilwings:cloudy_puff_butterfly",
+      "image": "lilwings:textures/item/cloudy_puff_wings.png",
+      "wings_caption": "The wings of the Cloudypuff can be used to replace $(#f5d016)ghast tears$() in crafting recipes",
+      "butterfly_caption": "Nectar collected by this butterfly reacts to form jelly, which causes the occasional clouds."
+    }
+  ]
+}

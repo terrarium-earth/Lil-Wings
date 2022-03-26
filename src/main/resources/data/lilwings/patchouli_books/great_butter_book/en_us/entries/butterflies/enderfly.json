@@ -1,0 +1,20 @@
+{
+  "name": "Ender Wing",
+  "icon": "lilwings:ender_wing_wings",
+  "category": "lilwings:butterflies",
+  "pages": [
+    {
+      "type": "lilwings:main_page_template",
+      "text": "This butterfly can only be found in the $(#009480)end highlands$(). In nature, this type of butterfly will teleport out of your net once if you try to catch it. A player can lure the enderfly towards them using $(#009480)chorus flowers$(). When put into a bottle, the enderfly will make players who come near them $(#009480)teleport away$(). The wings of the enderfly can be used like $(#009480)enderpearls.$()",
+      "title": "Enderfly",
+      "color": "009480"
+    },
+    {
+      "type": "lilwings:image_template",
+      "text": "Page 2",
+      "color": "009480",
+      "entity": "lilwings:ender_wing_butterfly",
+      "image": "lilwings:textures/item/ender_wing_wings.png"
+    }
+  ]
+}
