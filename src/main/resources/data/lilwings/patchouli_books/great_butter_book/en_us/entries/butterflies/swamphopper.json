@@ -1,0 +1,22 @@
+{
+  "name": "Swamphopper",
+  "icon": "lilwings:swamp_hopper_wings",
+  "category": "lilwings:butterflies",
+  "pages": [
+    {
+      "type": "lilwings:main_page_template",
+      "text": "This butterfly can only be found in the $(#1288ff)swamps$(). A player can lure the swamphopper towards them by holding a $(#1288ff)blue orchid$(). When put into a bottle, the swamphopper will $(#1288ff)pickup nearby items and deposit it into any inventory below it$()",
+      "title": "Painted Panther",
+      "color": "1288ff"
+    },
+    {
+      "type": "lilwings:image_template",
+      "text": "Page 2",
+      "color": "1288ff",
+      "entity": "lilwings:swamp_hopper_butterfly",
+      "image": "lilwings:textures/item/swamp_hopper_wings.png",
+      "wings_caption": "The wings of the Swamphopper can be converted to $(#1288ff)lapis lazuli$()",
+      "butterfly_caption": "The blue wing color gives the swamphopper $(#1288ff)camouflage$() over the watery surfaces"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Butterfly Jar",
+  "icon": "lilwings:butterfly_jar",
+  "category": "lilwings:blocks",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Butterfly Jar",
+      "item": "lilwings:butterfly_jar",
+      "link_recipe": true,
+      "text": ""
+    },
+    {
+      "type": "patchouli:crafting",
+      "text": "",
+      "recipe": ""
+    }
+  ]
+}

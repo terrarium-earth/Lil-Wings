@@ -1,0 +1,20 @@
+{
+  "name": "Aponi",
+  "icon": "lilwings:aponi_wings",
+  "category": "lilwings:butterflies",
+  "pages": [
+    {
+      "type": "lilwings:main_page_template",
+      "text": "This butterfly is native to the $(#a67c3f)big taiga forests$(). The Aponi can be lured by using $(#a67c3f)brown mushrooms$(). When put into a bottle, the Aponi will occationally turn $(#a67c3f)red mushrooms into brown mushrooms around it.$()",
+      "title": "Aponi",
+      "color": "a67c3f"
+    },
+    {
+      "type": "lilwings:image_template",
+      "text": "Page 2",
+      "color": "a67c3f",
+      "entity": "lilwings:aponi_butterfly",
+      "image": "lilwings:textures/item/aponi_wings.png"
+    }
+  ]
+}

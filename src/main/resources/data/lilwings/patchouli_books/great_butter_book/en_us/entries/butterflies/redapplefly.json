@@ -14,9 +14,7 @@
       "text": "Page 2",
       "color": "DD0000",
       "entity": "lilwings:red_applefly_butterfly",
-      "image": "lilwings:textures/item/red_applefly_wings.png",
-      "wings_caption": "sdjkbvkjasdfvbiasvb asjvbaskldbcvkasdfgvbasjklgfbkasdh kadshfiojasdh iuhasdfkhaslfhaslf",
-      "butterfly_caption": "sdjkbvkjasdfvbiasvb asjvbaskldbcvkasdfgvbasjklgfbkasdh kadshfiojasdh iuhasdfkhaslfhaslf"
+      "image": "lilwings:textures/item/red_applefly_wings.png"
     }
   ]
 }

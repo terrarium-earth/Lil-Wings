@@ -16,7 +16,7 @@
       "entity": "lilwings:white_fox_butterfly",
       "image": "lilwings:textures/item/white_fox_wings.png",
       "wings_caption": "The wings of the White fox butterfly have the same brewing capabilities as $(#00d5e0)sugar.$()",
-      "butterfly_caption": "The soft, snowy wings of the butterfly leave snowflakes in its trail as it flies gracefully through the air"
+      "butterfly_caption": "The soft, snowy wings of the butterfly leave snowflakes in its trail."
     }
   ]
 }
