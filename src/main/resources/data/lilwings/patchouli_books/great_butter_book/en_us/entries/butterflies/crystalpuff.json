@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "lilwings:main_page_template",
-      "text": "This butterfly can only be found in the $(#af19ff)flower forests$(). In nature, this type of butterfly will very rarely drop $(#af19ff)a gem of butternite$(). similar to chickens dropping eggs, but only 1/2 the chance. A player can lure the crystalpuff towards them using $(#af19ff)lilac$(). When put into a bottle, the crystalpuff will $(#af19ff)make amethyst crystals grow faster$(). The wings of the Cloudypuff can be turned into one piece of $(#af19ff)butternite.$()",
+      "text": "book.lilwings.butterfly.crystalpuff",
       "title": "Crystalpuff",
       "color": "af19ff"
     },

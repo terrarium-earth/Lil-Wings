@@ -63,7 +63,7 @@ public record Butterfly(
 
         private CreativeModeTab creativeTab = LilWingsItems.TAB;
 
-        public Builder(String name) {
+        private Builder(String name) {
             this.name = name;
         }
 

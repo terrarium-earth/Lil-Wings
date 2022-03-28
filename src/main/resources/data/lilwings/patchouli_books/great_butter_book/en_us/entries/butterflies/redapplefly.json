@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "lilwings:main_page_template",
-      "text": "This butterfly can only be found in Oak forests. A player can lure the red applefly using $(#dd0000)apples, red dye, or poppies.$() Holding redstone scares them away. $(br)When put into a bottle, the red applefly appears to do nothing, but it seems to like being placed ontop of a gold block. $(br)The wings of the red applefly can be $(#dd0000)eaten$(), and replenishes as much hunger as an apple",
+      "text": "book.lilwings.butterfly.redapplefly",
       "title": "Red Applefly",
       "color": "DD0000"
     },

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "lilwings:main_page_template",
-      "text": "This butterfly can only be found on the $(#DD0000)rare mushroom islands$(). A player can lure the Shroom Skipper towards them using $(#DD0000)red mushrooms$(). When put into a bottle, the Shroom Skipper will occationally $(#DD0000)turn brown to red mushrooms around it.$()",
+      "text": "book.lilwings.butterfly.shroomskipper",
       "title": "Shroom Skipper",
       "color": "DD0000"
     },
@@ -15,8 +15,8 @@
       "color": "DD0000",
       "entity": "lilwings:shroom_skipper_butterfly",
       "image": "lilwings:textures/item/shroom_skipper_wings.png",
-      "wings_caption": "The wings of the shroom skipper can be used as $(#DD0000)replacement for red mushrooms$() in mushroom soup",
-      "butterfly_caption": "The anatomy of this butterfly suggests its a part of the fungus itself"
+      "wings_caption": "book.lilwings.butterfly.shroomskipper.wings_caption",
+      "butterfly_caption": "book.lilwings.butterfly.shroomskipper.butterfly_caption"
     }
   ]
 }

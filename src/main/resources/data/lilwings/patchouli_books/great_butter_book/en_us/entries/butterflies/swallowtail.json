@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "lilwings:main_page_template",
-      "text": "This butterfly can only be found around $(l)villages$(). A player can lure the swallowtail towards them by holding $(l)seeds$(). When put into a bottle, the swallowtail will $(l)make surrounding crops grow faster.$()",
+      "text": "book.lilwings.butterfly.swallowtail",
       "title": "Swallowtail"
     },
     {

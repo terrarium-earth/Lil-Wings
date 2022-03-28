@@ -4,5 +4,6 @@
   "creative_tab": "lilwings",
   "model": "lilwings:book",
   "landing_text": "Your guide to catching all the butterflies in the overworld and beyond! $(br2)By Kekie6, CodexAdrian and abused_master",
+  "i18n": true,
   "version": 1
 }

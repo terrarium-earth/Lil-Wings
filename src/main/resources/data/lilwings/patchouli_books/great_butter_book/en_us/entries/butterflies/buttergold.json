@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "lilwings:main_page_template",
-      "text": "This butterfly can only be found in $(#e6b800)sunflower plains$(). A player can lure the  buttergold towards them using $(#e6b800)dandelions$(). When put into a bottle below a couldron with milk, $(#e6b800)the buttergold will turn the milk into butter$(), which can be harvested to grand the player a block of butter. The wings of the buttergold can be used to craft a single piece of $(#e6b800)butter.$()",
+      "text": "book.lilwings.butterfly.buttergold",
       "title": "Buttergold",
       "color": "e6b800"
     },

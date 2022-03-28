@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "lilwings:main_page_template",
-      "text": "This butterfly can only be found in $(l)jungle forests$(). A player can lure the painted panther towards them using $(l)cocoa beans$(). When put into a bottle, the painted panther will turn cocao beans into crimson cocao beans. $(br)Note: Crimson cocoa beans look slightly crimson, hence their name.",
+      "text": "book.lilwings.butterfly.paintedpanther",
       "title": "Painted Panther"
     },
     {
@@ -13,8 +13,8 @@
       "text": "Page 2",
       "entity": "lilwings:painted_panther_butterfly",
       "image": "lilwings:textures/item/painted_panther_wings.png",
-      "wings_caption": "The wings of the painted panther can be eaten, but poison you. the natural poison could explain the unique flavour of crimson cocao beans.",
-      "butterfly_caption": "The eyes of the painted panther seem to have night vision"
+      "wings_caption": "book.lilwings.butterfly.paintedpanther.wings_caption",
+      "butterfly_caption": "book.lilwings.butterfly.paintedpanther.butterfly_caption"
     }
   ]
 }
