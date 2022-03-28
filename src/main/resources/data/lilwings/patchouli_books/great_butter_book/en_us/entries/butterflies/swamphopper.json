@@ -1,12 +1,12 @@
 {
-  "name": "Swamphopper",
+  "name": "entity.lilwings.swamp_hopper_butterfly",
   "icon": "lilwings:swamp_hopper_wings",
   "category": "lilwings:butterflies",
   "pages": [
     {
       "type": "lilwings:main_page_template",
       "text": "book.lilwings.butterfly.swamphopper",
-      "title": "Painted Panther",
+      "title": "entity.lilwings.swamp_hopper_butterfly",
       "color": "1288ff"
     },
     {

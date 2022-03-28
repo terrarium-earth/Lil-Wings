@@ -11,9 +11,7 @@ public class ButterGoldJarEffect implements JarEffect {
     public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
         if(level.isClientSide) return;
         if(level.getBlockState(blockEntity.getBlockPos().below()).is(LilWingsBlocks.MILK_CAULDRON.get())) {
-            int b = (int)(Math.random() * 1000);
-            System.out.println(b);
-            if (b == 1) {
+            if ((int)(Math.random() * 1000) == 1) {
                 level.setBlock(blockEntity.getBlockPos().below(), LilWingsBlocks.BUTTER_CAULDRON.get().defaultBlockState(), 2);
             }
         }

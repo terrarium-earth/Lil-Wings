@@ -1,12 +1,12 @@
 {
-  "name": "Red Applefly",
+  "name": "entity.lilwings.red_applefly_butterfly",
   "icon": "lilwings:red_applefly_wings",
   "category": "lilwings:butterflies",
   "pages": [
     {
       "type": "lilwings:main_page_template",
       "text": "book.lilwings.butterfly.redapplefly",
-      "title": "Red Applefly",
+      "title": "entity.lilwings.red_applefly_butterfly",
       "color": "DD0000"
     },
     {

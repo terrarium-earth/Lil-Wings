@@ -1,12 +1,12 @@
 {
-  "name": "Ender Wing",
+  "name": "entity.lilwings.ender_wing_butterfly",
   "icon": "lilwings:ender_wing_wings",
   "category": "lilwings:butterflies",
   "pages": [
     {
       "type": "lilwings:main_page_template",
       "text": "book.lilwings.butterfly.enderfly",
-      "title": "Enderfly",
+      "title": "entity.lilwings.ender_wing_butterfly",
       "color": "009480"
     },
     {

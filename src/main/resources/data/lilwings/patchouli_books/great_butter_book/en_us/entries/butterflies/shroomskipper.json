@@ -1,12 +1,12 @@
 {
-  "name": "Shroom Skipper",
+  "name": "entity.lilwings.shroom_skipper_butterfly",
   "icon": "lilwings:shroom_skipper_wings",
   "category": "lilwings:butterflies",
   "pages": [
     {
       "type": "lilwings:main_page_template",
       "text": "book.lilwings.butterfly.shroomskipper",
-      "title": "Shroom Skipper",
+      "title": "entity.lilwings.shroom_skipper_butterfly",
       "color": "DD0000"
     },
     {

@@ -68,7 +68,6 @@ public class LilWingsEntities {
             .addParticles(ParticleTypes.REVERSE_PORTAL, 0.15f)
             .addSpawnEgg(0x101E29, 0xB5E45A)
             .setJarEffect(EnderWingJarEffect::new)
-            .setSpawnScale(2.5f, 1.75f)
             .setBoundingBoxSize(2.5f, 2.5f)
             .setMaxHealth(9)
             .setCatchAmount(2)

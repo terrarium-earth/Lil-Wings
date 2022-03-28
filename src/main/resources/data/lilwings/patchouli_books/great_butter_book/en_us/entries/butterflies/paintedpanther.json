@@ -1,12 +1,12 @@
 {
-  "name": "Painted Panther",
+  "name": "entity.lilwings.painted_panther_butterfly",
   "icon": "lilwings:painted_panther_wings",
   "category": "lilwings:butterflies",
   "pages": [
     {
       "type": "lilwings:main_page_template",
       "text": "book.lilwings.butterfly.paintedpanther",
-      "title": "Painted Panther"
+      "title": "entity.lilwings.painted_panther_butterfly"
     },
     {
       "type": "lilwings:image_template",

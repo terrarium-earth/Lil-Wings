@@ -1,12 +1,12 @@
 {
-  "name": "White Fox",
+  "name": "entity.lilwings.white_fox_butterfly",
   "icon": "lilwings:white_fox_wings",
   "category": "lilwings:butterflies",
   "pages": [
     {
       "type": "lilwings:main_page_template",
       "text": "book.lilwings.butterfly.whitefox",
-      "title": "White Fox",
+      "title": "entity.lilwings.white_fox_butterfly",
       "color": "00d5e0"
     },
     {

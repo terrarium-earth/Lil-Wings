@@ -71,12 +71,16 @@ repositories {
     maven { url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/" }
     maven { url = "https://maven.k-4u.nl/"}
     maven { url = 'https://maven.blamejared.com' }
+    maven { url = "https://maven.bai.lol" }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${project.forge_version}"
+    implementation fg.deobf("mezz.jei:${project.jei_version}:api")
     implementation fg.deobf("mezz.jei:${project.jei_version}")
     implementation fg.deobf(group: "software.bernie.geckolib", name: "geckolib-1.18-forge", version: project.gecko_version)
+    compileOnly fg.deobf("mcp.mobius.waila:wthit-api:forge-${wthitVersion}")
+    runtimeOnly fg.deobf("mcp.mobius.waila:wthit:forge-${wthitVersion}")
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${project.patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${project.patchouli_version}")
 }

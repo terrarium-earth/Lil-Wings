@@ -1,12 +1,12 @@
 {
-  "name": "Gold Applefly",
+  "name": "entity.lilwings.gold_applefly_butterfly",
   "icon": "lilwings:gold_applefly_wings",
   "category": "lilwings:butterflies",
   "pages": [
     {
       "type": "lilwings:main_page_template",
       "text": "book.lilwings.butterfly.goldapplefly",
-      "title": "Gold Applefly",
+      "title": "entity.lilwings.gold_applefly_butterfly",
       "color": "e6b800"
     },
     {

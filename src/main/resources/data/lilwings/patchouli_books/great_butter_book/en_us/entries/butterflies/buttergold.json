@@ -1,12 +1,12 @@
 {
-  "name": "Buttergold",
+  "name": "entity.lilwings.butter_gold_butterfly",
   "icon": "lilwings:butter_gold_wings",
   "category": "lilwings:butterflies",
   "pages": [
     {
       "type": "lilwings:main_page_template",
       "text": "book.lilwings.butterfly.buttergold",
-      "title": "Buttergold",
+      "title": "entity.lilwings.butter_gold_butterfly",
       "color": "e6b800"
     },
     {

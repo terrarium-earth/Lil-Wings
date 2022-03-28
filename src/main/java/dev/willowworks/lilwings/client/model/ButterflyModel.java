@@ -3,6 +3,7 @@ package dev.willowworks.lilwings.client.model;
 import dev.willowworks.lilwings.LilWings;
 import dev.willowworks.lilwings.entity.ButterflyEntity;
 import dev.willowworks.lilwings.registry.LilWingsEntities;
+import dev.willowworks.lilwings.registry.entity.Butterfly;
 import dev.willowworks.lilwings.registry.entity.GraylingType;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
@@ -17,7 +18,7 @@ public class ButterflyModel extends AnimatedGeoModel<ButterflyEntity> {
 
     @Override
     public ResourceLocation getModelLocation(ButterflyEntity object) {
-        return new ResourceLocation(LilWings.MODID, "geo/butterfly.geo.json");
+        return object.getButterfly().equals(LilWingsEntities.ENDER_WING_BUTTERFLY) ? new ResourceLocation(LilWings.MODID, "geo/enderwing.geo.json") : new ResourceLocation(LilWings.MODID, "geo/butterfly.geo.json");
     }
 
     @Override
