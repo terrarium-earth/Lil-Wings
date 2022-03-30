@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "lilwings:item/swamp_hopper_wings"
-  }
-}
