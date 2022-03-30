@@ -102,44 +102,33 @@ public class ButterflyEntity extends Animal implements FlyingAnimal, IAnimatable
         ItemStack handStack = player.getItemInHand(hand);
         boolean canCatch = butterfly.netItem() == null ? handStack.is(LilWingsItems.BUTTERFLY_NET.get()) || handStack.is(LilWingsItems.ENDERFLY_NET.get()) : handStack.is(butterfly.netItem().get());
         if (level.isClientSide() && !canCatch && handStack.getItem() instanceof ButterflyNetItem) {
-            player.displayClientMessage(new TranslatableComponent("lilwings.error.invalid_net"), true);
+            player.displayClientMessage(new TranslatableComponent("entity.lilwings.interactions.error.invalid_net"), true);
         }
 
-        if (!level.isClientSide() && hand == InteractionHand.MAIN_HAND && canCatch && butterfly.catchAmount() > 0) {
-            int slot = player.getInventory().findSlotMatchingItem(LilWingsBlocks.BUTTERFLY_JAR_ITEM.get().getDefaultInstance());
-            if (slot < 0) {
-                player.displayClientMessage(new TranslatableComponent("lilwings.error.no_jar"), true);
+        if (!level.isClientSide() && hand == InteractionHand.MAIN_HAND && canCatch && butterfly.catchAmount() > 0 && handStack.getItem() instanceof ButterflyNetItem) {
+            // int slot = player.getInventory().findSlotMatchingItem(LilWingsBlocks.BUTTERFLY_JAR_ITEM.get().getDefaultInstance());
+
+            if(handStack.getOrCreateTag().contains("butterfly")) {
+                player.displayClientMessage(new TranslatableComponent("entity.lilwings.interactions.error.full_net"), true);
                 return InteractionResult.FAIL;
             }
 
-            handStack.hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(hand));
             int catchAmount = this.getEntityData().get(DATA_CATCH_AMOUNT) + 1;
             this.getEntityData().set(DATA_CATCH_AMOUNT, catchAmount);
 
-            if (butterfly.catchEffect() != null)
-                butterfly.catchEffect().onCatch(player, this, catchAmount);
 
             if (catchAmount >= butterfly.catchAmount()) {
-                ItemStack stack = new ItemStack(LilWingsBlocks.BUTTERFLY_JAR_ITEM.get());
-                CompoundTag tag = stack.getOrCreateTag();
-
-                if (tag.contains("butterfly")) {
-                    player.displayClientMessage(new TranslatableComponent("lilwings.error.jar_full"), true);
-                    return InteractionResult.FAIL;
-                }
+                if (butterfly.catchEffect() != null) butterfly.catchEffect().onCatch(player, this, catchAmount);
+                handStack.hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(hand));
+                CompoundTag tag = handStack.getOrCreateTag();
 
                 CompoundTag butterflyTag = new CompoundTag();
                 this.saveWithoutId(butterflyTag);
                 tag.put("butterfly", butterflyTag);
                 tag.putString("butterflyId", this.getType().getRegistryName().toString());
-                stack.setTag(tag);
+                handStack.setTag(tag);
 
-                player.getInventory().removeItem(slot, 1);
-                if (!player.getInventory().add(stack)) {
-                    player.drop(stack, true);
-                }
-
-                player.displayClientMessage(new TranslatableComponent("lilwings.success.butterfly_caught"), true);
+                player.displayClientMessage(new TranslatableComponent("entity.lilwings.interactions.success"), true);
                 this.remove(RemovalReason.DISCARDED);
                 return InteractionResult.SUCCESS;
             }

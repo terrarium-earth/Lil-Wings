@@ -13,4 +13,5 @@ public class LilWingsParticles {
 
     public static RegistryObject<SimpleParticleType> BROWN_SPORE = PARTICLES.register("brown_spore", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> AMETHYST_GROW = PARTICLES.register("amethyst_grow", () -> new SimpleParticleType(false));
+    public static RegistryObject<SimpleParticleType> GOLDAPPLE_HEARTS = PARTICLES.register("goldapple_hearts", () -> new SimpleParticleType(false));
 }

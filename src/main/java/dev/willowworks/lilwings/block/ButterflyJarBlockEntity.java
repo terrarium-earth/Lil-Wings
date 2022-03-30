@@ -68,12 +68,17 @@ public class ButterflyJarBlockEntity extends BlockEntity {
     }
 
     public void setEntityType(EntityType<? extends ButterflyEntity> entityType) {
-        Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getRegistryName());
-        this.entityType = entityType;
-        if (butterfly.jarEffect() != null)
-            this.jarEffect = butterfly.jarEffect().get();
-        setChanged();
-        level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+        if(entityType != null) {
+            Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getRegistryName());
+            this.entityType = entityType;
+            if (butterfly.jarEffect() != null)
+                this.jarEffect = butterfly.jarEffect().get();
+            setChanged();
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+        } else {
+            this.entityType = null;
+            this.jarEffect = null;
+        }
     }
 
     public void setButterflyData(CompoundTag tag) {

@@ -30,7 +30,7 @@ public class ButterflyRenderer extends GeoEntityRenderer<ButterflyEntity> {
 
     @Override
     public RenderType getRenderType(ButterflyEntity animatable, float partialTicks, PoseStack stack, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
-        return RenderType.entityCutout(textureLocation);
+        return RenderType.entityTranslucent(textureLocation);
     }
 
 

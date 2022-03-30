@@ -17,18 +17,19 @@ public class CloudyPuffJarEffect implements JarEffect {
     @Override
     public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
         if (level.isClientSide()) return;
+        if (!blockEntity.getLevel().getBlockState(blockEntity.getBlockPos().above()).isAir()) return;
         cooldown++;
 
         if (random.nextFloat() <= 0.15) {
             ServerLevel serverLevel = (ServerLevel) level;
-            serverLevel.sendParticles(getParticleType(), blockEntity.getBlockPos().getX() + 0.5, blockEntity.getBlockPos().getY() + 0.8, blockEntity.getBlockPos().getZ() + 0.5, 1, 0, 0, 0, 0.1);
+            serverLevel.sendParticles(getParticleType(), blockEntity.getBlockPos().getX() + 0.5, blockEntity.getBlockPos().getY() + 0.8, blockEntity.getBlockPos().getZ() + 0.5, 1, 0.5, 0, 0.5, 0.1);
         }
 
         if (cooldown >= MAX_COOLDOWN) {
             Player player = level.getNearestPlayer(blockEntity.getBlockPos().getX(), blockEntity.getBlockPos().getY(), blockEntity.getBlockPos().getZ(), 5, false);
 
             if(player != null) {
-                player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, MAX_COOLDOWN, 0));
+                player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, MAX_COOLDOWN * 2, 0));
             }
 
             cooldown = 0;

@@ -1,6 +1,7 @@
 package dev.willowworks.lilwings.entity.jareffects;
 
 import dev.willowworks.lilwings.block.ButterflyJarBlockEntity;
+import dev.willowworks.lilwings.registry.LilWingsParticles;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -20,7 +21,7 @@ public class GoldAppleFlyJarEffect implements JarEffect {
 
         if (random.nextFloat() <= 0.15) {
             ServerLevel serverLevel = (ServerLevel) level;
-            serverLevel.sendParticles(getParticleType(), blockEntity.getBlockPos().getX() + 0.5, blockEntity.getBlockPos().getY() + 0.8, blockEntity.getBlockPos().getZ() + 0.5, 1, 0.5, 0.5, 0.5, 0.1);
+            serverLevel.sendParticles(getParticleType(), blockEntity.getBlockPos().getX() + 0.5, blockEntity.getBlockPos().getY() + 0.8, blockEntity.getBlockPos().getZ() + 0.5, 2, 0, 0, 0, 0);
         }
 
         if (cooldown >= MAX_COOLDOWN) {
@@ -38,6 +39,6 @@ public class GoldAppleFlyJarEffect implements JarEffect {
 
     @Override
     public ParticleOptions getParticleType() {
-        return ParticleTypes.HEART;
+        return LilWingsParticles.GOLDAPPLE_HEARTS.get();
     }
 }

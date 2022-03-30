@@ -6,66 +6,54 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SwallowTailJarEffect implements JarEffect {
 
-    private static final int MAX_TIME = 4 * 20;
-    private static final int MAX_GROW_TIME = 5 * 20;
-    private int growTime;
+    private static final int MAX_TIME = 8 * 20;
 
-    private BlockPos cropPos;
     private int checkCooldown;
 
-    private int lastParticle;
 
     @Override
     public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
         if (level.isClientSide()) return;
         ServerLevel serverLevel = (ServerLevel) level;
 
-        if (cropPos == null) {
-            checkCooldown++;
-
-            if (checkCooldown >= MAX_TIME) {
-                cropPos = findNearestCrop(level, blockEntity.getBlockPos());
+        if(checkCooldown >= MAX_TIME) {
+            BlockPos crop = findCrop(level, blockEntity.getBlockPos());
+            if(crop != null) {
+                Block block = level.getBlockState(crop).getBlock();
+                if(block instanceof CropBlock cropBlock) {
+                    cropBlock.performBonemeal(serverLevel, level.random, crop, level.getBlockState(crop));
+                    serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, crop.getX() + 0.5, crop.getY() + 0.5, crop.getZ() + 0.5, 10, 0.5, 0.5, 0.5, 0.2);
+                }
                 checkCooldown = 0;
             }
-        } else {
-            growTime++;
-            lastParticle++;
-
-            if (lastParticle >= 10) {
-                spawnOutlineParticles(serverLevel, cropPos, 0, 1);
-                lastParticle = 0;
-            }
-
-            BlockState state = level.getBlockState(cropPos);
-
-            if (state.getBlock() instanceof CropBlock cropBlock) {
-                if (growTime >= MAX_GROW_TIME) {
-                    cropBlock.performBonemeal(serverLevel, random, cropPos, state);
-                    growTime = 0;
-                    cropPos = null;
-                }
-            } else {
-                cropPos = null;
-                growTime = 0;
-            }
         }
+        checkCooldown = (checkCooldown + 1) % Integer.MAX_VALUE;
     }
 
-    public BlockPos findNearestCrop(Level level, BlockPos jarPos) {
+    @Nullable
+    public BlockPos findCrop(Level level, BlockPos jarPos) {
+        ArrayList<BlockPos> crops = new ArrayList<>();
         for (BlockPos pos : area) {
             BlockPos relativePos = jarPos.offset(pos);
             BlockState state = level.getBlockState(relativePos);
             if (!state.isAir() && state.getBlock() instanceof CropBlock) {
-                return relativePos;
+                crops.add(relativePos);
             }
         }
 
-        return null;
+        if(crops.isEmpty()) return null;
+
+        return crops.get(level.random.nextInt(crops.size()));
     }
 
     @Override

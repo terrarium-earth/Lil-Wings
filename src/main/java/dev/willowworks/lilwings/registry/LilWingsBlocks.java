@@ -21,7 +21,7 @@ public class LilWingsBlocks {
     public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, LilWings.MODID);
 
     public static final RegistryObject<Block> BUTTERFLY_JAR = BLOCKS.register("butterfly_jar", ButterflyJarBlock::new);
-    public static final RegistryObject<Item> BUTTERFLY_JAR_ITEM = ITEMS.register("butterfly_jar", () -> new ButterflyJarItem(BUTTERFLY_JAR.get()));
+    //public static final RegistryObject<Item> BUTTERFLY_JAR_ITEM = ITEMS.register("butterfly_jar", () -> new ButterflyJarItem(BUTTERFLY_JAR.get()));
     public static final RegistryObject<BlockEntityType<ButterflyJarBlockEntity>> BUTTERFLY_JAR_ENTITY = TILES.register("butterfly_jar_tile", () ->
             BlockEntityType.Builder.of(ButterflyJarBlockEntity::new, BUTTERFLY_JAR.get()).build(null)
     );
