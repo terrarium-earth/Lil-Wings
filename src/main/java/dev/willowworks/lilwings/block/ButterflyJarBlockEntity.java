@@ -119,14 +119,4 @@ public class ButterflyJarBlockEntity extends BlockEntity {
         saveAdditional(tag);
         return tag;
     }
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        super.onDataPacket(net, pkt);
-    }
-
-    @Override
-    public AABB getRenderBoundingBox() {
-        return super.getRenderBoundingBox();
-    }
 }

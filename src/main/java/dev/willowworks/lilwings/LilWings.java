@@ -46,7 +46,6 @@ public class LilWings {
         bus.addListener(LilWingsClient::particleEvent);
 
         LilWingsEntities.ENTITIES.register(bus);
-        bus.addListener(this::addButterflies);
         LilWingsEntities.ITEMS.register(bus);
         LilWingsItems.ITEMS.register(bus);
 
@@ -59,6 +58,7 @@ public class LilWings {
     }
 
     public void init(FMLCommonSetupEvent event) {
+        //TODO Needs spawn rules
         CauldronInteraction.addDefaultInteractions(LilWingsItems.MILK_INTERACTION);
         CauldronInteraction.EMPTY.put(Items.MILK_BUCKET, LilWingsItems.FILL_MILK);
         LilWingsItems.MILK_INTERACTION.put(Items.MILK_BUCKET, LilWingsItems.FILL_MILK);
@@ -100,8 +100,8 @@ public class LilWings {
                 if(event.getName() != null) {
                     switch (event.getName().getPath()) {
                         case "sunflower_plains" -> addButterfly(event, LilWingsEntities.BUTTER_GOLD_BUTTERFLY);
-                        case "meadows" -> addButterfly(event, LilWingsEntities.CLOUDY_PUFF_BUTTERFLY);
-                        case "flower_forests" -> addButterfly(event, LilWingsEntities.CRYSTAL_PUFF_BUTTERFLY);
+                        case "meadow" -> addButterfly(event, LilWingsEntities.CLOUDY_PUFF_BUTTERFLY);
+                        case "flower_forest" -> addButterfly(event, LilWingsEntities.CRYSTAL_PUFF_BUTTERFLY);
                         case "end_highland" -> addButterfly(event, LilWingsEntities.ENDER_WING_BUTTERFLY);
                         case "lush_caves" -> addButterfly(event, LilWingsEntities.GRAYLING_BUTTERFLY);
                         case "frozen_peaks" -> addButterfly(event, LilWingsEntities.WHITE_FOX_BUTTERFLY);
