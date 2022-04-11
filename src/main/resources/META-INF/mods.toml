@@ -4,7 +4,7 @@ license="All rights reserved"
 
 [[mods]]
 modId="lilwings"
-version="${file.jarVersion}"
+version="${version}"
 displayName="Lil' Wings"
 #logoFile="logo.png"
 authors="Kekie6, abused_master, CodexAdrian"
