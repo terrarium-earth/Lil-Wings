@@ -1,25 +1,25 @@
 package com.toadstoolstudios.lilwings.client.particle;
 
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.client.particle.ParticleFactory;
+import net.minecraft.client.particle.SpriteProvider;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.particle.DefaultParticleType;
 import org.jetbrains.annotations.Nullable;
 
-public class AmethystGrowProvider implements ParticleProvider<SimpleParticleType> {
+public class AmethystGrowProvider implements ParticleFactory<DefaultParticleType> {
 
-    private final SpriteSet sprite;
+    private final SpriteProvider sprite;
 
-    public AmethystGrowProvider(SpriteSet pSprites) {
+    public AmethystGrowProvider(SpriteProvider pSprites) {
         this.sprite = pSprites;
     }
 
     @Nullable
     @Override
-    public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+    public Particle createParticle(DefaultParticleType pType, ClientWorld pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
         LilSuspendedParticle suspendedParticle = new LilSuspendedParticle(pLevel, sprite, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
-        suspendedParticle.pickSprite(this.sprite);
+        suspendedParticle.setSprite(this.sprite);
         suspendedParticle.setColor(1.0F, 1.0F, 1.0F);
         return suspendedParticle;
     }

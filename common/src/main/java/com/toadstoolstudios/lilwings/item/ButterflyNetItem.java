@@ -1,78 +1,77 @@
 package com.toadstoolstudios.lilwings.item;
 
-import dev.willowworks.lilwings.block.ButterflyJarBlockEntity;
-import dev.willowworks.lilwings.entity.ButterflyEntity;
-import dev.willowworks.lilwings.registry.LilWingsItems;
-import dev.willowworks.lilwings.registry.entity.Butterfly;
-import net.minecraft.core.BlockPos;
+import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
+import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
+import com.toadstoolstudios.lilwings.registry.LilWingsItems;
+import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ButterflyNetItem extends Item {
 
     public ButterflyNetItem(int durability) {
-        super(new Item.Properties().tab(LilWingsItems.TAB).durability(durability));
+        super(new Settings().group(LilWingsItems.TAB).maxDamage(durability));
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext pContext) {
-        if(pContext.getLevel().isClientSide) super.useOn(pContext);
-        BlockPos blockPos = pContext.getClickedPos();
-        Level level = pContext.getLevel();
+    public ActionResult useOnBlock(ItemUsageContext pContext) {
+        if(pContext.getWorld().isClient) super.useOnBlock(pContext);
+        BlockPos blockPos = pContext.getBlockPos();
+        World level = pContext.getWorld();
         BlockState blockState = level.getBlockState(blockPos);
-        CompoundTag itemTag = pContext.getItemInHand().getOrCreateTag();
+        NbtCompound itemTag = pContext.getStack().getOrCreateNbt();
         if(itemTag.contains("butterfly")) {
             if(level.getBlockEntity(blockPos) instanceof ButterflyJarBlockEntity blockEntity) {
                 if(blockEntity.getButterflyData() == null) {
-                    ResourceLocation id = new ResourceLocation(itemTag.getString("butterflyId"));
+                    Identifier id = new Identifier(itemTag.getString("butterflyId"));
                     EntityType<?> type = ForgeRegistries.ENTITIES.getValue(id);
 
                     if (Butterfly.BUTTERFLIES.containsKey(id)) {
                         blockEntity.setEntityType((EntityType<? extends ButterflyEntity>) type);
                         blockEntity.setButterflyData(itemTag.getCompound("butterfly"));
-                        level.setBlockAndUpdate(blockPos, blockState);
-                        pContext.getItemInHand().removeTagKey("butterfly");
-                        pContext.getItemInHand().removeTagKey("butterflyId");
-                        return InteractionResult.SUCCESS;
+                        level.setBlockState(blockPos, blockState);
+                        pContext.getStack().removeSubNbt("butterfly");
+                        pContext.getStack().removeSubNbt("butterflyId");
+                        return ActionResult.SUCCESS;
                     }
                 }
             } else {
-                EntityType<? extends ButterflyEntity> butterflyId = (EntityType<? extends ButterflyEntity>) ForgeRegistries.ENTITIES.getValue(new ResourceLocation(pContext.getItemInHand().getTag().getString("butterflyId")));
+                EntityType<? extends ButterflyEntity> butterflyId = (EntityType<? extends ButterflyEntity>) ForgeRegistries.ENTITIES.getValue(new Identifier(pContext.getStack().getNbt().getString("butterflyId")));
                 ButterflyEntity butterfly = new ButterflyEntity(butterflyId, level);
 
-                butterfly.load(pContext.getItemInHand().getTag().getCompound("butterfly"));
+                butterfly.readNbt(pContext.getStack().getNbt().getCompound("butterfly"));
                 butterfly.setCatchAmount(0);
-                BlockPos pos = pContext.getClickedPos();
-                butterfly.setPos(pos.getX() + 0.5f, pos.getY() + 1, pos.getZ() + 0.5f);
+                BlockPos pos = pContext.getBlockPos();
+                butterfly.setPosition(pos.getX() + 0.5f, pos.getY() + 1, pos.getZ() + 0.5f);
 
                 if (butterfly.getButterfly().particleType() != null) {
                     level.addParticle(butterfly.getButterfly().particleType(), pos.getX() + 0.5, pos.getY() + 0.08f, pos.getZ() + 0.5, 0.5f, 0.5f, 0.5f);
                 }
-                level.addFreshEntity(butterfly);
-                pContext.getItemInHand().removeTagKey("butterfly");
-                pContext.getItemInHand().removeTagKey("butterflyId");
-                return InteractionResult.SUCCESS;
+                level.spawnEntity(butterfly);
+                pContext.getStack().removeSubNbt("butterfly");
+                pContext.getStack().removeSubNbt("butterflyId");
+                return ActionResult.SUCCESS;
             }
         } else if(level.getBlockEntity(blockPos) instanceof ButterflyJarBlockEntity blockEntity) {
-            CompoundTag butterflyData = blockEntity.getButterflyData();
+            NbtCompound butterflyData = blockEntity.getButterflyData();
             if(butterflyData != null) {
                 itemTag.put("butterfly", butterflyData);
                 itemTag.putString("butterflyId", blockEntity.getEntityType().getRegistryName().toString());
                 blockEntity.setEntityType(null);
                 blockEntity.setButterflyData(null);
 
-                return InteractionResult.SUCCESS;
+                return ActionResult.SUCCESS;
             }
         }
 
-        return super.useOn(pContext);
+        return super.useOnBlock(pContext);
     }
 }

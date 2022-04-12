@@ -1,20 +1,15 @@
 package com.toadstoolstudios.lilwings.entity.jareffects;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
-import dev.willowworks.lilwings.block.ButterflyJarBlockEntity;
-import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.level.Level;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public interface JarEffect {
 
@@ -22,8 +17,7 @@ public interface JarEffect {
     List<BlockPos> area = Util.make(() -> {
         List<BlockPos> list = new ArrayList<>();
 
-        for (BlockPos pos : BlockPos.betweenClosed(-2, 0, -2, 2, 2, 2)) {
-            //TODO fix this
+        for (BlockPos pos : BlockPos.iterate(-2, 0, -2, 2, 2, 2)) {
             list.add(pos.toImmutable());
         }
 
@@ -32,7 +26,7 @@ public interface JarEffect {
 
     void tickEffect(World level, ButterflyJarBlockEntity blockEntity);
 
-    ParticleOptions getParticleType();
+    ParticleEffect getParticleType();
 
     default BlockPos getRandomPos() {
         return area.get(random.nextInt(area.size()));

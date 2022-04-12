@@ -1,9 +1,9 @@
 package com.toadstoolstudios.lilwings.entity.effects;
 
-import dev.willowworks.lilwings.entity.ButterflyEntity;
-import net.minecraft.world.entity.player.Player;
+import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
+import net.minecraft.entity.player.PlayerEntity;
 
 public interface CatchEffect {
 
-    void onCatch(Player player, ButterflyEntity butterfly, int catchAmount);
+    void onCatch(PlayerEntity player, ButterflyEntity butterfly, int catchAmount);
 }

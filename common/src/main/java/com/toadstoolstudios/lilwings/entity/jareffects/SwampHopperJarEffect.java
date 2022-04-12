@@ -1,14 +1,14 @@
 package com.toadstoolstudios.lilwings.entity.jareffects;
 
-import dev.willowworks.lilwings.block.ButterflyJarBlockEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.phys.AABB;
+import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -21,26 +21,26 @@ public class SwampHopperJarEffect implements JarEffect {
     private BlockPos containerPos;
 
     @Override
-    public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
-        if (level.isClientSide()) return;
+    public void tickEffect(World level, ButterflyJarBlockEntity blockEntity) {
+        if (level.isClient()) return;
 
         if (containerPos == null) {
             containerTime++;
 
             if (containerTime >= 4 * 20) {
-                containerPos = findNearestContainer(level, blockEntity.getBlockPos());
+                containerPos = findNearestContainer(level, blockEntity.getPos());
             }
         } else {
             cooldown++;
 
             if (cooldown >= 20) {
-                ItemEntity entity = findNearestItem(level, blockEntity.getBlockPos());
+                ItemEntity entity = findNearestItem(level, blockEntity.getPos());
                 if (entity != null) {
                     BlockEntity containerEntity = level.getBlockEntity(containerPos);
                     if (containerEntity != null) {
                         containerEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(iItemHandler -> {
-                            ItemStack stack = ItemHandlerHelper.insertItem(iItemHandler, entity.getItem(), false);
-                            entity.setItem(stack);
+                            ItemStack stack = ItemHandlerHelper.insertItem(iItemHandler, entity.getStack(), false);
+                            entity.setStack(stack);
                         });
                     } else {
                         containerPos = null;
@@ -52,15 +52,15 @@ public class SwampHopperJarEffect implements JarEffect {
         }
     }
 
-    public ItemEntity findNearestItem(Level level, BlockPos jarPos) {
-        List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, new AABB(jarPos).inflate(3));
+    public ItemEntity findNearestItem(World level, BlockPos jarPos) {
+        List<ItemEntity> entities = level.getNonSpectatingEntities(ItemEntity.class, new Box(jarPos).expand(3));
 
         return entities.size() > 0 ? entities.get(0) : null;
     }
 
-    public BlockPos findNearestContainer(Level level, BlockPos jarPos) {
+    public BlockPos findNearestContainer(World level, BlockPos jarPos) {
         for (Direction direction : Direction.values()) {
-            BlockPos offsetPos = jarPos.relative(direction);
+            BlockPos offsetPos = jarPos.offset(direction);
             if (level.getBlockEntity(offsetPos) != null) {
                 BlockEntity blockEntity = level.getBlockEntity(offsetPos);
 
@@ -74,7 +74,7 @@ public class SwampHopperJarEffect implements JarEffect {
     }
 
     @Override
-    public ParticleOptions getParticleType() {
+    public ParticleEffect getParticleType() {
         return null;
     }
 }

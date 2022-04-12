@@ -1,36 +1,41 @@
 package com.toadstoolstudios.lilwings.client.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
-import dev.willowworks.lilwings.client.model.ButterflyModel;
-import dev.willowworks.lilwings.entity.ButterflyEntity;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import com.toadstoolstudios.lilwings.client.model.ButterflyModel;
+import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3f;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class ButterflyRenderer extends GeoEntityRenderer<ButterflyEntity> {
 
-    public ButterflyRenderer(EntityRendererProvider.Context renderManager, String butterflyTexture) {
+    public ButterflyRenderer(EntityRendererFactory.Context renderManager, String butterflyTexture) {
         super(renderManager, new ButterflyModel(butterflyTexture));
         this.shadowRadius = 0.25f;
     }
 
     @Override
-    public void renderEarly(ButterflyEntity animatable, PoseStack stackIn, float ticks, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
+    public void renderEarly(ButterflyEntity animatable, MatrixStack stackIn, float ticks, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
         float scale = animatable.isBaby() ? animatable.getButterfly().childSpawnScale() : animatable.getButterfly().spawnScale();
         super.renderEarly(animatable, stackIn, ticks, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
-        stackIn.mulPose(Vector3f.YP.rotationDegrees(180));
+        stackIn.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180));
         stackIn.scale(scale, scale, scale);
     }
 
     @Override
-    public RenderType getRenderType(ButterflyEntity animatable, float partialTicks, PoseStack stack, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
-        return RenderType.entityTranslucent(textureLocation);
+    public RenderLayer getRenderType(ButterflyEntity animatable, float partialTicks, MatrixStack stack, @Nullable VertexConsumerProvider renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
+        return RenderLayer.getEntityTranslucent(textureLocation);
     }
 
 
+    //Temp fix for stupid things
+    @Override
+    public Identifier getTexture(ButterflyEntity entity) {
+        return this.getGeoModelProvider().getTextureLocation(entity);
+    }
 }

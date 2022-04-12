@@ -1,6 +1,6 @@
 package com.toadstoolstudios.lilwings.data;
 
-import dev.willowworks.lilwings.LilWings;
+import com.toadstoolstudios.lilwings.LilWings;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;

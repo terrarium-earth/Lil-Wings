@@ -1,14 +1,14 @@
 package com.toadstoolstudios.lilwings.entity.jareffects;
 
-import dev.willowworks.lilwings.block.ButterflyJarBlockEntity;
-import dev.willowworks.lilwings.registry.LilWingsParticles;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
+import com.toadstoolstudios.lilwings.registry.LilWingsParticles;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class AponiJarEffect implements JarEffect {
 
@@ -16,8 +16,8 @@ public class AponiJarEffect implements JarEffect {
     private int cooldown;
 
     @Override
-    public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
-        if (level.isClientSide()) return;
+    public void tickEffect(World level, ButterflyJarBlockEntity blockEntity) {
+        if (level.isClient()) return;
         cooldown++;
 
         if (cooldown >= MAX_COOLDOWN) {
@@ -27,16 +27,16 @@ public class AponiJarEffect implements JarEffect {
 
                 int tries = 0;
                 do {
-                    randomPos = blockEntity.getBlockPos().offset(getRandomPos());
+                    randomPos = blockEntity.getPos().add(getRandomPos());
                     isValid = isValidPos(level, randomPos);
 
                     tries++;
                 } while (tries < 3 && !isValid);
 
                 if (isValid) {
-                    ServerLevel serverLevel = (ServerLevel) level;
+                    ServerWorld serverLevel = (ServerWorld) level;
                     addParticles(serverLevel, randomPos);
-                    level.setBlock(randomPos, getReplaceBlock().defaultBlockState(), Block.UPDATE_ALL);
+                    level.setBlockState(randomPos, getReplaceBlock().getDefaultState(), Block.NOTIFY_ALL);
                 }
             }
 
@@ -45,12 +45,12 @@ public class AponiJarEffect implements JarEffect {
     }
 
     @Override
-    public ParticleOptions getParticleType() {
+    public ParticleEffect getParticleType() {
         return LilWingsParticles.BROWN_SPORE.get();
     }
 
-    public void addParticles(ServerLevel level, BlockPos pos) {
-        level.sendParticles(getParticleType(), pos.getX() + 0.5, pos.getY() + 0.08f, pos.getZ() + 0.5, 25, 0, 0, 0, 0.05f);
+    public void addParticles(ServerWorld level, BlockPos pos) {
+        level.spawnParticles(getParticleType(), pos.getX() + 0.5, pos.getY() + 0.08f, pos.getZ() + 0.5, 25, 0, 0, 0, 0.05f);
     }
 
     public Block getReplaceBlock() {
@@ -61,8 +61,8 @@ public class AponiJarEffect implements JarEffect {
         return Blocks.RED_MUSHROOM;
     }
 
-    public boolean isValidPos(Level level, BlockPos pos) {
+    public boolean isValidPos(World level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        return state.is(getSourceBlock());
+        return state.isOf(getSourceBlock());
     }
 }

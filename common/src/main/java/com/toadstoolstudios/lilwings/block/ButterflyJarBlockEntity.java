@@ -1,19 +1,22 @@
 package com.toadstoolstudios.lilwings.block;
 
-import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
-import com.toadstoolstudios.lilwings.entity.jareffects.JarEffect;
-import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
-import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
-import com.toadstoolstudios.lilwings.registry.entity.GraylingType;
+import dev.willowworks.lilwings.entity.ButterflyEntity;
+import dev.willowworks.lilwings.entity.jareffects.JarEffect;
+import dev.willowworks.lilwings.registry.LilWingsBlocks;
+import dev.willowworks.lilwings.registry.entity.Butterfly;
+import dev.willowworks.lilwings.registry.entity.GraylingType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtInt;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 public class ButterflyJarBlockEntity extends BlockEntity {
 
@@ -27,33 +30,33 @@ public class ButterflyJarBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
+    protected void writeNbt(NbtCompound tag) {
+        super.writeNbt(tag);
         if (entityType != null)
-            nbt.putString("entityId", EntityType.getId(entityType).toString());
+            tag.putString("entityId", entityType.getRegistryName().toString());
 
         if (butterflyData != null)
-            nbt.put("butterfly", butterflyData);
+            tag.put("butterfly", butterflyData);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+    public void readNbt(NbtCompound tag) {
+        super.readNbt(tag);
 
-        if (nbt.contains("entityId", NbtInt.STRING_TYPE)) {
-            Identifier id = new Identifier(nbt.getString("entityId"));
+        if (tag.contains("entityId", NbtElement.STRING_TYPE)) {
+            Identifier id = new Identifier(tag.getString("entityId"));
 
             if (Butterfly.BUTTERFLIES.containsKey(id)) {
-                entityType = (EntityType<? extends ButterflyEntity>) EntityType.get(id.toString()).get();
+                entityType = (EntityType<? extends ButterflyEntity>) ForgeRegistries.ENTITIES.getValue(id);
 
-                Butterfly butterfly = Butterfly.BUTTERFLIES.get(EntityType.getId(entityType));
+                Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getRegistryName());
                 if (jarEffect == null && butterfly.jarEffect() != null)
                     jarEffect = butterfly.jarEffect().get();
             }
         }
 
-        if (nbt.contains("butterfly")) {
-            this.butterflyData = nbt.getCompound("butterfly");
+        if (tag.contains("butterfly")) {
+            this.butterflyData = tag.getCompound("butterfly");
         }
     }
 
@@ -64,7 +67,7 @@ public class ButterflyJarBlockEntity extends BlockEntity {
 
     public void setEntityType(EntityType<? extends ButterflyEntity> entityType) {
         if(entityType != null) {
-            Butterfly butterfly = Butterfly.BUTTERFLIES.get(EntityType.getId(entityType));
+            Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getRegistryName());
             this.entityType = entityType;
             if (butterfly.jarEffect() != null)
                 this.jarEffect = butterfly.jarEffect().get();
@@ -102,6 +105,16 @@ public class ButterflyJarBlockEntity extends BlockEntity {
         return colorType;
     }
 
+    @Nullable
+    @Override
+    public BlockEntityUpdateS2CPacket toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
 
-
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        NbtCompound tag = new NbtCompound();
+        writeNbt(tag);
+        return tag;
+    }
 }

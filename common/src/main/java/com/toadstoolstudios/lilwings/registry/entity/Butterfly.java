@@ -1,29 +1,19 @@
 package com.toadstoolstudios.lilwings.registry.entity;
 
+
 import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
 import com.toadstoolstudios.lilwings.entity.effects.CatchEffect;
 import com.toadstoolstudios.lilwings.entity.jareffects.JarEffect;
+import com.toadstoolstudios.lilwings.item.ButterflyElytra;
 import com.toadstoolstudios.lilwings.platform.CommonServices;
-import dev.willowworks.lilwings.entity.ButterflyEntity;
-import dev.willowworks.lilwings.entity.effects.CatchEffect;
-import dev.willowworks.lilwings.entity.jareffects.JarEffect;
-import dev.willowworks.lilwings.item.ButterflyElytra;
-import dev.willowworks.lilwings.registry.LilWingsItems;
-import net.minecraft.core.particles.SimpleParticleType;
+import com.toadstoolstudios.lilwings.registry.LilWingsItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.item.SpawnEggItem;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,10 +22,10 @@ import java.util.function.Supplier;
 
 public record Butterfly(
         Supplier<EntityType<ButterflyEntity>> entityType,
-        Supplier<ForgeSpawnEggItem> spawnEggItem,
+        Supplier<SpawnEggItem> spawnEggItem,
         Supplier<Item>[] wings, Supplier<Item>[] elytras,
         Item breedingItem, Supplier<Item> netItem,
-        SimpleParticleType particleType, float particleSpawnChance,
+        DefaultParticleType particleType, float particleSpawnChance,
         float spawnScale, float childSpawnScale, float maxHealth,
         int catchAmount, CatchEffect catchEffect, Supplier<JarEffect> jarEffect,
         String textureName
@@ -54,7 +44,7 @@ public record Butterfly(
         private int eggBackgroundColor = 0xFFFFFF;
         private int eggOutlineColor = 0xFFFFFF;
 
-        private ParticleType particleType = null;
+        private DefaultParticleType particleType = null;
         private float particleSpawnChance = 0.08f;
 
         private float spawnScale = 0.65f;
@@ -106,7 +96,7 @@ public record Butterfly(
             return this;
         }
 
-        public Builder addParticles(SimpleParticleType particleType, float spawnChance) {
+        public Builder addParticles(DefaultParticleType particleType, float spawnChance) {
             this.particleType = particleType;
             this.particleSpawnChance = spawnChance;
             return this;
@@ -160,24 +150,23 @@ public record Butterfly(
         }
 
         public Butterfly build(String modid) {
+
             Supplier<Item>[] wingItems = new Supplier[wings != null ? wings.length : 0];
             Supplier<Item>[] elytraItems = new Supplier[elytras != null ? elytras.length : 0];
 
-            Supplier<EntityType<ButterflyEntity>> entityType = CommonServices.REGISTRY.registerEntity(name + "_butterfly", () ->
-                    EntityType.Builder.<ButterflyEntity>create(ButterflyEntity::new, SpawnGroup.MISC).setDimensions(boundingWidth, boundingHeight)
-                            .maxTrackingRange(8).build(name + "_butterfly"));
+            Supplier<EntityType<ButterflyEntity>> entityType = CommonServices.REGISTRY.registerEntity(name + "_butterfly", ButterflyEntity::new,
+                    SpawnGroup.MISC, boundingWidth, boundingHeight);
 
-            RegistryObject<ForgeSpawnEggItem> spawnEggItem = null;
+            Supplier<SpawnEggItem> spawnEggItem = null;
             if (spawnEgg) {
-                spawnEggItem = itemRegister.register(name + "_egg", () ->
-                        new ForgeSpawnEggItem(entityType, eggBackgroundColor, eggOutlineColor, new Item.Properties().tab(creativeTab)));
+                spawnEggItem = CommonServices.REGISTRY.registerSpawnEgg(name + "_egg", entityType, eggBackgroundColor, eggOutlineColor, new Item.Settings().group(creativeTab));
             }
 
             if (wings != null) {
                 for (int i = 0; i < wings.length; i++) {
                     String wingName = wings[i];
-                    wingItems[i] = itemRegister.register(name + (wingName.isEmpty() ? "" : "_" + wingName) + "_wings", () ->
-                            new Item(new Item.Properties().tab(creativeTab)));
+                    wingItems[i] = CommonServices.REGISTRY.registerItem(name + (wingName.isEmpty() ? "" : "_" + wingName) + "_wings", () ->
+                            new Item(new Item.Settings().group(creativeTab)));
                 }
             }
 
@@ -186,8 +175,8 @@ public record Butterfly(
                     String elytraName = elytras[i];
                     String regName = name + (elytraName.isEmpty() ? "" : "_" + elytraName) + "_elytra";
 
-                    elytraItems[i] = itemRegister.register(regName, () ->
-                            new ButterflyElytra(new ResourceLocation(modid, "textures/elytra/" + regName + ".png")));
+                    elytraItems[i] = CommonServices.REGISTRY.registerItem(regName, () ->
+                            new ButterflyElytra(new Identifier(modid, "textures/elytra/" + regName + ".png")));
                 }
             }
 
@@ -196,7 +185,7 @@ public record Butterfly(
                     particleType, particleSpawnChance, spawnScale, childSpawnScale, maxHealth,
                     catchAmount, catchEffect, jarEffect, name
             );
-            BUTTERFLIES.put(new ResourceLocation(modid, name + "_butterfly"), butterfly);
+            BUTTERFLIES.put(new Identifier(modid, name + "_butterfly"), butterfly);
             return butterfly;
         }
 

@@ -1,14 +1,13 @@
 package com.toadstoolstudios.lilwings.entity.jareffects;
 
-import dev.willowworks.lilwings.block.ButterflyJarBlockEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class GraylingJarEffect implements JarEffect {
 
@@ -22,15 +21,15 @@ public class GraylingJarEffect implements JarEffect {
     private int lastParticle;
 
     @Override
-    public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
-        if (level.isClientSide()) return;
-        ServerLevel serverLevel = (ServerLevel) level;
+    public void tickEffect(World level, ButterflyJarBlockEntity blockEntity) {
+        if (level.isClient()) return;
+        ServerWorld serverLevel = (ServerWorld) level;
 
         if (azaleaPos == null) {
             checkCooldown++;
 
             if (checkCooldown >= MAX_TIME) {
-                azaleaPos = findNearestAzalea(level, blockEntity.getBlockPos());
+                azaleaPos = findNearestAzalea(level, blockEntity.getPos());
                 checkCooldown = 0;
             }
         } else {
@@ -44,9 +43,9 @@ public class GraylingJarEffect implements JarEffect {
 
             BlockState state = level.getBlockState(azaleaPos);
 
-            if (state.is(Blocks.AZALEA)) {
+            if (state.isOf(Blocks.AZALEA)) {
                 if (growTime >= MAX_GROW_TIME) {
-                    level.setBlock(azaleaPos, Blocks.FLOWERING_AZALEA.defaultBlockState(), Block.UPDATE_ALL);
+                    level.setBlockState(azaleaPos, Blocks.FLOWERING_AZALEA.getDefaultState(), Block.NOTIFY_ALL);
                     growTime = 0;
                     azaleaPos = null;
                 }
@@ -57,11 +56,11 @@ public class GraylingJarEffect implements JarEffect {
         }
     }
 
-    public BlockPos findNearestAzalea(Level level, BlockPos jarPos) {
+    public BlockPos findNearestAzalea(World level, BlockPos jarPos) {
         for (BlockPos pos : area) {
-            BlockPos relativePos = jarPos.offset(pos);
+            BlockPos relativePos = jarPos.add(pos);
             BlockState state = level.getBlockState(relativePos);
-            if (!state.isAir() && state.is(Blocks.AZALEA)) {
+            if (!state.isAir() && state.isOf(Blocks.AZALEA)) {
                 return relativePos;
             }
         }
@@ -70,7 +69,7 @@ public class GraylingJarEffect implements JarEffect {
     }
 
     @Override
-    public ParticleOptions getParticleType() {
+    public ParticleEffect getParticleType() {
         return ParticleTypes.HAPPY_VILLAGER;
     }
 }
