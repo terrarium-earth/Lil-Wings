@@ -1,5 +1,6 @@
 package com.toadstoolstudios.lilwings.platform;
 
+import com.toadstoolstudios.lilwings.FabricButterflyElytra;
 import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.platform.services.IRegistryHelper;
 import com.toadstoolstudios.lilwings.registry.SpawnData;
@@ -14,10 +15,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SpawnEggItem;
+import net.minecraft.item.*;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -37,6 +35,12 @@ public class FabricRegistryHelper implements IRegistryHelper {
     @Override
     public <T extends MobEntity> Supplier<SpawnEggItem> registerSpawnEgg(String id, Supplier<EntityType<T>> entity, int primaryColor, int secondaryColor, Item.Settings settings) {
         var registry = Registry.register(Registry.ITEM, new Identifier(LilWings.MODID, id), new SpawnEggItem(entity.get(), primaryColor, secondaryColor, settings));
+        return () -> registry;
+    }
+
+    @Override
+    public Supplier<ElytraItem> registerElytra(String id, Identifier texture) {
+        var registry = Registry.register(Registry.ITEM, new Identifier(LilWings.MODID, id), new FabricButterflyElytra(texture));
         return () -> registry;
     }
 

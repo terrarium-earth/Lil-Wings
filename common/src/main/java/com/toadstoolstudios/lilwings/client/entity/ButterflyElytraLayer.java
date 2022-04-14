@@ -1,6 +1,6 @@
 package com.toadstoolstudios.lilwings.client.entity;
 
-import com.toadstoolstudios.lilwings.item.ButterflyElytra;
+import com.toadstoolstudios.lilwings.item.IButterflyElytra;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -32,7 +32,7 @@ public class ButterflyElytraLayer<T extends LivingEntity, M extends EntityModel<
     @Override
     public void render(MatrixStack pMatrixStack, VertexConsumerProvider pBuffer, int pPackedLight, T pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         ItemStack itemstack = pLivingEntity.getEquippedStack(EquipmentSlot.CHEST);
-        if (itemstack.getItem() instanceof ButterflyElytra elytraItem) {
+        if (itemstack.getItem() instanceof IButterflyElytra elytraItem) {
             Identifier resourcelocation = elytraItem.getTexture();
 
             if (pLivingEntity instanceof AbstractClientPlayerEntity clientPlayer) {

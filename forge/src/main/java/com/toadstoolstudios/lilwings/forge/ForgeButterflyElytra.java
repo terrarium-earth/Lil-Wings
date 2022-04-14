@@ -1,5 +1,6 @@
-package com.toadstoolstudios.lilwings.item;
+package com.toadstoolstudios.lilwings.forge;
 
+import com.toadstoolstudios.lilwings.item.IButterflyElytra;
 import com.toadstoolstudios.lilwings.registry.LilWingsItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -9,11 +10,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import org.jetbrains.annotations.Nullable;
 
-public class ButterflyElytra extends ElytraItem {
-
+public class ForgeButterflyElytra extends ElytraItem implements IButterflyElytra {
     private final Identifier texture;
 
-    public ButterflyElytra(Identifier texture) {
+    public ForgeButterflyElytra(Identifier texture) {
         super(new Settings().maxDamage(432).rarity(Rarity.RARE).group(LilWingsItems.TAB));
         this.texture = texture;
     }
@@ -24,12 +24,7 @@ public class ButterflyElytra extends ElytraItem {
         return EquipmentSlot.CHEST;
     }
 
-    @Nullable
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return super.getArmorTexture(stack, entity, slot, type);
-    }
-
     public Identifier getTexture() {
         return texture;
     }

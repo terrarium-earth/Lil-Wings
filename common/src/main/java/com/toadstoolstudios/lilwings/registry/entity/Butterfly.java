@@ -4,11 +4,11 @@ package com.toadstoolstudios.lilwings.registry.entity;
 import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
 import com.toadstoolstudios.lilwings.entity.effects.CatchEffect;
 import com.toadstoolstudios.lilwings.entity.jareffects.JarEffect;
-import com.toadstoolstudios.lilwings.item.ButterflyElytra;
 import com.toadstoolstudios.lilwings.platform.CommonServices;
 import com.toadstoolstudios.lilwings.registry.LilWingsItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.item.ElytraItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 public record Butterfly(
         Supplier<EntityType<ButterflyEntity>> entityType,
         Supplier<SpawnEggItem> spawnEggItem,
-        Supplier<Item>[] wings, Supplier<Item>[] elytras,
+        Supplier<Item>[] wings, Supplier<ElytraItem>[] elytras,
         Item breedingItem, Supplier<Item> netItem,
         DefaultParticleType particleType, float particleSpawnChance,
         float spawnScale, float childSpawnScale, float maxHealth,
@@ -152,7 +152,7 @@ public record Butterfly(
         public Butterfly build(String modid) {
 
             Supplier<Item>[] wingItems = new Supplier[wings != null ? wings.length : 0];
-            Supplier<Item>[] elytraItems = new Supplier[elytras != null ? elytras.length : 0];
+            Supplier<ElytraItem>[] elytraItems = new Supplier[elytras != null ? elytras.length : 0];
 
             Supplier<EntityType<ButterflyEntity>> entityType = CommonServices.REGISTRY.registerEntity(name + "_butterfly", ButterflyEntity::new,
                     SpawnGroup.MISC, boundingWidth, boundingHeight);
@@ -175,8 +175,7 @@ public record Butterfly(
                     String elytraName = elytras[i];
                     String regName = name + (elytraName.isEmpty() ? "" : "_" + elytraName) + "_elytra";
 
-                    elytraItems[i] = CommonServices.REGISTRY.registerItem(regName, () ->
-                            new ButterflyElytra(new Identifier(modid, "textures/elytra/" + regName + ".png")));
+                    elytraItems[i] = CommonServices.REGISTRY.registerElytra(regName, new Identifier(modid, "textures/elytra/" + regName + ".png"));
                 }
             }
 
