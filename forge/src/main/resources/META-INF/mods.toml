@@ -4,23 +4,23 @@ loaderVersion = "[40,)"
 license = "Insert License Here"
 
 [[mods]]
-modId = "examplemod"
+modId = "lilwings"
 version = "${version}"
-displayName = "Example Mod"
-authors = "Me!"
+displayName = "Lil' Wings"
+authors = "Owner & Artist: Kekie6 //n Developer: CodexAdrian //n Developer: abused_master //n Artist: Frogipher"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+lil butterfly mod that does lil butterfly things
 '''
 #logoFile = ""
 
-[[dependencies.examplemod]]
+[[dependencies.lilwings]]
 modId = "forge"
 mandatory = true
 versionRange = "[40,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.lilwings]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.18.2,)"

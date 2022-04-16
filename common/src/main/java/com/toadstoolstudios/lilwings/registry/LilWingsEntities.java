@@ -159,4 +159,6 @@ public class LilWingsEntities {
     }
 
     public static void register() {}
+
+    //TODO Entity Attributes
 }

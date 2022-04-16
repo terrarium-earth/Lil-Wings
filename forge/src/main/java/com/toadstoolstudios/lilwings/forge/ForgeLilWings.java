@@ -35,6 +35,13 @@ public class ForgeLilWings {
     public ForgeLilWings() {
         LilWings.init();
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        bus.addListener(this::init);
+        bus.addListener(this::initClient);
+        bus.addListener(this::onComplete);
+        bus.addListener(ForgeLilWingsClient::addLayers);
+        bus.addListener(ForgeLilWingsClient::particleEvent);
+
         ForgeRegistryHelper.ENTITY_TYPES.register(bus);
         ForgeRegistryHelper.BLOCKS.register(bus);
         ForgeRegistryHelper.BLOCK_ENTITIES.register(bus);
@@ -44,7 +51,6 @@ public class ForgeLilWings {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    @SubscribeEvent
     public static void attributeEvent(EntityAttributeCreationEvent event) {
         for (Butterfly butterfly : Butterfly.BUTTERFLIES.values()) {
             event.put(butterfly.entityType().get(), MobEntity.createMobAttributes()
@@ -55,7 +61,6 @@ public class ForgeLilWings {
         }
     }
 
-    @SubscribeEvent
     public void init(FMLCommonSetupEvent event) {
         //TODO Needs spawn rules
         CauldronBehavior.registerBucketBehavior(LilWingsItems.MILK_INTERACTION);
@@ -79,12 +84,11 @@ public class ForgeLilWings {
         });
     }
 
-    @SubscribeEvent
     public void initClient(FMLClientSetupEvent event) {
         LilWingsClient.init();
+        ForgeLilWingsClient.init();
     }
 
-    @SubscribeEvent
     public void onComplete(FMLLoadCompleteEvent event) {
         LilWingsEntities.addSpawnPlacements();
     }

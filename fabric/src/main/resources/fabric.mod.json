@@ -1,11 +1,14 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "lilwings",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Lil' Wings",
+  "description": "lil butterfly mod that does lil butterfly things",
   "authors": [
-    "Me!"
+    "Owner & Artist: Kekie6",
+    "Developer: CodexAdrian",
+    "Developer: abused_master",
+    "Artist: Frogipher"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -16,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.examplemod.fabric.ExampleModFabric"
+      "com.toadstoolstudios.lilwings.FabricLilWings"
     ]
   },
   "mixins": [
