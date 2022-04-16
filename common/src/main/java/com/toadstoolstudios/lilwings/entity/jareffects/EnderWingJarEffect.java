@@ -1,5 +1,6 @@
 package com.toadstoolstudios.lilwings.entity.jareffects;
 
+import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;

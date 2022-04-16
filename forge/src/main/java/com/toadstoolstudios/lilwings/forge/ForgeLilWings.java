@@ -1,6 +1,8 @@
 package com.toadstoolstudios.lilwings.forge;
 
+import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.LilWingsClient;
+import com.toadstoolstudios.lilwings.forge.platform.ForgeRegistryHelper;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import com.toadstoolstudios.lilwings.registry.LilWingsEntities;
 import com.toadstoolstudios.lilwings.registry.LilWingsItems;
@@ -19,13 +21,30 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-public class LilWingsForge {
+@Mod(LilWings.MODID)
+public class ForgeLilWings {
 
+    public ForgeLilWings() {
+        LilWings.init();
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        ForgeRegistryHelper.ENTITY_TYPES.register(bus);
+        ForgeRegistryHelper.BLOCKS.register(bus);
+        ForgeRegistryHelper.BLOCK_ENTITIES.register(bus);
+        ForgeRegistryHelper.ITEMS.register(bus);
+        ForgeRegistryHelper.SOUNDS.register(bus);
+        ForgeRegistryHelper.PARTICLE_TYPES.register(bus);
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @SubscribeEvent
     public static void attributeEvent(EntityAttributeCreationEvent event) {
         for (Butterfly butterfly : Butterfly.BUTTERFLIES.values()) {
             event.put(butterfly.entityType().get(), MobEntity.createMobAttributes()
@@ -36,6 +55,7 @@ public class LilWingsForge {
         }
     }
 
+    @SubscribeEvent
     public void init(FMLCommonSetupEvent event) {
         //TODO Needs spawn rules
         CauldronBehavior.registerBucketBehavior(LilWingsItems.MILK_INTERACTION);
@@ -59,10 +79,12 @@ public class LilWingsForge {
         });
     }
 
+    @SubscribeEvent
     public void initClient(FMLClientSetupEvent event) {
         LilWingsClient.init();
     }
 
+    @SubscribeEvent
     public void onComplete(FMLLoadCompleteEvent event) {
         LilWingsEntities.addSpawnPlacements();
     }

@@ -1,10 +1,10 @@
 package com.toadstoolstudios.lilwings.block;
 
-import dev.willowworks.lilwings.entity.ButterflyEntity;
-import dev.willowworks.lilwings.entity.jareffects.JarEffect;
-import dev.willowworks.lilwings.registry.LilWingsBlocks;
-import dev.willowworks.lilwings.registry.entity.Butterfly;
-import dev.willowworks.lilwings.registry.entity.GraylingType;
+import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
+import com.toadstoolstudios.lilwings.entity.jareffects.JarEffect;
+import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
+import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
+import com.toadstoolstudios.lilwings.registry.entity.GraylingType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,7 +15,6 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 public class ButterflyJarBlockEntity extends BlockEntity {
@@ -33,7 +32,7 @@ public class ButterflyJarBlockEntity extends BlockEntity {
     protected void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         if (entityType != null)
-            tag.putString("entityId", entityType.getRegistryName().toString());
+            tag.putString("entityId", entityType.getLootTableId().toString());
 
         if (butterflyData != null)
             tag.put("butterfly", butterflyData);
@@ -47,9 +46,9 @@ public class ButterflyJarBlockEntity extends BlockEntity {
             Identifier id = new Identifier(tag.getString("entityId"));
 
             if (Butterfly.BUTTERFLIES.containsKey(id)) {
-                entityType = (EntityType<? extends ButterflyEntity>) ForgeRegistries.ENTITIES.getValue(id);
+                entityType = (EntityType<? extends ButterflyEntity>) EntityType.get(tag.getString("entityId")).get();
 
-                Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getRegistryName());
+                Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getLootTableId());
                 if (jarEffect == null && butterfly.jarEffect() != null)
                     jarEffect = butterfly.jarEffect().get();
             }
@@ -67,7 +66,7 @@ public class ButterflyJarBlockEntity extends BlockEntity {
 
     public void setEntityType(EntityType<? extends ButterflyEntity> entityType) {
         if(entityType != null) {
-            Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getRegistryName());
+            Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getLootTableId());
             this.entityType = entityType;
             if (butterfly.jarEffect() != null)
                 this.jarEffect = butterfly.jarEffect().get();

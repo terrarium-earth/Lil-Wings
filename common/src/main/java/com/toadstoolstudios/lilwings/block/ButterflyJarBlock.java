@@ -1,7 +1,7 @@
 package com.toadstoolstudios.lilwings.block;
 
-import dev.willowworks.lilwings.entity.ButterflyEntity;
-import dev.willowworks.lilwings.registry.LilWingsBlocks;
+import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
+import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
@@ -78,7 +78,7 @@ public class ButterflyJarBlock extends BlockWithEntity {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockView level, BlockPos pos, PlayerEntity player) {
+    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
         return Items.GLASS_BOTTLE.getDefaultStack();
     }
 

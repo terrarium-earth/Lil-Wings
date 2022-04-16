@@ -1,7 +1,6 @@
 package com.toadstoolstudios.lilwings.block;
 
-import dev.willowworks.lilwings.LilWings;
-import dev.willowworks.lilwings.registry.LilWingsBlocks;
+import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -26,7 +25,7 @@ public class ButterCauldron extends Block {
 
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockView world, BlockPos pos, PlayerEntity player) {
+    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
         return Items.CAULDRON.getDefaultStack();
     }
 

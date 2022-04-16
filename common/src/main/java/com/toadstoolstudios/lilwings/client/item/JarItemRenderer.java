@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3f;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +56,7 @@ public class JarItemRenderer extends BuiltinModelItemRenderer {
                 return;
             }
 
-            EntityType<?> type = ForgeRegistries.ENTITIES.getValue(id);
+            EntityType<?> type = EntityType.get(id.toString()).get();
             ButterflyEntity entity = getOrCreateButterfly(id, (EntityType<? extends ButterflyEntity>) type, tag.getCompound("butterfly"));
             if (entity == null) {
                 stack.pop();

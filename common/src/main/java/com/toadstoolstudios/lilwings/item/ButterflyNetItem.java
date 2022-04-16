@@ -13,7 +13,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ButterflyNetItem extends Item {
 
@@ -32,7 +31,7 @@ public class ButterflyNetItem extends Item {
             if(level.getBlockEntity(blockPos) instanceof ButterflyJarBlockEntity blockEntity) {
                 if(blockEntity.getButterflyData() == null) {
                     Identifier id = new Identifier(itemTag.getString("butterflyId"));
-                    EntityType<?> type = ForgeRegistries.ENTITIES.getValue(id);
+                    EntityType<?> type = EntityType.get(itemTag.getString("butterflyId")).get();
 
                     if (Butterfly.BUTTERFLIES.containsKey(id)) {
                         blockEntity.setEntityType((EntityType<? extends ButterflyEntity>) type);
@@ -44,7 +43,7 @@ public class ButterflyNetItem extends Item {
                     }
                 }
             } else {
-                EntityType<? extends ButterflyEntity> butterflyId = (EntityType<? extends ButterflyEntity>) ForgeRegistries.ENTITIES.getValue(new Identifier(pContext.getStack().getNbt().getString("butterflyId")));
+                EntityType<? extends ButterflyEntity> butterflyId = (EntityType<? extends ButterflyEntity>) EntityType.get(pContext.getStack().getNbt().getString("butterflyId")).get();
                 ButterflyEntity butterfly = new ButterflyEntity(butterflyId, level);
 
                 butterfly.readNbt(pContext.getStack().getNbt().getCompound("butterfly"));
@@ -64,7 +63,7 @@ public class ButterflyNetItem extends Item {
             NbtCompound butterflyData = blockEntity.getButterflyData();
             if(butterflyData != null) {
                 itemTag.put("butterfly", butterflyData);
-                itemTag.putString("butterflyId", blockEntity.getEntityType().getRegistryName().toString());
+                itemTag.putString("butterflyId", blockEntity.getEntityType().getLootTableId().toString());
                 blockEntity.setEntityType(null);
                 blockEntity.setButterflyData(null);
 

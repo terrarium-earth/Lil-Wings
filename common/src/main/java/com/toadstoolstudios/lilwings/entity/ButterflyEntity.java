@@ -5,6 +5,7 @@ import com.toadstoolstudios.lilwings.entity.goals.ButterflyBreedGoal;
 import com.toadstoolstudios.lilwings.entity.goals.FindFlowerGoal;
 import com.toadstoolstudios.lilwings.entity.goals.GraylingFlowerGoal;
 import com.toadstoolstudios.lilwings.item.ButterflyNetItem;
+import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import com.toadstoolstudios.lilwings.registry.LilWingsEntities;
 import com.toadstoolstudios.lilwings.registry.LilWingsItems;
 import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
@@ -63,7 +64,7 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
 
     public ButterflyEntity(EntityType<? extends ButterflyEntity> entityType, World level) {
         super(entityType, level);
-        this.butterfly = Butterfly.BUTTERFLIES.get(this.getType().getRegistryName());
+        this.butterfly = Butterfly.BUTTERFLIES.get(this.getType().getLootTableId());
         this.moveControl = new FlightMoveControl(this, 20, true);
 
         if (butterfly.maxHealth() <= 0)
@@ -106,7 +107,7 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
         }
 
         if (!world.isClient() && hand == Hand.MAIN_HAND && canCatch && butterfly.catchAmount() > 0 && handStack.getItem() instanceof ButterflyNetItem) {
-            // int slot = player.getInventory().findSlotMatchingItem(LilWingsBlocks.BUTTERFLY_JAR_ITEM.get().getDefaultInstance());
+            //int slot = player.getInventory().findSlotMatchingItem(LilWingsBlocks.BUTTERFLY_JAR_ITEM.get().getDefaultInstance());
 
             if(handStack.getOrCreateNbt().contains("butterfly")) {
                 player.sendMessage(new TranslatableText("entity.lilwings.interactions.error.full_net"), true);
@@ -125,7 +126,7 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
                 NbtCompound butterflyTag = new NbtCompound();
                 this.writeNbt(butterflyTag);
                 tag.put("butterfly", butterflyTag);
-                tag.putString("butterflyId", this.getType().getRegistryName().toString());
+                tag.putString("butterflyId", this.getType().getLootTableId().toString());
                 handStack.setNbt(tag);
 
                 player.sendMessage(new TranslatableText("entity.lilwings.interactions.success"), true);

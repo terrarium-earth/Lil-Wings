@@ -1,8 +1,9 @@
 package com.toadstoolstudios.lilwings.client.entity;
 
-import dev.willowworks.lilwings.block.ButterflyJarBlockEntity;
-import dev.willowworks.lilwings.client.item.JarItemRenderer;
-import dev.willowworks.lilwings.entity.ButterflyEntity;
+
+import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
+import com.toadstoolstudios.lilwings.client.item.JarItemRenderer;
+import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
@@ -16,7 +17,7 @@ public class JarEntityRenderer implements BlockEntityRenderer<ButterflyJarBlockE
     public void render(ButterflyJarBlockEntity blockEntity, float partialTicks, MatrixStack stack, VertexConsumerProvider bufferSource, int packedLight, int packedOverlay) {
         if (blockEntity.getEntityType() != null) {
             MinecraftClient mc = MinecraftClient.getInstance();
-            Identifier id = blockEntity.getEntityType().getRegistryName();
+            Identifier id = blockEntity.getEntityType().getLootTableId();
             ButterflyEntity entity = JarItemRenderer.getOrCreateButterfly(id, blockEntity.getEntityType(), blockEntity.getButterflyData());
 
             if (entity != null) {
