@@ -4,6 +4,7 @@ import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
 import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
 import com.toadstoolstudios.lilwings.registry.LilWingsItems;
 import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
+import net.fabricmc.fabric.impl.registry.sync.FabricRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -12,6 +13,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class ButterflyNetItem extends Item {
@@ -43,8 +46,8 @@ public class ButterflyNetItem extends Item {
                     }
                 }
             } else {
-                EntityType<? extends ButterflyEntity> butterflyId = (EntityType<? extends ButterflyEntity>) EntityType.get(pContext.getStack().getNbt().getString("butterflyId")).get();
-                ButterflyEntity butterfly = new ButterflyEntity(butterflyId, level);
+                EntityType<?> butterflyId = EntityType.get(itemTag.getString("butterflyId")).get();
+                ButterflyEntity butterfly = new ButterflyEntity((EntityType<? extends ButterflyEntity>) butterflyId, level);
 
                 butterfly.readNbt(pContext.getStack().getNbt().getCompound("butterfly"));
                 butterfly.setCatchAmount(0);
@@ -63,7 +66,7 @@ public class ButterflyNetItem extends Item {
             NbtCompound butterflyData = blockEntity.getButterflyData();
             if(butterflyData != null) {
                 itemTag.put("butterfly", butterflyData);
-                itemTag.putString("butterflyId", blockEntity.getEntityType().getLootTableId().toString());
+                itemTag.putString("butterflyId", EntityType.getId(blockEntity.getEntityType()).toString());
                 blockEntity.setEntityType(null);
                 blockEntity.setButterflyData(null);
 

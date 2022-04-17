@@ -15,9 +15,9 @@ public class LilWings {
         //TODO Add recipes for the stuff
         //TODO Add achievements (I can't believe its not butter!) - make butter (Social butterfly) - catch all butterflies
         GeckoLib.initialize();
+        LilWingsEntities.register();
         LilWingsItems.register();
         LilWingsBlocks.register();
-        LilWingsEntities.register();
         LilWingsParticles.register();
     }
 }

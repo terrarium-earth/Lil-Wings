@@ -39,6 +39,7 @@ public class ForgeLilWings {
         bus.addListener(this::init);
         bus.addListener(this::initClient);
         bus.addListener(this::onComplete);
+        bus.addListener(this::attributeEvent);
         bus.addListener(ForgeLilWingsClient::addLayers);
         bus.addListener(ForgeLilWingsClient::particleEvent);
 
@@ -51,7 +52,7 @@ public class ForgeLilWings {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    public static void attributeEvent(EntityAttributeCreationEvent event) {
+    public void attributeEvent(EntityAttributeCreationEvent event) {
         for (Butterfly butterfly : Butterfly.BUTTERFLIES.values()) {
             event.put(butterfly.entityType().get(), MobEntity.createMobAttributes()
                     .add(EntityAttributes.GENERIC_MAX_HEALTH, butterfly.maxHealth())

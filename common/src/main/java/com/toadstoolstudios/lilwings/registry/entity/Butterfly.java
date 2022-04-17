@@ -33,6 +33,14 @@ public record Butterfly(
 
     public static final Map<Identifier, Butterfly> BUTTERFLIES = new HashMap<>();
 
+    public static Butterfly getButterfly(EntityType<?> entityType) {
+        return BUTTERFLIES.get(EntityType.getId(entityType));
+    }
+
+    public static Identifier toIdentifier(EntityType<?> entityType) {
+        return new Identifier(entityType.getLootTableId().getNamespace(), entityType.getUntranslatedName());
+    }
+
     public static class Builder {
 
         private final String name;

@@ -1,6 +1,7 @@
 package com.toadstoolstudios.lilwings.entity;
 
 
+import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.entity.goals.ButterflyBreedGoal;
 import com.toadstoolstudios.lilwings.entity.goals.FindFlowerGoal;
 import com.toadstoolstudios.lilwings.entity.goals.GraylingFlowerGoal;
@@ -35,6 +36,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -64,7 +66,7 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
 
     public ButterflyEntity(EntityType<? extends ButterflyEntity> entityType, World level) {
         super(entityType, level);
-        this.butterfly = Butterfly.BUTTERFLIES.get(this.getType().getLootTableId());
+        this.butterfly = Butterfly.getButterfly(entityType);
         this.moveControl = new FlightMoveControl(this, 20, true);
 
         if (butterfly.maxHealth() <= 0)
@@ -126,7 +128,7 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
                 NbtCompound butterflyTag = new NbtCompound();
                 this.writeNbt(butterflyTag);
                 tag.put("butterfly", butterflyTag);
-                tag.putString("butterflyId", this.getType().getLootTableId().toString());
+                tag.putString("butterflyId", EntityType.getId(getType()).toString());
                 handStack.setNbt(tag);
 
                 player.sendMessage(new TranslatableText("entity.lilwings.interactions.success"), true);

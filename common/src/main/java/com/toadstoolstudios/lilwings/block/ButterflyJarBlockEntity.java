@@ -32,7 +32,7 @@ public class ButterflyJarBlockEntity extends BlockEntity {
     protected void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         if (entityType != null)
-            tag.putString("entityId", entityType.getLootTableId().toString());
+            tag.putString("entityId", EntityType.getId(entityType).toString());
 
         if (butterflyData != null)
             tag.put("butterfly", butterflyData);
@@ -48,7 +48,7 @@ public class ButterflyJarBlockEntity extends BlockEntity {
             if (Butterfly.BUTTERFLIES.containsKey(id)) {
                 entityType = (EntityType<? extends ButterflyEntity>) EntityType.get(tag.getString("entityId")).get();
 
-                Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getLootTableId());
+                Butterfly butterfly = Butterfly.getButterfly(entityType);
                 if (jarEffect == null && butterfly.jarEffect() != null)
                     jarEffect = butterfly.jarEffect().get();
             }
@@ -66,7 +66,7 @@ public class ButterflyJarBlockEntity extends BlockEntity {
 
     public void setEntityType(EntityType<? extends ButterflyEntity> entityType) {
         if(entityType != null) {
-            Butterfly butterfly = Butterfly.BUTTERFLIES.get(entityType.getLootTableId());
+            Butterfly butterfly = Butterfly.getButterfly(entityType);
             this.entityType = entityType;
             if (butterfly.jarEffect() != null)
                 this.jarEffect = butterfly.jarEffect().get();
