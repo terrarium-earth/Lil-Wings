@@ -7,21 +7,40 @@ import com.toadstoolstudios.lilwings.registry.LilWingsItems;
 import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
 import net.fabricmc.fabric.impl.registry.sync.FabricRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class ButterflyNetItem extends Item {
 
     public ButterflyNetItem(int durability) {
         super(new Settings().group(LilWings.TAB).maxDamage(durability));
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+        if(stack.getOrCreateNbt().contains("butterfly")) {
+            String butterflyName = Util.createTranslationKey("entity", new Identifier(stack.getNbt().getString("butterflyId")));
+            tooltip.add(new TranslatableText("tooltip.butterfly_net.prefix").append(new TranslatableText(butterflyName)).formatted(Formatting.GRAY));
+        }
     }
 
     @Override
@@ -70,7 +89,7 @@ public class ButterflyNetItem extends Item {
                 itemTag.putString("butterflyId", EntityType.getId(blockEntity.getEntityType()).toString());
                 blockEntity.setEntityType(null);
                 blockEntity.setButterflyData(null);
-
+                blockEntity.removeButterfly();
                 return ActionResult.SUCCESS;
             }
         }

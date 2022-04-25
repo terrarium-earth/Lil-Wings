@@ -67,6 +67,7 @@ public class LilWingsEntities {
             .addElytra()
             .build(LilWings.MODID);
 
+    /*
     public static Butterfly ENDER_WING_BUTTERFLY = Butterfly.Builder.of("ender_wing")
             .setBreedingItem(Items.END_STONE)
             .addParticles(ParticleTypes.REVERSE_PORTAL, 0.15f)
@@ -81,6 +82,7 @@ public class LilWingsEntities {
             .addWings()
             .addElytra()
             .build(LilWings.MODID);
+     */
 
     public static Butterfly CRYSTAL_PUFF_BUTTERFLY = Butterfly.Builder.of("crystal_puff")
             .setBreedingItem(Items.ALLIUM)
@@ -139,19 +141,19 @@ public class LilWingsEntities {
             .build(LilWings.MODID);
 
     public static void addSpawnPlacements() {
-        CommonServices.REGISTRY.setSpawnRules(WHITE_FOX_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(SWALLOW_TAIL_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(SWAMP_HOPPER_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(SHROOM_SKIPPER_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(PAINTED_PANTHER_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(ENDER_WING_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(CRYSTAL_PUFF_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(CLOUDY_PUFF_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(BUTTER_GOLD_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(APONI_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(RED_APPLEFLY_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(GOLD_APPLEFLY_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
-        CommonServices.REGISTRY.setSpawnRules(GRAYLING_BUTTERFLY.entityType(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(WHITE_FOX_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(SWALLOW_TAIL_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(SWAMP_HOPPER_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(SHROOM_SKIPPER_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(PAINTED_PANTHER_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        //CommonServices.REGISTRY.setSpawnRules(ENDER_WING_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(CRYSTAL_PUFF_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(CLOUDY_PUFF_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(BUTTER_GOLD_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(APONI_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(RED_APPLEFLY_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(GOLD_APPLEFLY_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
+        CommonServices.REGISTRY.setSpawnRules(GRAYLING_BUTTERFLY.entityType(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilWingsEntities::normalButterflySpawnRules);
     }
 
     public static boolean normalButterflySpawnRules(EntityType<ButterflyEntity> entityType, ServerWorldAccess levelAccessor, SpawnReason spawnType, BlockPos blockPos, Random random) {

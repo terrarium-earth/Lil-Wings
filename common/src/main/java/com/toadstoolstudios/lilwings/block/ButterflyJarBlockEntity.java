@@ -8,6 +8,7 @@ import com.toadstoolstudios.lilwings.registry.entity.GraylingType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ButterflyJarBlockEntity extends BlockEntity {
 
+    private ButterflyEntity renderEntity;
     private EntityType<? extends ButterflyEntity> entityType;
     private NbtCompound butterflyData;
     private JarEffect jarEffect;
@@ -115,5 +117,26 @@ public class ButterflyJarBlockEntity extends BlockEntity {
         NbtCompound tag = new NbtCompound();
         writeNbt(tag);
         return tag;
+    }
+
+    public ButterflyEntity getOrCreateEntity(World world, EntityType<? extends ButterflyEntity> entityType, NbtCompound butterflyData) {
+        if(renderEntity == null) {
+            renderEntity = new ButterflyEntity(this.getEntityType(), world, true);
+            renderEntity.readNbt(this.butterflyData);
+            renderEntity.setPos(0,0,0);
+            renderEntity.setBodyYaw(0);
+            renderEntity.setPitch(0);
+            if (this.butterflyData != null && this.butterflyData.contains("colorType")) {
+                GraylingType color = GraylingType.valueOf(this.butterflyData.getString("colorType"));
+                if (color != renderEntity.getColorType(false)) {
+                    renderEntity.setColorType(color);
+                }
+            }
+        }
+        return renderEntity;
+    }
+
+    public void removeButterfly() {
+        renderEntity = null;
     }
 }

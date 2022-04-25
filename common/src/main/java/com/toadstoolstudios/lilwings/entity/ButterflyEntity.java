@@ -59,12 +59,17 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
     private final Butterfly butterfly;
     private int flowerCooldown = MathHelper.nextInt(random, 400, 600);
     private BlockPos savedFlowerPos;
+    public final boolean isInJar;
 
     private int otherCooldown = MathHelper.nextInt(random, 300, 600);
     private BlockPos savedOtherPos;
     private GraylingType colorType;
 
     public ButterflyEntity(EntityType<? extends ButterflyEntity> entityType, World level) {
+        this(entityType, level, false);
+    }
+
+    public ButterflyEntity(EntityType<? extends ButterflyEntity> entityType, World level, boolean isInJar) {
         super(entityType, level);
         this.butterfly = Butterfly.getButterfly(entityType);
         this.moveControl = new FlightMoveControl(this, 20, true);
@@ -83,6 +88,8 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
                 this.goalSelector.add(4, new FindFlowerGoal(this));
             }
         }
+
+        this.isInJar = isInJar;
     }
 
     @Override
@@ -255,7 +262,7 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
     }
 
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
-        if (isInAir()) {
+        if (isInAir() || this.isInJar) {
             event.getController().setAnimation(IDLE_ANIMATION);
             return PlayState.CONTINUE;
         }

@@ -18,7 +18,8 @@ public class ButterflyModel extends AnimatedGeoModel<ButterflyEntity> {
 
     @Override
     public Identifier getModelLocation(ButterflyEntity object) {
-        return object.getButterfly().equals(LilWingsEntities.ENDER_WING_BUTTERFLY) ? new Identifier(LilWings.MODID, "geo/enderwing.geo.json") : new Identifier(LilWings.MODID, "geo/butterfly.geo.json");
+        //return object.getButterfly().equals(LilWingsEntities.ENDER_WING_BUTTERFLY) ? new Identifier(LilWings.MODID, "geo/enderwing.geo.json") : new Identifier(LilWings.MODID, "geo/butterfly.geo.json");
+        return new Identifier(LilWings.MODID, "geo/butterfly.geo.json");
     }
 
     @Override

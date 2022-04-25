@@ -164,7 +164,7 @@ public record Butterfly(
             Supplier<ElytraItem>[] elytraItems = new Supplier[elytras != null ? elytras.length : 0];
 
             Supplier<EntityType<ButterflyEntity>> entityType = CommonServices.REGISTRY.registerEntity(name + "_butterfly", ButterflyEntity::new,
-                    SpawnGroup.MISC, boundingWidth, boundingHeight);
+                    SpawnGroup.AMBIENT, boundingWidth, boundingHeight);
 
             Supplier<SpawnEggItem> spawnEggItem = null;
             if (spawnEgg) {

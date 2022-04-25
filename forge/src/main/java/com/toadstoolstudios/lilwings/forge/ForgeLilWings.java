@@ -107,7 +107,7 @@ public class ForgeLilWings {
                         case "sunflower_plains" -> addButterfly(event, LilWingsEntities.BUTTER_GOLD_BUTTERFLY);
                         case "meadow" -> addButterfly(event, LilWingsEntities.CLOUDY_PUFF_BUTTERFLY);
                         case "flower_forest" -> addButterfly(event, LilWingsEntities.CRYSTAL_PUFF_BUTTERFLY);
-                        case "end_highland" -> addButterfly(event, LilWingsEntities.ENDER_WING_BUTTERFLY);
+                        //case "end_highland" -> addButterfly(event, LilWingsEntities.ENDER_WING_BUTTERFLY);
                         case "lush_caves" -> addButterfly(event, LilWingsEntities.GRAYLING_BUTTERFLY);
                         case "frozen_peaks" -> addButterfly(event, LilWingsEntities.WHITE_FOX_BUTTERFLY);
                     }
@@ -117,6 +117,6 @@ public class ForgeLilWings {
     }
 
     private void addButterfly(BiomeLoadingEvent event, Butterfly butterfly) {
-        event.getSpawns().spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(butterfly.entityType().get(),75, 2, 2));
+        event.getSpawns().spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(butterfly.entityType().get(),75, 2, 2));
     }
 }
