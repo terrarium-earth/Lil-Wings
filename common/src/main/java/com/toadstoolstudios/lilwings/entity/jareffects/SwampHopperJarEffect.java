@@ -62,8 +62,21 @@ public class SwampHopperJarEffect implements JarEffect {
         return entities.size() > 0 ? entities.get(0) : null;
     }
 
-    @ExpectPlatform
     public static Direction findNearestContainer(World level, BlockPos jarPos) {
+            for (Direction direction : Direction.values()) {
+                BlockPos offsetPos = jarPos.offset(direction);
+                BlockEntity blockEntity = level.getBlockEntity(offsetPos);
+                if (blockEntity != null) {
+                    if (isContainer(blockEntity, direction.getOpposite())) {
+                        return direction;
+                    }
+                }
+            }
+            return null;
+    }
+
+    @ExpectPlatform
+    public static boolean isContainer(BlockEntity blockEntity, Direction direction) {
         throw new AssertionError();
     }
 

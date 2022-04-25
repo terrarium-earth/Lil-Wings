@@ -1,5 +1,6 @@
 package com.toadstoolstudios.lilwings.forge;
 
+import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.item.IButterflyElytra;
 import com.toadstoolstudios.lilwings.registry.LilWingsItems;
 import net.minecraft.entity.Entity;
@@ -14,7 +15,7 @@ public class ForgeButterflyElytra extends ElytraItem implements IButterflyElytra
     private final Identifier texture;
 
     public ForgeButterflyElytra(Identifier texture) {
-        super(new Settings().maxDamage(432).rarity(Rarity.RARE).group(LilWingsItems.TAB));
+        super(new Settings().maxDamage(432).rarity(Rarity.RARE).group(LilWings.TAB));
         this.texture = texture;
     }
 

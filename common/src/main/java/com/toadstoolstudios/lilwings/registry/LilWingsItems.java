@@ -14,6 +14,8 @@ import net.minecraft.util.Identifier;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static com.toadstoolstudios.lilwings.LilWings.TAB;
+
 public class LilWingsItems {
 
     public static final Map<Item, CauldronBehavior> MILK_INTERACTION = CauldronBehavior.createMap();
@@ -22,7 +24,6 @@ public class LilWingsItems {
 
     public static final Supplier<Item> BUTTERFLY_NET = CommonServices.REGISTRY.registerItem("butterfly_net", () -> new ButterflyNetItem(16));
     public static final Supplier<Item> ENDERFLY_NET = CommonServices.REGISTRY.registerItem("enderfly_net", () -> new ButterflyNetItem(32));
-    public static ItemGroup TAB = CommonServices.REGISTRY.registerCreativeTab(new Identifier(LilWings.MODID, "itemgroup"), () -> new ItemStack(BUTTERFLY_NET.get()));
 
     public static final Supplier<Item> BUTTERNITE = CommonServices.REGISTRY.registerItem("butternite", () -> new Item(new Item.Settings().group(TAB)));
     public static final Supplier<Item> ENDER_STRING = CommonServices.REGISTRY.registerItem("ender_string", () -> new Item(new Item.Settings().group(TAB)));

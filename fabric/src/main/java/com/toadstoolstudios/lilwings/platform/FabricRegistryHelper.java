@@ -1,6 +1,7 @@
 package com.toadstoolstudios.lilwings.platform;
 
 import com.toadstoolstudios.lilwings.FabricButterflyElytra;
+import com.toadstoolstudios.lilwings.FabricLilWingsClient;
 import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.platform.services.IRegistryHelper;
 import com.toadstoolstudios.lilwings.registry.SpawnData;
@@ -23,9 +24,13 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class FabricRegistryHelper implements IRegistryHelper {
+    public static final Set<String> TEXTURES = new HashSet<>();
+
     @Override
     public <T extends Item> Supplier<T> registerItem(String id, Supplier<T> item) {
         var registry = Registry.register(Registry.ITEM, new Identifier(LilWings.MODID, id), item.get());
@@ -58,6 +63,7 @@ public class FabricRegistryHelper implements IRegistryHelper {
 
     @Override
     public <T extends DefaultParticleType> Supplier<T> registerParticleType(String name, Supplier<T> particle) {
+        TEXTURES.add(name);
         var registry = Registry.register(Registry.PARTICLE_TYPE, new Identifier(LilWings.MODID, name), particle.get());
         return () -> registry;
     }
@@ -69,7 +75,7 @@ public class FabricRegistryHelper implements IRegistryHelper {
 
     @Override
     public <T extends Entity> Supplier<EntityType<T>> registerEntity(String name, EntityType.EntityFactory<T> factory, SpawnGroup group, float width, float height) {
-        var object = FabricEntityTypeBuilder.create(group, factory).dimensions(EntityDimensions.fixed(width, height)).build();
+        var object = Registry.register(Registry.ENTITY_TYPE, new Identifier(LilWings.MODID, name), FabricEntityTypeBuilder.create(group, factory).dimensions(EntityDimensions.fixed(width, height)).build());
         return () -> object;
     }
 

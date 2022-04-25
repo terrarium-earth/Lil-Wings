@@ -1,6 +1,7 @@
 package com.toadstoolstudios.lilwings.registry.entity;
 
 
+import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
 import com.toadstoolstudios.lilwings.entity.effects.CatchEffect;
 import com.toadstoolstudios.lilwings.entity.jareffects.JarEffect;
@@ -69,7 +70,7 @@ public record Butterfly(
         private CatchEffect catchEffect;
         private Supplier<JarEffect> jarEffect;
 
-        private ItemGroup creativeTab = LilWingsItems.TAB;
+        private ItemGroup creativeTab = LilWings.TAB;
 
         private Builder(String name) {
             this.name = name;

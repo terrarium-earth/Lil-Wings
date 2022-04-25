@@ -86,7 +86,6 @@ public class ForgeLilWings {
     }
 
     public void initClient(FMLClientSetupEvent event) {
-        LilWingsClient.init();
         ForgeLilWingsClient.init();
     }
 

@@ -159,6 +159,4 @@ public class LilWingsEntities {
     }
 
     public static void register() {}
-
-    //TODO Fabric Entity Attributes
 }

@@ -1,5 +1,6 @@
 package com.toadstoolstudios.lilwings.item;
 
+import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
 import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
 import com.toadstoolstudios.lilwings.registry.LilWingsItems;
@@ -20,7 +21,7 @@ import net.minecraft.world.World;
 public class ButterflyNetItem extends Item {
 
     public ButterflyNetItem(int durability) {
-        super(new Settings().group(LilWingsItems.TAB).maxDamage(durability));
+        super(new Settings().group(LilWings.TAB).maxDamage(durability));
     }
 
     @Override

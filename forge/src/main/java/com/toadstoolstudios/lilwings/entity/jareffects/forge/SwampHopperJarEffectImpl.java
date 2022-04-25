@@ -10,6 +10,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class SwampHopperJarEffectImpl {
+
     public static void handleItemInsertion(World level, BlockEntity container, Direction direction, ItemEntity entity) {
         container.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(iItemHandler -> {
             ItemStack stack = ItemHandlerHelper.insertItem(iItemHandler, entity.getStack(), false);
@@ -17,16 +18,7 @@ public class SwampHopperJarEffectImpl {
         });
     }
 
-    public static Direction findNearestContainer(World level, BlockPos jarPos) {
-        for (Direction direction : Direction.values()) {
-            BlockPos offsetPos = jarPos.offset(direction);
-            BlockEntity blockEntity = level.getBlockEntity(offsetPos);
-            if (blockEntity != null) {
-                if (blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()) {
-                    return direction;
-                }
-            }
-        }
-        return null;
+    public static boolean isContainer(BlockEntity blockEntity, Direction direction) {
+        return blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent();
     }
 }

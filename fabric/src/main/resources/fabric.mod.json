@@ -20,12 +20,11 @@
   "entrypoints": {
     "main": [
       "com.toadstoolstudios.lilwings.FabricLilWings"
+    ],
+    "client": [
+      "com.toadstoolstudios.lilwings.FabricLilWingsClient"
     ]
   },
-  "mixins": [
-    "examplemod.mixins.json",
-    "examplemod-common.mixins.json"
-  ],
   "depends": {
     "fabric": "*",
     "minecraft": ">=1.18.2"
