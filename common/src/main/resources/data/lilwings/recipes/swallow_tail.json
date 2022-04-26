@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:elytra"
+    },
+    {
+      "item": "lilwings:swallow_tail_wings"
+    }
+  ],
+  "result": {
+    "item": "lilwings:swallow_tail_elytra"
+  }
+}

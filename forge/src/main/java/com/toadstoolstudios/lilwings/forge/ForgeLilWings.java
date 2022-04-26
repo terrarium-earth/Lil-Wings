@@ -12,6 +12,7 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.Items;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -95,6 +96,7 @@ public class ForgeLilWings {
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void addButterflies(BiomeLoadingEvent event) {
+
         switch (event.getCategory()) {
             case TAIGA -> addButterfly(event, LilWingsEntities.APONI_BUTTERFLY);
             case JUNGLE -> addButterfly(event, LilWingsEntities.PAINTED_PANTHER_BUTTERFLY);
@@ -117,6 +119,6 @@ public class ForgeLilWings {
     }
 
     private void addButterfly(BiomeLoadingEvent event, Butterfly butterfly) {
-        event.getSpawns().spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(butterfly.entityType().get(),75, 2, 2));
+        event.getSpawns().spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(butterfly.entityType().get(),25, 2, 2));
     }
 }
