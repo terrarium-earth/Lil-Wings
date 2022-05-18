@@ -28,6 +28,8 @@ public class LilWingsItems {
     public static final Supplier<Item> BUTTERNITE = CommonServices.REGISTRY.registerItem("butternite", () -> new Item(new Item.Settings().group(TAB)));
     public static final Supplier<Item> ENDER_STRING = CommonServices.REGISTRY.registerItem("ender_string", () -> new Item(new Item.Settings().group(TAB)));
     public static final Supplier<Item> BUTTER = CommonServices.REGISTRY.registerItem("butter", () -> new Item(new Item.Settings().group(TAB)));
+    public static final Supplier<Item> PAPER_WINGS = CommonServices.REGISTRY.registerItem("paper_wings", () -> new Item(new Item.Settings().group(TAB)));
+    public static final Supplier<Item> COTTON_BALL = CommonServices.REGISTRY.registerItem("cotton_ball", () -> new Item(new Item.Settings().group(TAB)));
     public static final Supplier<Item> GILDED_BUTTER = CommonServices.REGISTRY.registerItem("gilded_butter", () -> new Item(new Item.Settings().group(TAB)));
 
     public static final Supplier<Item> LANTERN_ON_A_STICK = CommonServices.REGISTRY.registerItem("lantern_on_a_stick", () -> new Item(new Item.Settings().group(TAB)));

@@ -128,7 +128,7 @@ public class ButterflyJarBlockEntity extends BlockEntity {
             renderEntity.setPitch(0);
             if (this.butterflyData != null && this.butterflyData.contains("colorType")) {
                 GraylingType color = GraylingType.valueOf(this.butterflyData.getString("colorType"));
-                if (color != renderEntity.getColorType(false)) {
+                if (color != renderEntity.getColorType()) {
                     renderEntity.setColorType(color);
                 }
             }

@@ -28,6 +28,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DefaultParticleType;
@@ -48,6 +49,8 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+import java.util.function.Supplier;
 
 public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimatable {
 
@@ -144,6 +147,14 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
             }
         }
 
+        if(handStack.isOf(LilWingsItems.COTTON_BALL.get())) {
+            int index = this.getColorType().ordinal();
+            Item cottonBall = this.butterfly.cottonBallsItems()[index].get();
+            handStack.decrement(1);
+            player.getInventory().offerOrDrop(new ItemStack(cottonBall));
+            return ActionResult.SUCCESS;
+        }
+
         return super.interactMob(player, hand);
     }
 
@@ -165,11 +176,7 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
     }
 
     public GraylingType getColorType() {
-        return getColorType(false);
-    }
-
-    public GraylingType getColorType(boolean local) {
-        return local ? colorType : GraylingType.values()[getDataTracker().get(DATA_COLOR_TYPE)];
+        return GraylingType.values()[getDataTracker().get(DATA_COLOR_TYPE)];
     }
 
     @Override

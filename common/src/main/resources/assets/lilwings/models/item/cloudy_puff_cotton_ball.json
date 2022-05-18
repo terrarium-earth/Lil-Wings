@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lilwings:item/cloudy_puff_cotton_ball"
+  }
+}

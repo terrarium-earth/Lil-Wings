@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "lilwings:paper_wings"
+    },
+    {
+      "item": "lilwings:swallow_tail_cotton_ball"
+    }
+  ],
+  "result": {
+    "item": "lilwings:swallow_tail_wings"
+  }
+}

@@ -24,9 +24,12 @@ import java.util.function.Supplier;
 public record Butterfly(
         Supplier<EntityType<ButterflyEntity>> entityType,
         Supplier<SpawnEggItem> spawnEggItem,
-        Supplier<Item>[] wings, Supplier<ElytraItem>[] elytras,
-        Item breedingItem, Supplier<Item> netItem,
-        DefaultParticleType particleType, float particleSpawnChance,
+        Supplier<Item>[] wings, Supplier<Item>[] cottonBallsItems,
+        Supplier<ElytraItem>[] elytras,
+        Item breedingItem,
+        Supplier<Item> netItem,
+        DefaultParticleType particleType,
+        float particleSpawnChance,
         float spawnScale, float childSpawnScale, float maxHealth,
         int catchAmount, CatchEffect catchEffect, Supplier<JarEffect> jarEffect,
         String textureName
@@ -38,15 +41,12 @@ public record Butterfly(
         return BUTTERFLIES.get(EntityType.getId(entityType));
     }
 
-    public static Identifier toIdentifier(EntityType<?> entityType) {
-        return new Identifier(entityType.getLootTableId().getNamespace(), entityType.getUntranslatedName());
-    }
-
     public static class Builder {
 
         private final String name;
 
         private String[] wings;
+        private String[] cottonBalls;
         private String[] elytras;
 
         private boolean spawnEgg = false;
@@ -80,6 +80,8 @@ public record Butterfly(
             if (wings != null) {
                 this.wings = Arrays.copyOf(wings, wings.length + 1);
                 this.wings[wings.length] = "";
+                this.cottonBalls = Arrays.copyOf(wings, wings.length + 1);
+                this.cottonBalls[wings.length] = "";
             } else {
                 this.wings = new String[]{""};
             }
@@ -161,6 +163,7 @@ public record Butterfly(
         public Butterfly build(String modid) {
 
             Supplier<Item>[] wingItems = new Supplier[wings != null ? wings.length : 0];
+            Supplier<Item>[] cottonBallsItems = new Supplier[cottonBalls != null ? cottonBalls.length : 0];
             Supplier<ElytraItem>[] elytraItems = new Supplier[elytras != null ? elytras.length : 0];
 
             Supplier<EntityType<ButterflyEntity>> entityType = CommonServices.REGISTRY.registerEntity(name + "_butterfly", ButterflyEntity::new,
@@ -179,6 +182,14 @@ public record Butterfly(
                 }
             }
 
+            if (cottonBalls != null) {
+                for (int i = 0; i < cottonBalls.length; i++) {
+                    String cottonBallName = cottonBalls[i];
+                    cottonBallsItems[i] = CommonServices.REGISTRY.registerItem(name + (cottonBallName.isEmpty() ? "" : "_" + cottonBallName) + "_cotton_ball", () ->
+                            new Item(new Item.Settings().group(creativeTab)));
+                }
+            }
+
             if (elytras != null) {
                 for (int i = 0; i < elytras.length; i++) {
                     String elytraName = elytras[i];
@@ -189,7 +200,7 @@ public record Butterfly(
             }
 
             Butterfly butterfly = new Butterfly(
-                    entityType, spawnEggItem, wingItems, elytraItems, breedingItem, netItem,
+                    entityType, spawnEggItem, wingItems, cottonBallsItems, elytraItems, breedingItem, netItem,
                     particleType, particleSpawnChance, spawnScale, childSpawnScale, maxHealth,
                     catchAmount, catchEffect, jarEffect, name
             );
