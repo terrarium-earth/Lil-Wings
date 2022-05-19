@@ -78,10 +78,19 @@ public record Butterfly(
 
         public Builder addWings(String... wings) {
             if (wings != null) {
+                /*
                 this.wings = Arrays.copyOf(wings, wings.length + 1);
                 this.wings[wings.length] = "";
                 this.cottonBalls = Arrays.copyOf(wings, wings.length + 1);
                 this.cottonBalls[wings.length] = "";
+                 */
+                this.wings = new String[wings.length + 1];
+                this.wings[0] = "";
+                if (wings.length - 1 >= 0) System.arraycopy(wings, 0, this.wings, 1, wings.length);
+                this.cottonBalls = new String[wings.length + 1];
+                this.cottonBalls[0] = "";
+                if (wings.length - 1 >= 0) System.arraycopy(wings, 0, this.cottonBalls, 1, wings.length);
+
             } else {
                 this.wings = new String[]{""};
             }
