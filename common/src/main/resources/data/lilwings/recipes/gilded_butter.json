@@ -7,13 +7,13 @@
   ],
   "key": {
     "#":{
-      "item":  "minecraft:gold"
+      "item":  "minecraft:gold_ingot"
     },
     "X": {
       "item": "lilwings:butter"
     }
   },
   "result": {
-    "item": ""
+    "item": "lilwings:gilded_butter"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  #",
+    " #S",
+    "# L"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "L": {
+      "item": "minecraft:lantern"
+    }
+  },
+  "result": {
+    "item": "lilwings:lantern_on_a_stick"
+  }
+}

@@ -29,6 +29,6 @@ public class ButterflyRenderer extends GeoEntityRenderer<ButterflyEntity> {
 
     @Override
     public RenderLayer getRenderType(ButterflyEntity animatable, float partialTicks, MatrixStack stack, @Nullable VertexConsumerProvider renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
-        return RenderLayer.getEntityTranslucent(textureLocation);
+        return RenderLayer.getEntityCutout(textureLocation);
     }
 }

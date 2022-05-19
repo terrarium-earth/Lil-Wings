@@ -30,6 +30,7 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.recipe.Ingredient;
@@ -148,6 +149,14 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
         }
 
         if(handStack.isOf(LilWingsItems.COTTON_BALL.get())) {
+            int index = this.getColorType().ordinal();
+            Item cottonBall = this.butterfly.cottonBallsItems()[index].get();
+            handStack.decrement(1);
+            player.getInventory().offerOrDrop(new ItemStack(cottonBall));
+            return ActionResult.SUCCESS;
+        }
+
+        if(handStack.isOf(Items.BUCKET)) {
             int index = this.getColorType().ordinal();
             Item cottonBall = this.butterfly.cottonBallsItems()[index].get();
             handStack.decrement(1);
