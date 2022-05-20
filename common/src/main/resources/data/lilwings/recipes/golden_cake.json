@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "JJJ",
+    "CGC",
+    "BBB"
+  ],
+  "key": {
+    "J": {
+      "item": "lilwings:jelly_bucket"
+    },
+    "C": {
+      "item": "lilwings:crimson_cocoa_beans"
+    },
+    "G": {
+      "item": "lilwings:butternite"
+    },
+    "B": {
+      "item": "lilwings:gilded_butter"
+    }
+  },
+  "result": {
+    "item": "lilwings:crimson_cake",
+    "count": 1
+  }
+}

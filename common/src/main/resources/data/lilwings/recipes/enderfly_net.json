@@ -1,17 +1,26 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
-    "###",
-    "###"
+    " SS",
+    "#NS",
+    "B# "
   ],
   "key": {
     "#": {
-      "item": "lilwings:butter"
+      "item": "minecraft:netherite_ingot"
+    },
+    "B": {
+      "item": "lilwings:butternite"
+    },
+    "S": {
+      "item": "lilwings:ender_string"
+    },
+    "N": {
+      "item": "lilwings:butterfly_net"
     }
   },
   "result": {
-    "item": "lilwings:butter_block",
+    "item": "lilwings:enderfly_net",
     "count": 1
   }
 }

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "lilwings:swamp_hopper_wings"
+    }
+  ],
+  "result": {
+    "item": "lilwings:swamp_meal"
+  }
+}

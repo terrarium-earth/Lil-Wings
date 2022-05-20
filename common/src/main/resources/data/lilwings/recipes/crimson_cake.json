@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "CEC",
+    "WWW"
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:egg"
+    },
+    "B": {
+      "item": "lilwings:butter"
+    },
+    "C": {
+      "item": "lilwings:crimson_cocoa_beans"
+    },
+    "W": {
+      "item": "minecraft:wheat"
+    }
+  },
+  "result": {
+    "item": "lilwings:golden_cake",
+    "count": 1
+  }
+}
