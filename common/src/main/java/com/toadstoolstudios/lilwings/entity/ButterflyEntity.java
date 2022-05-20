@@ -106,6 +106,7 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
     @Override
     public void initGoals() {
         this.goalSelector.add(0, new FlyGoal(this, 1.0f));
+        this.goalSelector.add(2, new TemptGoal(this, 1.0f, Ingredient.ofItems(LilWingsItems.LANTERN_ON_A_STICK.get()), false));
         this.goalSelector.add(1, new ButterflyBreedGoal(this, 1.0f));
         this.goalSelector.add(3, new FollowParentGoal(this, 1.08f));
         this.goalSelector.add(5, new EscapeDangerGoal(this, 1.15f));
