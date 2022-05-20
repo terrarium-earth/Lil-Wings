@@ -19,7 +19,7 @@ public class JellyBucketItem extends Item {
 
 
     public JellyBucketItem() {
-        super(new Settings().group(LilWings.TAB).recipeRemainder(Items.BUCKET).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.8F).snack().build()));
+        super(new Settings().group(LilWings.TAB).recipeRemainder(Items.BUCKET).maxCount(1).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.8F).snack().build()));
     }
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
