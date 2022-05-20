@@ -50,6 +50,10 @@ allprojects {
             name = "ModMaven"
             url = "https://modmaven.k-4u.nl"
         }
+
+        maven { url = "https://mvn.devos.one/releases/" }
+        maven { url = "https://mvn.devos.one/snapshots/" }
+        maven { url = "https://api.modrinth.com/maven" }
     }
 
     tasks.withType(JavaCompile) {

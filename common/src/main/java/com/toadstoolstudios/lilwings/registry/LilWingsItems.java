@@ -18,10 +18,6 @@ import static com.toadstoolstudios.lilwings.LilWings.TAB;
 
 public class LilWingsItems {
 
-    public static final Map<Item, CauldronBehavior> MILK_INTERACTION = CauldronBehavior.createMap();
-    public static final CauldronBehavior FILL_MILK = (level, blockPos, player, hand, stack, state) ->
-            CauldronBehavior.fillCauldron(blockPos, player, hand, stack, state, LilWingsBlocks.MILK_CAULDRON.get().getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY);
-
     public static final Supplier<Item> BUTTERFLY_NET = CommonServices.REGISTRY.registerItem("butterfly_net", () -> new ButterflyNetItem(16));
     public static final Supplier<Item> ENDERFLY_NET = CommonServices.REGISTRY.registerItem("enderfly_net", () -> new ButterflyNetItem(32));
 

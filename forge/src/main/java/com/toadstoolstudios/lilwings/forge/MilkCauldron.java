@@ -1,22 +1,18 @@
-package com.toadstoolstudios.lilwings.block;
+package com.toadstoolstudios.lilwings.forge;
 
 import com.toadstoolstudios.lilwings.registry.LilWingsItems;
 import net.minecraft.block.AbstractCauldronBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 
 public class MilkCauldron extends AbstractCauldronBlock {
 
     public MilkCauldron() {
-        super(Settings.copy(Blocks.CAULDRON), LilWingsItems.MILK_INTERACTION);
+        super(Settings.copy(Blocks.CAULDRON), ForgeLilWings.MILK_INTERACTION);
         //this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, Integer.valueOf(1)));
     }
 

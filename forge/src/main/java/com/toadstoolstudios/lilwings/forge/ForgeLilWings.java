@@ -1,18 +1,18 @@
 package com.toadstoolstudios.lilwings.forge;
 
 import com.toadstoolstudios.lilwings.LilWings;
-import com.toadstoolstudios.lilwings.LilWingsClient;
 import com.toadstoolstudios.lilwings.forge.platform.ForgeRegistryHelper;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import com.toadstoolstudios.lilwings.registry.LilWingsEntities;
-import com.toadstoolstudios.lilwings.registry.LilWingsItems;
 import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
+import net.minecraft.block.Block;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.tag.BiomeTags;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -30,8 +30,16 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+import java.util.Map;
+import java.util.function.Supplier;
+
 @Mod(LilWings.MODID)
 public class ForgeLilWings {
+    public static final Supplier<Block> MILK_CAULDRON = ForgeRegistryHelper.BLOCKS.register("milk_cauldron", MilkCauldron::new);
+    public static final Map<Item, CauldronBehavior> MILK_INTERACTION = CauldronBehavior.createMap();
+    public static final CauldronBehavior FILL_MILK = (level, blockPos, player, hand, stack, state) ->
+            CauldronBehavior.fillCauldron(blockPos, player, hand, stack, state, MILK_CAULDRON.get().getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY);
+
 
     public ForgeLilWings() {
         LilWings.init();
@@ -65,9 +73,9 @@ public class ForgeLilWings {
 
     public void init(FMLCommonSetupEvent event) {
         //TODO Needs spawn rules
-        CauldronBehavior.registerBucketBehavior(LilWingsItems.MILK_INTERACTION);
-        CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(Items.MILK_BUCKET, LilWingsItems.FILL_MILK);
-        LilWingsItems.MILK_INTERACTION.put(Items.MILK_BUCKET, LilWingsItems.FILL_MILK);
+        CauldronBehavior.registerBucketBehavior(MILK_INTERACTION);
+        CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(Items.MILK_BUCKET, FILL_MILK);
+        MILK_INTERACTION.put(Items.MILK_BUCKET, FILL_MILK);
         MinecraftForge.EVENT_BUS.addListener((PlayerInteractEvent.RightClickBlock interactEvent) -> {
             if(interactEvent.getPlayer().isSneaking()) {
                 if (interactEvent.getItemStack().isOf(Items.GLASS_BOTTLE)) {

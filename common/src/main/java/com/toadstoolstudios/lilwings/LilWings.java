@@ -5,8 +5,10 @@ import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import com.toadstoolstudios.lilwings.registry.LilWingsEntities;
 import com.toadstoolstudios.lilwings.registry.LilWingsItems;
 import com.toadstoolstudios.lilwings.registry.LilWingsParticles;
+import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.GeckoLib;
 
