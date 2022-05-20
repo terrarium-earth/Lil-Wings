@@ -1,10 +1,21 @@
 package com.toadstoolstudios.lilwings;
 
+import com.toadstoolstudios.lilwings.client.entity.ButterflyElytraLayer;
 import com.toadstoolstudios.lilwings.platform.FabricRegistryHelper;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
+import net.minecraft.client.render.entity.model.ArmorStandEntityModel;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.AutomaticItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -46,6 +57,12 @@ public class FabricLilWingsClient implements ClientModInitializer {
                 }
             }
             return ActionResult.PASS;
+        });
+
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
+            if (entityRenderer.getModel() instanceof PlayerEntityModel || entityRenderer.getModel() instanceof BipedEntityModel || entityRenderer.getModel() instanceof ArmorStandEntityModel) {
+                registrationHelper.register(new ButterflyElytraLayer<>(entityRenderer, MinecraftClient.getInstance().getEntityModelLoader()));
+            }
         });
     }
 }

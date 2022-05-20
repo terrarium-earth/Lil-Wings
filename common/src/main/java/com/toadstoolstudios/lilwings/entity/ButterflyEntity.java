@@ -156,11 +156,9 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
             return ActionResult.SUCCESS;
         }
 
-        if(handStack.isOf(Items.BUCKET)) {
-            int index = this.getColorType().ordinal();
-            Item cottonBall = this.butterfly.cottonBallsItems()[index].get();
+        if(handStack.isOf(Items.BUCKET) && butterfly.equals(LilWingsEntities.BUTTER_GOLD_BUTTERFLY)) {
             handStack.decrement(1);
-            player.getInventory().offerOrDrop(new ItemStack(cottonBall));
+            player.getInventory().offerOrDrop(new ItemStack(LilWingsItems.JELLY_BUCKET.get()));
             return ActionResult.SUCCESS;
         }
 

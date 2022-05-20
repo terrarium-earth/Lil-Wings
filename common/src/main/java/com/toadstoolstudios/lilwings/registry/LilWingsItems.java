@@ -2,6 +2,7 @@ package com.toadstoolstudios.lilwings.registry;
 
 import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.item.ButterflyNetItem;
+import com.toadstoolstudios.lilwings.item.JellyBucketItem;
 import com.toadstoolstudios.lilwings.platform.CommonServices;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.item.BoneMealItem;
@@ -31,6 +32,7 @@ public class LilWingsItems {
     public static final Supplier<Item> LANTERN_ON_A_STICK = CommonServices.REGISTRY.registerItem("lantern_on_a_stick", () -> new Item(new Item.Settings().group(TAB)));
     public static final Supplier<Item> CRIMSON_COCOA_BEANS = CommonServices.REGISTRY.registerItem("crimson_cocoa_beans", () -> new Item(new Item.Settings().group(TAB)));
     public static final Supplier<Item> SWAMP_MEAL = CommonServices.REGISTRY.registerItem("swamp_meal", () -> new BoneMealItem(new Item.Settings().group(TAB)));
+    public static final Supplier<Item> JELLY_BUCKET = CommonServices.REGISTRY.registerItem("jelly_bucket", JellyBucketItem::new);
 
     public static void register() {}
 }
