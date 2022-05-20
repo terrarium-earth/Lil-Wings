@@ -28,10 +28,10 @@ public class LilWingsBlocks {
     public static final Supplier<Item> BUTTER_BLOCK_ITEM = CommonServices.REGISTRY.registerItem("butter_block", () -> new BlockItem(BUTTER_BLOCK.get(), new Item.Settings().group(LilWings.TAB)));
     //TODO make butter slippery
 
-    public static final Supplier<Block> CRIMSON_CAKE = CommonServices.REGISTRY.registerBlock("crimson_cake", () -> new CakeBlock(AbstractBlock.Settings.of(Material.CAKE).strength(0.5F).sounds(BlockSoundGroup.WOOL)){});
+    public static final Supplier<Block> CRIMSON_CAKE = CommonServices.REGISTRY.registerBlock("crimson_cake", () -> new BaseCakeBlock(3, 0.5F){});
     public static final Supplier<Item> CRIMSON_CAKE_ITEM = CommonServices.REGISTRY.registerItem("crimson_cake", () -> new BlockItem(CRIMSON_CAKE.get(), new Item.Settings().group(LilWings.TAB)));
 
-    public static final Supplier<Block> GOLDEN_CAKE = CommonServices.REGISTRY.registerBlock("golden_cake", () -> new CakeBlock(AbstractBlock.Settings.of(Material.CAKE).strength(0.5F).sounds(BlockSoundGroup.WOOL)){});
+    public static final Supplier<Block> GOLDEN_CAKE = CommonServices.REGISTRY.registerBlock("golden_cake", () -> new GoldenCakeBlock(4, 0.3F){});
     public static final Supplier<Item> GOLDEN_CAKE_ITEM = CommonServices.REGISTRY.registerItem("golden_cake", () -> new BlockItem(GOLDEN_CAKE.get(), new Item.Settings().group(LilWings.TAB)));
 
     public static final Supplier<Block> BUTTER_CAULDRON = CommonServices.REGISTRY.registerBlock("butter_cauldron", ButterCauldron::new);
