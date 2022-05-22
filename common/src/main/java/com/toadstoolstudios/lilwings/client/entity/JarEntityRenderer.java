@@ -26,6 +26,7 @@ public class JarEntityRenderer implements BlockEntityRenderer<ButterflyJarBlockE
             stack.scale(scale, scale, scale);
             MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(entity).render(entity, 0, mc.getTickDelta(), stack, bufferSource, packedLight);
             stack.pop();
+            // Renders twice on fabric because Fabric doesn't fix https://bugs.mojang.com/browse/MC-112730 while Forge does
         }
     }
 

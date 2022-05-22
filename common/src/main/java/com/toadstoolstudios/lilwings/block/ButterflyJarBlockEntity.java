@@ -1,14 +1,13 @@
 package com.toadstoolstudios.lilwings.block;
 
 import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
-import com.toadstoolstudios.lilwings.entity.jareffects.JarEffect;
+import com.toadstoolstudios.lilwings.block.jareffects.JarEffect;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
 import com.toadstoolstudios.lilwings.registry.entity.GraylingType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -90,6 +89,7 @@ public class ButterflyJarBlockEntity extends BlockEntity {
         world.updateListeners(getPos(), getCachedState(), getCachedState(), Block.NOTIFY_LISTENERS);
     }
 
+    @Nullable
     public EntityType<? extends ButterflyEntity> getEntityType() {
         return entityType;
     }

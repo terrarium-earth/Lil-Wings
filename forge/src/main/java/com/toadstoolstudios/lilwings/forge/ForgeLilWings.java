@@ -1,6 +1,7 @@
 package com.toadstoolstudios.lilwings.forge;
 
 import com.toadstoolstudios.lilwings.LilWings;
+import com.toadstoolstudios.lilwings.compat.TOPCompat;
 import com.toadstoolstudios.lilwings.forge.platform.ForgeRegistryHelper;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import com.toadstoolstudios.lilwings.registry.LilWingsEntities;
@@ -24,10 +25,12 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.Map;
@@ -59,6 +62,7 @@ public class ForgeLilWings {
         ForgeRegistryHelper.SOUNDS.register(bus);
         ForgeRegistryHelper.PARTICLE_TYPES.register(bus);
         MinecraftForge.EVENT_BUS.register(this);
+        bus.addListener(this::imcEvent);
     }
 
     public void attributeEvent(EntityAttributeCreationEvent event) {
@@ -128,5 +132,9 @@ public class ForgeLilWings {
 
     private void addButterfly(BiomeLoadingEvent event, Butterfly butterfly) {
         event.getSpawns().spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(butterfly.entityType().get(),25, 2, 2));
+    }
+
+    private void imcEvent(InterModEnqueueEvent event) {
+        InterModComms.sendTo("theoneprobe", "getTheOneProbe", TOPCompat::new);
     }
 }

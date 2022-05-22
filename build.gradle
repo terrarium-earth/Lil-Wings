@@ -38,11 +38,15 @@ allprojects {
         // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
         // See https://docs.gradle.org/current/userguide/declaring_repositories.html
         // for more information about repositories.
-        maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
         maven {
             // location of the maven that hosts JEI files
             name = "Progwml6 maven"
             url = "https://dvs1.progwml6.com/files/maven/"
+        }
+
+        maven { // TOP
+            name 'tterrag maven'
+            url "https://maven.tterrag.com/"
         }
 
         maven {
@@ -51,6 +55,8 @@ allprojects {
             url = "https://modmaven.k-4u.nl"
         }
 
+        maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+        maven { url "https://maven.shedaniel.me" }
         maven { url = "https://mvn.devos.one/releases/" }
         maven { url = "https://mvn.devos.one/snapshots/" }
         maven { url = "https://api.modrinth.com/maven" }

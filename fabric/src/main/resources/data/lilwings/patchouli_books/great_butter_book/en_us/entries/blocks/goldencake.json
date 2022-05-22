@@ -1,0 +1,21 @@
+{
+  "name": "Cakes",
+  "icon": "lilwings:crimson_cake",
+  "category": "lilwings:blocks",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Golden Cake",
+      "item": "lilwings:golden_cake",
+      "link_recipe": true,
+      "text": "The butterfly jar is the center of functionality for any good butterfly connoisseur. Capture any butterfly using a butterfly net or an enderfly net and right click a jar with it to put the butterfly inside the jar. Once inside the jar, the butterfly will begin to help you. Each butterfly has a unique function when they are inside of a jar."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Crimson Cake",
+      "item": "lilwings:crimson_cake",
+      "link_recipe": true,
+      "text": "The butterfly jar is the center of functionality for any good butterfly connoisseur. Capture any butterfly using a butterfly net or an enderfly net and right click a jar with it to put the butterfly inside the jar. Once inside the jar, the butterfly will begin to help you. Each butterfly has a unique function when they are inside of a jar."
+    }
+  ]
+}

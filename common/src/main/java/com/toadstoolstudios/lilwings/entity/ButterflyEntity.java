@@ -57,7 +57,6 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
 
     private static final TrackedData<Integer> DATA_COLOR_TYPE = DataTracker.registerData(ButterflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> DATA_CATCH_AMOUNT = DataTracker.registerData(ButterflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.butterfly.idle", true);
     private final AnimationFactory factory = new AnimationFactory(this);
 
     private final Butterfly butterfly;
@@ -277,12 +276,8 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
     }
 
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
-        if (isInAir() || this.isInJar) {
-            event.getController().setAnimation(IDLE_ANIMATION);
-            return PlayState.CONTINUE;
-        }
-
-        return PlayState.STOP;
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.butterfly.idle", true));
+        return PlayState.CONTINUE;
     }
 
     @Override

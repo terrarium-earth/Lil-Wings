@@ -2,17 +2,13 @@ package com.toadstoolstudios.lilwings.registry;
 
 import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
-import com.toadstoolstudios.lilwings.entity.effects.EnderflyCatchEffect;
-import com.toadstoolstudios.lilwings.entity.jareffects.*;
+import com.toadstoolstudios.lilwings.block.jareffects.*;
 import com.toadstoolstudios.lilwings.platform.CommonServices;
 import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.tag.BlockTags;

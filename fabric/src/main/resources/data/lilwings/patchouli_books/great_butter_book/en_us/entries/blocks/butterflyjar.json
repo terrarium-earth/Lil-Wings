@@ -1,0 +1,19 @@
+{
+  "name": "Butterfly Jar",
+  "icon": "minecraft:glass_bottle",
+  "category": "lilwings:blocks",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Butterfly Jar",
+      "item": "minecraft:glass_bottle",
+      "link_recipe": true,
+      "text": "The butterfly jar is the center of functionality for any good butterfly connoisseur. Capture any butterfly using a butterfly net or an enderfly net and right click a jar with it to put the butterfly inside the jar. Once inside the jar, the butterfly will begin to help you. Each butterfly has a unique function when they are inside of a jar."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Butterfly Jar",
+      "text": "Upon breaking the butterfly jar, the butterfly will escape and you'll get your bottle back. In order to know what each butterfly will do once inside of a jar, check that butterfly's page in the butterfly section of the Great Butter Book"
+    }
+  ]
+}
