@@ -1,0 +1,14 @@
+{
+  "name": "Lantern on a Stick",
+  "icon": "lilwings:lantern_on_a_stick",
+  "category": "lilwings:items",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Lantern on a Stick",
+      "item": "lilwings:lantern_on_a_stick",
+      "link_recipe": true,
+      "text": "The lantern on a stick is a useful tool for any good Lepidopterist. The light emitting from the lantern on a stick is naturally distracting to the butterflies, making all butterflies naturally wander towards you if you hold one. (In the future) Ridable butterflies can be easily guided whilst holding a lantern on a stick"
+    }
+  ]
+}

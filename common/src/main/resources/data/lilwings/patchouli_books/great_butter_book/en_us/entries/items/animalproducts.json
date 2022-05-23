@@ -1,0 +1,35 @@
+{
+  "name": "Animal Products",
+  "icon": "lilwings:butter",
+  "category": "lilwings:items",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Butter",
+      "item": "lilwings:butter,lilwings:butter_block",
+      "link_recipe": true,
+      "text": "Butter can be made by placing milk inside of a cauldron and simply waiting, if and only if there is a butterfly jar with a Buttergold butterfly helping you out. It will churn the butter rather quickly, and this butter can be used a stackable replacement for milk in cake recipes."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Swamp Meal",
+      "item": "lilwings:swamp_meal",
+      "link_recipe": true,
+      "text": "Swamp meal is produced by simply crafting the wings of a Swamphopper butterfly in the crafting table. It can be used a fertilizer in the same way that bone meal can."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Crimson Cocoa Beans",
+      "item": "lilwings:crimson_cocoa_beans",
+      "link_recipe": true,
+      "text": "This product is made from actual cocoa beans. When a painted panther is inside a butterfly jar and sees a cocoa pod in the nearby area, it will help by growing it, and eventually it will pop and drop crimson cocoa beans. These sweet red cocoa beans can be used to create new chocolate cakes."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Cloudypuff Jelly Bucket",
+      "item": "lilwings:jelly_bucket",
+      "link_recipe": true,
+      "text": "Cloudypuff Jelly is a special and nutritious jelly obtained from gently harvesting the jelly from a Cloudypuff Butterfly with a bucket via right click. It can be eaten to replenish hunger and saturation, and can be used to make the nutritious and healing Golden cake."
+    }
+  ]
+}

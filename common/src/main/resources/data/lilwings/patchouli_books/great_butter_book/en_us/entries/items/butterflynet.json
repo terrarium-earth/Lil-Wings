@@ -1,0 +1,21 @@
+{
+  "name": "Butterfly Nets",
+  "icon": "lilwings:butterfly_net",
+  "category": "lilwings:items",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Butterfly Net",
+      "item": "lilwings:butterfly_net",
+      "link_recipe": true,
+      "text": "The butterfly net is the start to your butterfly catching journey. Craft one with some sticks and string, and you'll be able to catch almost any butterfly in the game. Capture a butterfly by right clicking with this net, and right cick again on the floor to release it. Right click a butterfly jar to put the butterfly inside of it"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Enderfly Net",
+      "item": "lilwings:enderfly_net",
+      "link_recipe": true,
+      "text": "This butterfly net works in almost the same way, but upgraded. This butterfly net will enable you to catch any kind of butterfly, even the rare ones found in the End and Nether. Made of netherite and ender reinforced string, this butterfly net has 128 times more durability, and is sure to last you for a lifetime"
+    }
+  ]
+}

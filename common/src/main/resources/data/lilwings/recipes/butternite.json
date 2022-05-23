@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "lilwings:butternite_block"
+    }
+  ],
+  "result": {
+    "item": "lilwings:butternite",
+    "count": 9
+  }
+}

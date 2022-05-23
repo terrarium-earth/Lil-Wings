@@ -1,0 +1,21 @@
+{
+  "name": "Cakes",
+  "icon": "lilwings:crimson_cake",
+  "category": "lilwings:blocks",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Crimson Cake",
+      "item": "lilwings:crimson_cake",
+      "link_recipe": true,
+      "text": "Theres not much to this cake. Using special cocoa obtained from the painted panther butterfly, this cake replenishes more hunger and saturation than your average cake, making it an ideal choice for on demand food."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Golden Cake",
+      "item": "lilwings:golden_cake",
+      "link_recipe": true,
+      "text": "A particularly special cake, made from the gilded butter of the buttergold butterfly and the jelly from the cloudypuff butterfly, this cake replensihes even more hunger and saturation than that of the crimson cake. In addition to replenishing hunger and saturation, it also applies a temporary regeneration and absorption affect, ideal as a pre-battle snack."
+    }
+  ]
+}

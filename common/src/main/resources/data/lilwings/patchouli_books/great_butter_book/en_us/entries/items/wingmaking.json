@@ -1,0 +1,21 @@
+{
+  "name": "Wing Making Kit",
+  "icon": "lilwings:paper_wings",
+  "category": "lilwings:items",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "Paper Wings",
+      "item": "lilwings:paper_wings",
+      "link_recipe": true,
+      "text": "Paper wings can be crafted simply in a crafting table with 3 paper in a row. It's vital in the creation of cruelty-free butterfly wings. By combining the paper wings in the crafting table with a cotton ball containing butterfly DNA of some kind will result in the production of butterfly wings which can used to decorate elytras or for display."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Cotton Ball",
+      "item": "lilwings:cotton_ball",
+      "link_recipe": true,
+      "text": "Crafted using some wool and quartz, the cotton ball can be used to gently extract the essence of a butterfly in order to recreate it's wings using paper and cotton. Simply right clicking any butterfly with a cotton ball will return you a cotton ball with the data of that butterfly smeared onto it."
+    }
+  ]
+}

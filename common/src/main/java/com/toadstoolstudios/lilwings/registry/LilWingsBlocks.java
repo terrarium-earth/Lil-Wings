@@ -21,10 +21,10 @@ public class LilWingsBlocks {
     //public static final RegistryObject<Item> BUTTERFLY_JAR_ITEM = CommonServices.REGISTRY.registerItem("butterfly_jar", () -> new ButterflyJarItem(BUTTERFLY_JAR.get()));
     public static final Supplier<BlockEntityType<ButterflyJarBlockEntity>> BUTTERFLY_JAR_ENTITY = CommonServices.REGISTRY.registerBlockEntity("butterfly_jar_tile", () -> CommonServices.REGISTRY.createBlockEntityType(ButterflyJarBlockEntity::new, BUTTERFLY_JAR.get()));
 
-    public static final Supplier<Block> BUTTERNITE_BLOCK = CommonServices.REGISTRY.registerBlock("butternite_block", () -> new Block(AbstractBlock.Settings.of(Material.STONE).strength(1.0f)));
+    public static final Supplier<Block> BUTTERNITE_BLOCK = CommonServices.REGISTRY.registerBlock("butternite_block", () -> new Block(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(4.0f)));
     public static final Supplier<Item> BUTTERNITE_BLOCK_ITEM = CommonServices.REGISTRY.registerItem("butternite_block", () -> new BlockItem(BUTTERNITE_BLOCK.get(), new Item.Settings().group(LilWings.TAB)));
 
-    public static final Supplier<Block> BUTTER_BLOCK = CommonServices.REGISTRY.registerBlock("butter_block", () -> new Block(AbstractBlock.Settings.of(Material.STONE).strength(0.8f)));
+    public static final Supplier<Block> BUTTER_BLOCK = CommonServices.REGISTRY.registerBlock("butter_block", () -> new Block(AbstractBlock.Settings.of(Material.SOLID_ORGANIC).sounds(BlockSoundGroup.HONEY).strength(0.5f)));
     public static final Supplier<Item> BUTTER_BLOCK_ITEM = CommonServices.REGISTRY.registerItem("butter_block", () -> new BlockItem(BUTTER_BLOCK.get(), new Item.Settings().group(LilWings.TAB)));
     //TODO make butter slippery
 
