@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "patchouli:shapeless_book_recipe",
   "ingredients": [
     {
       "item": "minecraft:green_dye"
@@ -11,8 +11,5 @@
       "item": "lilwings:paper_wings"
     }
   ],
-  "result": {
-    "item": "patchouli:great_butter_book",
-    "count": 6
-  }
+  "book": "patchouli:great_butter_book"
 }

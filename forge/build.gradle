@@ -27,10 +27,6 @@ dependencies {
     modRuntimeOnly ("mcjty.theoneprobe:theoneprobe:${top_version}") {
         transitive = false
     }
-    /*modImplementation ("mcjty.theoneprobe:theoneprobe:${top_version}") {
-        exclude group: "mezz.jei", module: "jei-1.18.2"
-        exclude group: "net.minecraftforge", module: "forge"
-    }*/
 }
 
 processResources {
