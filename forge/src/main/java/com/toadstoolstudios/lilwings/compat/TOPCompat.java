@@ -29,7 +29,7 @@ public class TOPCompat implements Function<ITheOneProbe, Void> {
                 if(blockState.getBlock() instanceof ButterflyJarBlock) {
                     BlockEntity blockEntity = world.getBlockEntity(probeHitData.getPos());
                     if(blockEntity instanceof ButterflyJarBlockEntity jarBlockEntity && jarBlockEntity.getEntityType() != null) {
-                        probeInfo.horizontal().entity(new ButterflyEntity(jarBlockEntity.getEntityType(), world)).text(jarBlockEntity.getEntityType().getTranslationKey());
+                        probeInfo.horizontal().text(" ").entity((jarBlockEntity.getOrCreateEntity(world, jarBlockEntity.getEntityType(), jarBlockEntity.getButterflyData()))).vertical().text(" ").horizontal().text(jarBlockEntity.getEntityType().getTranslationKey()).text(" ");
                     }
                 }
             }
