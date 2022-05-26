@@ -119,5 +119,9 @@
   "book.lilwings.butterfly.whitefox": "This butterfly can only be found on $(#00d5e0)the highest frozen peaks$(). A player can lure the White fox towards them using $(#00d5e0)Lily of the valley$(). When put into a bottle, the white fox will occationally spawn $(#00d5e0)patches of snow$() around it.",
   "book.lilwings.butterfly.whitefox.wings_caption": "The wings of the White fox butterfly have the same brewing capabilities as $(#00d5e0)sugar.$()",
   "book.lilwings.butterfly.whitefox.butterfly_caption": "The soft, snowy wings of the butterfly leave snowflakes in its trail.",
-  "tooltip.butterfly_net.prefix": "Captured: "
+  "tooltip.butterfly_net.prefix": "Captured: ",
+  "advancements.lilwings.lepidopterist.title": "Lepidopterist",
+  "advancements.lilwings.lepidopterist.description": "Craft a butterfly net",
+  "advancements.lilwings.butter.title": "I Can't Believe Its Not Butter!",
+  "advancements.lilwings.butter.description": "Obtain butter from a Buttergold Butterfly"
 }

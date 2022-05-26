@@ -1,19 +1,22 @@
 {
-  "parent": "minecraft:husbandry/root",
+  "parent": "lilwings:root",
   "display": {
     "icon": {
-      "item": "lilwings:butterfly_net"
+      "item": "lilwings:butter"
     },
     "title": {
-      "translate": "advancements.lilwings.lepidopterist.title"
+      "translate": "advancements.lilwings.butter.title"
     },
     "description": {
-      "translate": "advancements.lilwings.lepidopterist.description"
+      "translate": "advancements.lilwings.butter.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
-    "background": "minecraft:textures/gui/advancements/backgrounds/husbandry.png"
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 50
   },
   "criteria": {
     "requirement": {
@@ -22,7 +25,7 @@
         "items": [
           {
             "items": [
-              "lilwings:butterfly_net"
+              "lilwings:butter_block"
             ]
           }
         ]
