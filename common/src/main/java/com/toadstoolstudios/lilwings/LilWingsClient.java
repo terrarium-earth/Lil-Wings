@@ -1,5 +1,6 @@
 package com.toadstoolstudios.lilwings;
 
+import com.toadstoolstudios.lilwings.api.PatreonInit;
 import com.toadstoolstudios.lilwings.client.entity.ButterflyRenderer;
 import com.toadstoolstudios.lilwings.client.entity.JarEntityRenderer;
 import com.toadstoolstudios.lilwings.client.particle.AmethystGrowProvider;
@@ -20,6 +21,7 @@ public class LilWingsClient {
 
         ClientServices.CLIENT.renderBlockRenderers(LilWingsBlocks.BUTTERFLY_JAR, RenderLayer.getCutout());
         ClientServices.CLIENT.registerBlockEntityRenderer(LilWingsBlocks.BUTTERFLY_JAR_ENTITY, (ctx) -> new JarEntityRenderer());
+        PatreonInit.init();
     }
 
     public static void initParticleFactories() {
