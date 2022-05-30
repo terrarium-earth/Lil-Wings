@@ -55,6 +55,7 @@ public class ForgeLilWings {
         bus.addListener(this::onComplete);
         bus.addListener(this::attributeEvent);
         bus.addListener(ForgeLilWingsClient::addLayers);
+        bus.addListener(ForgeLilWingsClient::addLayerDefinitons);
         bus.addListener(ForgeLilWingsClient::particleEvent);
 
         ForgeRegistryHelper.ENTITY_TYPES.register(bus);

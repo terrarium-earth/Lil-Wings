@@ -1,11 +1,14 @@
 package com.toadstoolstudios.lilwings.client.entity.patron;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.toadstoolstudios.lilwings.LilWings;
 import net.minecraft.client.model.*;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
@@ -33,6 +36,10 @@ public class PatreonButterflyModel extends BipedEntityModel<AbstractClientPlayer
     @Override
     public void setAngles(AbstractClientPlayerEntity livingEntity, float limbAngle, float limbDistance, float h, float i, float j) {
         super.setAngles(livingEntity, limbAngle, limbDistance, h, i, j);
+        if(!livingEntity.getEquippedStack(EquipmentSlot.HEAD).isEmpty()) {
+            rightWing.pivotY = rightWing.pivotY - 3;
+            leftWing.pivotY = leftWing.pivotY - 3;
+        }
         float factor = 0.05f;
         float angle = limbAngle + livingEntity.age * factor;
         float movement = limbDistance * factor + 0.2f;
@@ -49,4 +56,6 @@ public class PatreonButterflyModel extends BipedEntityModel<AbstractClientPlayer
 
         return TexturedModelData.of(modelData, 32, 32);
     }
+
+
 }

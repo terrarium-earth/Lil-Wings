@@ -23,7 +23,6 @@ public class LilWingsClient {
 
         ClientServices.CLIENT.renderBlockRenderers(LilWingsBlocks.BUTTERFLY_JAR, RenderLayer.getCutout());
         ClientServices.CLIENT.registerBlockEntityRenderer(LilWingsBlocks.BUTTERFLY_JAR_ENTITY, (ctx) -> new JarEntityRenderer());
-        EntityModelLayerRegistry.registerModelLayer(PatreonButterflyModel.LAYER, PatreonButterflyModel::getTexturedModelData);
         PatreonManager.init();
     }
 

@@ -19,16 +19,14 @@ import java.util.concurrent.CompletableFuture;
 
 public class PatreonManager {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static boolean isUserPatron;
+    private static Set<UUID> patrons;
 
     public static void init() {
         CompletableFuture.runAsync(() -> {
             try (var inputStreamReader = new InputStreamReader(new URL("https://raw.githubusercontent.com/terrarium-earth/Lil-Wings/crossplatform/patrons.json").openStream())) {
-                Set<UUID> patrons = new Gson().fromJson(inputStreamReader, new TypeToken<Set<UUID>>(){}.getType());
-                isUserPatron = patrons.contains(MinecraftClient.getInstance().getSession().getProfile().getId()) || isInDev();
-                LOGGER.info("Got Patreon data. " + (isUserPatron ? "User is patron" : "User is not patron"));
+                patrons = new Gson().fromJson(inputStreamReader, new TypeToken<Set<UUID>>(){}.getType());
+                LOGGER.info("Got Patreon data.");
             } catch (IOException exception) {
-                isUserPatron = isInDev();
                 LOGGER.error("Failed to get Patreon data", exception);
             }
         });
@@ -39,7 +37,7 @@ public class PatreonManager {
         return true;
     }
 
-    public static boolean isUserPatron() {
-        return isUserPatron;
+    public static boolean isUserPatron(UUID uuid) {
+        return isInDev() || patrons.contains(uuid);
     }
 }

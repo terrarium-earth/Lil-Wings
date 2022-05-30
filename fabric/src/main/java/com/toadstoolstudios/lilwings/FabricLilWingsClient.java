@@ -1,9 +1,11 @@
 package com.toadstoolstudios.lilwings;
 
 import com.toadstoolstudios.lilwings.client.entity.ButterflyElytraLayer;
+import com.toadstoolstudios.lilwings.client.entity.patron.PatreonButterflyModel;
 import com.toadstoolstudios.lilwings.client.entity.patron.PatreonLayerRenderer;
 import com.toadstoolstudios.lilwings.platform.FabricRegistryHelper;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.client.MinecraftClient;
@@ -28,6 +30,7 @@ public class FabricLilWingsClient implements ClientModInitializer {
         );
         LilWingsClient.init();
         LilWingsClient.initParticleFactories();
+        EntityModelLayerRegistry.registerModelLayer(PatreonButterflyModel.LAYER, PatreonButterflyModel::getTexturedModelData);
 
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
             if (entityRenderer.getModel() instanceof PlayerEntityModel || entityRenderer.getModel() instanceof BipedEntityModel || entityRenderer.getModel() instanceof ArmorStandEntityModel) {
