@@ -1,7 +1,18 @@
-[
-  "78a06298-7263-433f-8433-b4fe19d116f9",
-  "73c30c75-e6d7-4141-9c14-06019b6888c1",
-  "0fcfca0b-8b51-4e0b-8dcf-a9b03d38060c",
-  "5bc426ea-0171-4fbf-bbe5-bd7c80c7adb0",
-  "0177f90b-1352-4306-b22e-e26005965cc4"
-]
+{
+  "patrons": [
+    "78a06298-7263-433f-8433-b4fe19d116f9",
+    "73c30c75-e6d7-4141-9c14-06019b6888c1",
+    "0fcfca0b-8b51-4e0b-8dcf-a9b03d38060c",
+    "5bc426ea-0171-4fbf-bbe5-bd7c80c7adb0",
+    "0177f90b-1352-4306-b22e-e26005965cc4",
+    "503450fc-72c2-4e87-8243-94e264977437"
+  ],
+  "leveledPatrons": {
+    "78a06298-7263-433f-8433-b4fe19d116f9": "SWAMP_HOPPER",
+    "73c30c75-e6d7-4141-9c14-06019b6888c1": "CRYSTAL_PUFF",
+    "0fcfca0b-8b51-4e0b-8dcf-a9b03d38060c": "RED_APPLEFLY",
+    "5bc426ea-0171-4fbf-bbe5-bd7c80c7adb0": "WHITE_FOX",
+    "0177f90b-1352-4306-b22e-e26005965cc4": "SWAMP_HOPPER",
+    "503450fc-72c2-4e87-8243-94e264977437": "CRYSTAL_PUFF"
+  }
+}

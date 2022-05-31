@@ -1,13 +1,11 @@
-package com.toadstoolstudios.lilwings.client.entity.patron;
+package com.toadstoolstudios.lilwings.client.patron;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.toadstoolstudios.lilwings.LilWings;
 import net.minecraft.client.model.*;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;

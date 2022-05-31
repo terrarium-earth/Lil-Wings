@@ -1,15 +1,13 @@
 package com.toadstoolstudios.lilwings.forge;
 
 import com.toadstoolstudios.lilwings.LilWingsClient;
+import com.toadstoolstudios.lilwings.api.PatreonManager;
 import com.toadstoolstudios.lilwings.client.entity.ButterflyElytraLayer;
-import com.toadstoolstudios.lilwings.client.entity.patron.PatreonButterflyModel;
-import com.toadstoolstudios.lilwings.client.entity.patron.PatreonLayerRenderer;
+import com.toadstoolstudios.lilwings.client.patron.PatreonButterflyModel;
+import com.toadstoolstudios.lilwings.client.patron.PatreonLayerRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistry;
 
 public class ForgeLilWingsClient {
     public static void init() {

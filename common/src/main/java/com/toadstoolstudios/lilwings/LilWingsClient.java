@@ -3,7 +3,6 @@ package com.toadstoolstudios.lilwings;
 import com.toadstoolstudios.lilwings.api.PatreonManager;
 import com.toadstoolstudios.lilwings.client.entity.ButterflyRenderer;
 import com.toadstoolstudios.lilwings.client.entity.JarEntityRenderer;
-import com.toadstoolstudios.lilwings.client.entity.patron.PatreonButterflyModel;
 import com.toadstoolstudios.lilwings.client.particle.AmethystGrowProvider;
 import com.toadstoolstudios.lilwings.client.particle.BrownParticleProvider;
 import com.toadstoolstudios.lilwings.client.particle.GoldAppleHeartsProvider;
@@ -11,7 +10,6 @@ import com.toadstoolstudios.lilwings.platform.ClientServices;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import com.toadstoolstudios.lilwings.registry.LilWingsParticles;
 import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.render.RenderLayer;
 
 public class LilWingsClient {
@@ -23,7 +21,6 @@ public class LilWingsClient {
 
         ClientServices.CLIENT.renderBlockRenderers(LilWingsBlocks.BUTTERFLY_JAR, RenderLayer.getCutout());
         ClientServices.CLIENT.registerBlockEntityRenderer(LilWingsBlocks.BUTTERFLY_JAR_ENTITY, (ctx) -> new JarEntityRenderer());
-        PatreonManager.init();
     }
 
     public static void initParticleFactories() {

@@ -1,6 +1,7 @@
 package com.toadstoolstudios.lilwings.forge;
 
 import com.toadstoolstudios.lilwings.LilWings;
+import com.toadstoolstudios.lilwings.api.PatreonManager;
 import com.toadstoolstudios.lilwings.compat.TOPCompat;
 import com.toadstoolstudios.lilwings.forge.platform.ForgeRegistryHelper;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
@@ -18,6 +19,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.biome.SpawnSettings;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -25,6 +27,7 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -107,6 +110,7 @@ public class ForgeLilWings {
 
     public void onComplete(FMLLoadCompleteEvent event) {
         LilWingsEntities.addSpawnPlacements();
+        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> PatreonManager::init);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)

@@ -3,20 +3,33 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.patreon_butterfly",
 				"texture_width": 32,
 				"texture_height": 32,
-				"visible_bounds_width": 2,
+				"visible_bounds_width": 3,
 				"visible_bounds_height": 2.5,
 				"visible_bounds_offset": [0, 0.75, 0]
 			},
 			"bones": [
 				{
-					"name": "bb_main",
+					"name": "butterfly",
 					"pivot": [0, 0, 0],
+					"rotation": [0, 90, 0]
+				},
+				{
+					"name": "left_wing",
+					"parent": "butterfly",
+					"pivot": [0, 8, 12],
 					"cubes": [
-						{"origin": [0, 5, 4], "size": [0, 6, 3], "pivot": [0, 8, 4], "rotation": [29.52015, -46.04179, -22.17599], "uv": [6, 13]},
-						{"origin": [0, 5, 4], "size": [0, 6, 3], "pivot": [0, 8, 4], "rotation": [38.24671, 56.46179, 33.3055], "uv": [0, 13]}
+						{"origin": [0, 5, 12], "size": [0, 6, 3], "pivot": [0, 8, 12], "rotation": [180, 30, 90], "uv": [0, 13]}
+					]
+				},
+				{
+					"name": "right_wing",
+					"parent": "butterfly",
+					"pivot": [0, 8, 12],
+					"cubes": [
+						{"origin": [0, 5, 12], "size": [0, 6, 3], "pivot": [0, 8, 12], "rotation": [0, 30, -90], "uv": [6, 13]}
 					]
 				}
 			]

@@ -1,8 +1,10 @@
 package com.toadstoolstudios.lilwings;
 
+import com.toadstoolstudios.lilwings.api.PatreonManager;
 import com.toadstoolstudios.lilwings.client.entity.ButterflyElytraLayer;
-import com.toadstoolstudios.lilwings.client.entity.patron.PatreonButterflyModel;
-import com.toadstoolstudios.lilwings.client.entity.patron.PatreonLayerRenderer;
+import com.toadstoolstudios.lilwings.client.patron.PatreonButterflyModel;
+import com.toadstoolstudios.lilwings.client.patron.PatreonFlutteringModel;
+import com.toadstoolstudios.lilwings.client.patron.PatreonLayerRenderer;
 import com.toadstoolstudios.lilwings.platform.FabricRegistryHelper;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -41,5 +43,6 @@ public class FabricLilWingsClient implements ClientModInitializer {
                 registrationHelper.register(new PatreonLayerRenderer(playerRenderer, context));
             }
         });
+        PatreonManager.init();
     }
 }
