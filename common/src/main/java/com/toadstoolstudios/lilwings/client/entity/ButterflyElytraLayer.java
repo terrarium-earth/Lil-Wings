@@ -35,14 +35,6 @@ public class ButterflyElytraLayer<T extends LivingEntity, M extends EntityModel<
         if (itemstack.getItem() instanceof IButterflyElytra elytraItem) {
             Identifier resourcelocation = elytraItem.getTexture();
 
-            if (pLivingEntity instanceof AbstractClientPlayerEntity clientPlayer) {
-                if (clientPlayer.canRenderElytraTexture() && clientPlayer.getElytraTexture() != null) {
-                    resourcelocation = clientPlayer.getElytraTexture();
-                } else if (clientPlayer.canRenderCapeTexture() && clientPlayer.getCapeTexture() != null && clientPlayer.isPartVisible(PlayerModelPart.CAPE)) {
-                    resourcelocation = clientPlayer.getCapeTexture();
-                }
-            }
-
             pMatrixStack.push();
             pMatrixStack.translate(0, 0, 0.125);
             this.getContextModel().copyStateTo(this.elytraModel);

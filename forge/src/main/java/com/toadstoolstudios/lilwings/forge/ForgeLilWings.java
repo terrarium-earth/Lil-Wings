@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -54,12 +55,8 @@ public class ForgeLilWings {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         bus.addListener(this::init);
-        bus.addListener(this::initClient);
         bus.addListener(this::onComplete);
         bus.addListener(this::attributeEvent);
-        bus.addListener(ForgeLilWingsClient::addLayers);
-        bus.addListener(ForgeLilWingsClient::addLayerDefinitons);
-        bus.addListener(ForgeLilWingsClient::particleEvent);
 
         ForgeRegistryHelper.ENTITY_TYPES.register(bus);
         ForgeRegistryHelper.BLOCKS.register(bus);
@@ -104,13 +101,9 @@ public class ForgeLilWings {
         });
     }
 
-    public void initClient(FMLClientSetupEvent event) {
-        ForgeLilWingsClient.init();
-    }
-
     public void onComplete(FMLLoadCompleteEvent event) {
         LilWingsEntities.addSpawnPlacements();
-        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> PatreonManager::init);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> PatreonManager::init);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)

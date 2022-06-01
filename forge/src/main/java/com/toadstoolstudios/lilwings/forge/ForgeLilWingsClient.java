@@ -8,10 +8,21 @@ import com.toadstoolstudios.lilwings.client.patron.PatreonLayerRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+@Mod.EventBusSubscriber(modid = "lilwings", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeLilWingsClient {
-    public static void init() {
+    @SubscribeEvent
+    public static void init(FMLClientSetupEvent event) {
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         LilWingsClient.init();
+        bus.addListener(ForgeLilWingsClient::addLayers);
+        bus.addListener(ForgeLilWingsClient::addLayerDefinitons);
+        bus.addListener(ForgeLilWingsClient::particleEvent);
     }
 
     public static void addLayers(EntityRenderersEvent.AddLayers event) {

@@ -29,10 +29,10 @@ public class PatreonManager {
             .connectTimeout(Duration.ofSeconds(10))
             .build();
 
-    public static final String URL = "https://raw.githubusercontent.com/terrarium-earth/Lil-Wings/crossplatform/patrons.json";
+    public static final String URL = "https://raw.githubusercontent.com/terrarium-earth/Patreon-Info/main/lilwings.json";
 
     public static void init() {
-        LOGGER.info("Attempted ")
+        LOGGER.info("Attempting Patreon fetching");
         try {
             HttpRequest request = HttpRequest.newBuilder(new URI(URL))
                     .GET()
@@ -55,12 +55,12 @@ public class PatreonManager {
     }
 
     public static boolean isUserPatron(UUID uuid) {
-        //return isInDev() || patrons.getPatrons().contains(uuid);
-        return patrons.getPatrons().contains(uuid);
+        return patrons != null && patrons.getPatrons().contains(uuid);
     }
 
     @Nullable
     public static PatreonData.ButterflyType getButterflyType(UUID uuid) {
-        return isInDev() ? PatreonData.ButterflyType.CRYSTAL_PUFF : patrons.getLeveledPatrons().get(uuid);
+        if(patrons != null) return patrons.getLeveledPatrons().get(uuid);
+        return null;
     }
 }
