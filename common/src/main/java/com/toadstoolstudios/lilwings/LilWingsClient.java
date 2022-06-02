@@ -1,6 +1,5 @@
 package com.toadstoolstudios.lilwings;
 
-import com.toadstoolstudios.lilwings.api.PatreonManager;
 import com.toadstoolstudios.lilwings.client.entity.ButterflyRenderer;
 import com.toadstoolstudios.lilwings.client.entity.JarEntityRenderer;
 import com.toadstoolstudios.lilwings.client.particle.AmethystGrowProvider;

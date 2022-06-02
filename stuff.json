@@ -16,19 +16,18 @@
         },
         {
           "name": "Links",
-          "value": "[:curseforge: Curseforge](https://www.curseforge.com/minecraft/mc-mods/chipped), [:github: Source](https://github.com/WillowWorks/Chipped), [:warning: Issues](https://github.com/WillowWorks/Chipped/issues)"
+          "value": "[<:curseforge:978684543026462790> Curseforge](https://www.curseforge.com/minecraft/mc-mods/chipped), [<:github:981406690404622406> Source](https://github.com/terrarium-earth/Chipped), [:warning: Issues](https://github.com/terrarium-earth/Chipped/issues)"
         }
       ]
     },
     {
       "title": "Handcrafted",
       "description": "A happy little set of furniture mods",
-      "url": "https://www.curseforge.com/minecraft/mc-mods/handcrafted",
       "color": 9722111,
       "fields": [
         {
           "name": "Credits",
-          "value": "<@440950439979253762>, <@492420037139890186>, <@218557488142876683>, <@741191477576859679>"
+          "value": "<@440950439979253762>, <@218557488142876683>, <@394270361983778816>"
         },
         {
           "name": "Supported Versions",
@@ -36,66 +35,33 @@
         },
         {
           "name": "Links",
-          "value": "[:github: ](https://github.com/WillowWorks/Homebodies-Fantasy)"
-        },
-        {
-          "name": "Issues",
-          "value": "https://github.com/WillowWorks/Homebodies-Fantasy/issues"
+          "value": "[<:curseforge:978684543026462790> Curseforge](https://www.curseforge.com/minecraft/mc-mods/handcrafted), [<:github:981406690404622406> Source](https://github.com/terrarium-earth/Handcrafted), [:warning: Issues](https://github.com/terrarium-earth/Handcrafted/issues)"
         }
       ]
     },
     {
-      "title": "Playdate",
-      "description": "A vanilla-esque mod adding toy decorations with horror aspects!",
-      "url": "https://www.curseforge.com/minecraft/mc-mods/playdate",
-      "color": 14721023,
+      "title": "Lil' Wings",
+      "description": "A Soul Shards inspired mod - Spawn your own mobs with an enhanced, customizable mob spawner",
+      "color": 16734296,
       "fields": [
         {
           "name": "Credits",
-          "value": "<@741191477576859679>, <@135467966014816256>"
+          "value": "<@440950439979253762>, <@218557488142876683>, <@185789074873778177>, <@135467966014816256>"
         },
         {
           "name": "Supported Versions",
-          "value": "Forge/Fabric 1.18.1\nForge/Fabric 1.18.2"
+          "value": "Forge/Fabric 1.18.2"
         },
         {
-          "name": "Source",
-          "value": "https://github.com/Toadstool-Studios/Playdate"
-        },
-        {
-          "name": "Issues",
-          "value": "https://github.com/Toadstool-Studios/Playdate/issues"
-        }
-      ]
-    },
-    {
-      "title": "Spirit",
-      "description": "Spirit - a Soul Shards inspired mod - Spawn your own mobs with an enhanced, customizable mob spawner",
-      "url": "https://www.curseforge.com/minecraft/mc-mods/spirit",
-      "color": 5814783,
-      "fields": [
-        {
-          "name": "Credits",
-          "value": "<@218557488142876683>, <@394270361983778816>, <@123227872163921924>, <@135467966014816256>, <@440950439979253762>"
-        },
-        {
-          "name": "Supported Versions",
-          "value": "Fabric 1.17.1\nForge/Fabric 1.18.2"
-        },
-        {
-          "name": "Source",
-          "value": "https://github.com/Toadstool-Studios/Spirit"
-        },
-        {
-          "name": "Issues",
-          "value": "https://github.com/Toadstool-Studios/Spirit/issues"
+          "name": "Links",
+          "value": "[<:curseforge:978684543026462790> Curseforge](https://www.curseforge.com/minecraft/mc-mods/lil-wings), [<:github:981406690404622406> Source](https://github.com/terrarium-earth/Lil-Wings), [:warning: Issues](https://github.com/terrarium-earth/Lil-Wings/issues)"
         }
       ]
     },
     {
       "title": "Spirit",
       "description": "A Soul Shards inspired mod - Spawn your own mobs with an enhanced, customizable mob spawner",
-      "color": 16756568,
+      "color": 5827583,
       "fields": [
         {
           "name": "Credits",
@@ -103,30 +69,11 @@
         },
         {
           "name": "Supported Versions",
-          "value": "Fabric 1.17.1\nForge/Fabric 1.18.2"
+          "value": "Fabric 1.17.1\nForge/Fabric 1.18.2 \nFabric 1.19 Snapshot"
         },
         {
           "name": "Links",
-          "value": "[:curseforge: Curseforge](https://www.curseforge.com/minecraft/mc-mods/beasts), [:github: Source](https://github.com/MsRandom/BeastsMod), [:warning: Issues](https://github.com/MsRandom/BeastsMod/issues)"
-        }
-      ]
-    },
-    {
-      "title": "Beasts",
-      "description": "Welcome to Beasts, a mod that aims to add more fun, unique creatures to the game.",
-      "color": 16756568,
-      "fields": [
-        {
-          "name": "Credits",
-          "value": "<@394270361983778816>, <@224632987566866432>"
-        },
-        {
-          "name": "Supported Versions",
-          "value": "Fabric 1.17.1\nForge/Fabric 1.18.2"
-        },
-        {
-          "name": "Links",
-          "value": "[:curseforge: Curseforge](https://www.curseforge.com/minecraft/mc-mods/beasts), [:github: Source](https://github.com/MsRandom/BeastsMod), [:warning: Issues](https://github.com/MsRandom/BeastsMod/issues)"
+          "value": "[<:curseforge:978684543026462790> Curseforge](https://www.curseforge.com/minecraft/mc-mods/spirit), [<:github:981406690404622406> Source](https://github.com/terrarium-earth/Spirit), [:warning: Issues](https://github.com/terrarium-earth/Spirit/issues)"
         }
       ]
     },
@@ -145,7 +92,26 @@
         },
         {
           "name": "Links",
-          "value": "[:curseforge: Curseforge](https://www.curseforge.com/minecraft/mc-mods/super-ores), [:github: Source](https://github.com/abused/SuperOres), [:warning: Issues](https://github.com/abused/SuperOres/issues), [:book: Wiki](https://github.com/abused/SuperOres/issues)"
+          "value": "[<:curseforge:978684543026462790> Curseforge](https://www.curseforge.com/minecraft/mc-mods/super-ores), [<:github:981406690404622406> Source](https://github.com/abused/SuperOres), [:warning: Issues](https://github.com/abused/SuperOres/issues), [:book: Wiki](https://github.com/abused/SuperOres/issues)"
+        }
+      ]
+    },
+    {
+      "title": "Tempad",
+      "description": "Create a portal to anywhere from anywhere. For all time. Always.",
+      "color": 16086528,
+      "fields": [
+        {
+          "name": "Credits",
+          "value": "<@218557488142876683>, <@440950439979253762>, <@394270361983778816>"
+        },
+        {
+          "name": "Supported Versions",
+          "value": "Forge/Fabric 1.18.2 \nFabric 1.19 Snapshot"
+        },
+        {
+          "name": "Links",
+          "value": "[<:curseforge:978684543026462790> Curseforge](https://www.curseforge.com/minecraft/mc-mods/tempad), [<:github:981406690404622406> Source](https://github.com/terrarium-earth/Tempad), [:warning: Issues](https://github.com/terrarium-earth/Tempad/issues)"
         }
       ]
     }
