@@ -13,6 +13,7 @@ import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
@@ -61,16 +62,6 @@ public class LilWingsRegistry {
 
     @ExpectPlatform
     public static <T extends Entity> Supplier<EntityType<T>> registerEntity(String name, EntityType.EntityFactory<T> factory, SpawnGroup group, float width, float height) {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static void addEntityToBiome(Biome.Category category, SpawnData data) {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static void addEntityToBiome(RegistryKey<Biome> biome, SpawnData data) {
         throw new AssertionError();
     }
 

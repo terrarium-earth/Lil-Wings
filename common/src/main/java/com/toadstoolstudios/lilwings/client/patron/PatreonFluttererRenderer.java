@@ -12,7 +12,8 @@ public class PatreonFluttererRenderer implements IGeoRenderer<PatreonFlutteringB
     }
 
     @Override
-    public Identifier getTextureLocation(PatreonFlutteringButterfly instance) {
+    public Identifier getTextureResource(PatreonFlutteringButterfly instance) {
         return instance.getTexture();
     }
+
 }

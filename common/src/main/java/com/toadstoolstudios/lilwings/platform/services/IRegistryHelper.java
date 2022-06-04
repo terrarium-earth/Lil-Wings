@@ -13,6 +13,7 @@ import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
@@ -40,7 +41,7 @@ public interface IRegistryHelper {
 
     <T extends Entity> Supplier<EntityType<T>> registerEntity(String name, EntityType.EntityFactory<T> factory, SpawnGroup group, float width, float height);
 
-    void addEntityToBiome(Biome.Category category, SpawnData data);
+    void addEntityToBiome(BiomeTags category, SpawnData data);
 
     void addEntityToBiome(RegistryKey<Biome> biome, SpawnData data);
 

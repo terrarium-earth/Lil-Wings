@@ -16,7 +16,7 @@ public class BrownParticleProvider implements ParticleFactory<DefaultParticleTyp
     }
 
     public Particle createParticle(DefaultParticleType pType, ClientWorld pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-        Random random = pLevel.random;
+        var random = pLevel.random;
         double d0 = random.nextGaussian() * (double) 1.0E-6F;
         double d1 = random.nextGaussian() * (double) 1.0E-4F;
         double d2 = random.nextGaussian() * (double) 1.0E-6F;

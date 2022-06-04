@@ -17,6 +17,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -68,14 +69,6 @@ public class LilWingsRegistryImpl {
     public static  <T extends Entity> Supplier<EntityType<T>> registerEntity(String name, EntityType.EntityFactory<T> factory, SpawnGroup group, float width, float height) {
         var object = Registry.register(Registry.ENTITY_TYPE, new Identifier(LilWings.MODID, name), FabricEntityTypeBuilder.create(group, factory).dimensions(EntityDimensions.fixed(width, height)).build());
         return () -> object;
-    }
-
-    public static void addEntityToBiome(Biome.Category category, SpawnData data) {
-        BiomeModifications.addSpawn(BiomeSelectors.categories(category), data.group(), data.entityType(), data.weight(), data.min(), data.max());
-    }
-
-    public static void addEntityToBiome(RegistryKey<Biome> biome, SpawnData data) {
-        BiomeModifications.addSpawn(biomeSelectionContext -> biomeSelectionContext.getBiomeKey().equals(biome), data.group(), data.entityType(), data.weight(), data.min(), data.max());
     }
 
     public static <T extends MobEntity> void setSpawnRules(Supplier<EntityType<T>> entityType, SpawnRestriction.Location location, Heightmap.Type type, SpawnRestriction.SpawnPredicate<T> predicate) {

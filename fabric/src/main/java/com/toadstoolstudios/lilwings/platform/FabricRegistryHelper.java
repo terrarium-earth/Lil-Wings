@@ -14,10 +14,12 @@ import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.world.BiomeColorCache;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -80,8 +82,7 @@ public class FabricRegistryHelper implements IRegistryHelper {
     }
 
     @Override
-    public void addEntityToBiome(Biome.Category category, SpawnData data) {
-        BiomeModifications.addSpawn(BiomeSelectors.categories(category), data.group(), data.entityType(), data.weight(), data.min(), data.max());
+    public void addEntityToBiome(BiomeTags category, SpawnData data) {
     }
 
     @Override

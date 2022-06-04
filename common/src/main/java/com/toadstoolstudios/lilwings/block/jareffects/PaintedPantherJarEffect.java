@@ -88,7 +88,7 @@ public class PaintedPantherJarEffect implements JarEffect {
         if (!blockstate.isAir()) {
             double d0 = 0.5D;
             double d1 = blockstate.getOutlineShape(pLevel, pPos).getMax(Direction.Axis.Y);
-            Random random = pLevel.getRandom();
+            var random = pLevel.getRandom();
             pLevel.spawnParticles(ParticleTypes.HAPPY_VILLAGER, (double) pPos.getX() + 0.5D, (double) pPos.getY() + 0.5D, (double) pPos.getZ() + 0.5D, 1, 0, 0, 0, 0);
 
 

@@ -32,7 +32,7 @@ public class EnderWingJarEffect implements JarEffect {
             ServerWorld serverLevel = (ServerWorld) level;
             if (player != null) {
                 BlockPos pos = getRandomPos(level, player);
-                ((ServerPlayerEntity) player).networkHandler.sendPacket(new PlaySoundIdS2CPacket(SoundEvents.ENTITY_ENDERMAN_TELEPORT.getId(), SoundCategory.MASTER, new Vec3d(pos.getX(), pos.getY(), pos.getZ()), 1, 1));
+                ((ServerPlayerEntity) player).networkHandler.sendPacket(new PlaySoundIdS2CPacket(SoundEvents.ENTITY_ENDERMAN_TELEPORT.getId(), SoundCategory.MASTER, new Vec3d(pos.getX(), pos.getY(), pos.getZ()), 1, 1, ((ServerWorld) level).getSeed()));
 
                 player.requestTeleport(pos.getX(), pos.getY(), pos.getZ());
                 serverLevel.spawnParticles(getParticleType(), player.getX(), player.getY(), player.getZ(), 100, 0.5, 0.5, 0.5, 0.5);
@@ -43,8 +43,8 @@ public class EnderWingJarEffect implements JarEffect {
     }
 
     public BlockPos getRandomPos(World level, PlayerEntity player) {
-        int x = MathHelper.nextInt(random, -100, 100) + player.getBlockPos().getX();
-        int z = MathHelper.nextInt(random, -100, 100) + player.getBlockPos().getZ();
+        int x = MathHelper.nextInt(level.random, -100, 100) + player.getBlockPos().getX();
+        int z = MathHelper.nextInt(level.random, -100, 100) + player.getBlockPos().getZ();
         int y = getSpawnY(level, x, z);
 
         return new BlockPos(x, y, z);
