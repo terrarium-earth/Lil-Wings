@@ -17,13 +17,12 @@ public class ButterflyModel extends AnimatedGeoModel<ButterflyEntity> {
     }
 
     @Override
-    public Identifier getModelLocation(ButterflyEntity object) {
-        //return object.getButterfly().equals(LilWingsEntities.ENDER_WING_BUTTERFLY) ? new Identifier(LilWings.MODID, "geo/enderwing.geo.json") : new Identifier(LilWings.MODID, "geo/butterfly.geo.json");
+    public Identifier getModelResource(ButterflyEntity object) {
         return new Identifier(LilWings.MODID, "geo/butterfly.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(ButterflyEntity object) {
+    public Identifier getTextureResource(ButterflyEntity object) {
         if (object.getType() == LilWingsEntities.GRAYLING_BUTTERFLY.entityType().get() && object.getColorType() != null) {
             GraylingType type = object.getColorType();
             return new Identifier(LilWings.MODID, "textures/entity/" + butterflyTexture + type.getTextureColor() + ".png");
@@ -33,7 +32,7 @@ public class ButterflyModel extends AnimatedGeoModel<ButterflyEntity> {
     }
 
     @Override
-    public Identifier getAnimationFileLocation(ButterflyEntity animatable) {
+    public Identifier getAnimationResource(ButterflyEntity animatable) {
         return new Identifier(LilWings.MODID, "animations/butterfly_idle.animation.json");
     }
 }

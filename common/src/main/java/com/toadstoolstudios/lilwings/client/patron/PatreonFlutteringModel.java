@@ -16,22 +16,21 @@ public class PatreonFlutteringModel extends AnimatedGeoModel<PatreonFlutteringBu
     public static final EntityModelLayer LAYER = new EntityModelLayer(new Identifier(LilWings.MODID, "higher_patreon_butterfly"), "main");
 
     public GeoModel getModel(PatreonFlutteringButterfly butterfly) {
-        return this.getModel(this.getModelLocation(butterfly));
+        return this.getModel(this.getModelResource(butterfly));
     }
 
     @Override
-    public Identifier getModelLocation(PatreonFlutteringButterfly object) {
+    public Identifier getModelResource(PatreonFlutteringButterfly object) {
         return new Identifier(LilWings.MODID, "geo/patreon_butterfly.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(PatreonFlutteringButterfly object) {
+    public Identifier getTextureResource(PatreonFlutteringButterfly object) {
         return object.getTexture();
     }
 
     @Override
-    public Identifier getAnimationFileLocation(PatreonFlutteringButterfly animatable) {
+    public Identifier getAnimationResource(PatreonFlutteringButterfly animatable) {
         return new Identifier(LilWings.MODID, "animations/patreon_butterfly.animation.json");
     }
-
 }

@@ -35,7 +35,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -116,14 +116,14 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
         ItemStack handStack = player.getStackInHand(hand);
         boolean canCatch = butterfly.netItem() == null ? handStack.isOf(LilWingsItems.BUTTERFLY_NET.get()) || handStack.isOf(LilWingsItems.ENDERFLY_NET.get()) : handStack.isOf(butterfly.netItem().get());
         if (world.isClient() && !canCatch && handStack.getItem() instanceof ButterflyNetItem) {
-            player.sendMessage(new TranslatableText("entity.lilwings.interactions.error.invalid_net"), true);
+            player.sendMessage(Text.translatable("entity.lilwings.interactions.error.invalid_net"), true);
         }
 
         if (!world.isClient() && hand == Hand.MAIN_HAND && canCatch && butterfly.catchAmount() > 0 && handStack.getItem() instanceof ButterflyNetItem) {
             //int slot = player.getInventory().findSlotMatchingItem(LilWingsBlocks.BUTTERFLY_JAR_ITEM.get().getDefaultInstance());
 
             if(handStack.getOrCreateNbt().contains("butterfly")) {
-                player.sendMessage(new TranslatableText("entity.lilwings.interactions.error.full_net"), true);
+                player.sendMessage(Text.translatable("entity.lilwings.interactions.error.full_net"), true);
                 return ActionResult.FAIL;
             }
 
@@ -142,7 +142,7 @@ public class ButterflyEntity extends AnimalEntity implements Flutterer, IAnimata
                 tag.putString("butterflyId", EntityType.getId(getType()).toString());
                 handStack.setNbt(tag);
 
-                player.sendMessage(new TranslatableText("entity.lilwings.interactions.success"), true);
+                player.sendMessage(Text.translatable("entity.lilwings.interactions.success"), true);
                 this.remove(RemovalReason.DISCARDED);
                 return ActionResult.SUCCESS;
             }

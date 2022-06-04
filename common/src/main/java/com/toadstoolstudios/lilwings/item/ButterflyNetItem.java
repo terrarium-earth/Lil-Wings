@@ -39,7 +39,7 @@ public class ButterflyNetItem extends Item {
         super.appendTooltip(stack, world, tooltip, context);
         if(stack.getOrCreateNbt().contains("butterfly")) {
             String butterflyName = Util.createTranslationKey("entity", new Identifier(stack.getNbt().getString("butterflyId")));
-            tooltip.add(new TranslatableText("tooltip.butterfly_net.prefix").append(new TranslatableText(butterflyName)).formatted(Formatting.GRAY));
+            tooltip.add(Component.translatable("tooltip.butterfly_net.prefix").append(Component.translatable(butterflyName)).formatted(Formatting.GRAY));
         }
     }
 
