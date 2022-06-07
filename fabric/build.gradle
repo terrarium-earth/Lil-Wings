@@ -20,7 +20,7 @@ dependencies {
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
     //modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rootProject.rei_version}"
     //modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}"
-    //modApi(include("io.github.tropheusj:milk-lib:${project.milk_lib_version}"))
+    modApi(include("io.github.tropheusj:milk-lib:${project.milk_lib_version}"))
     //modImplementation "vazkii.patchouli:Patchouli:1.18.2-66-FABRIC"
     modImplementation "software.bernie.geckolib:${rootProject.geckolib_fabric_version}"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }

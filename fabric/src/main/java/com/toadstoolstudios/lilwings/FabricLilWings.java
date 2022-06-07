@@ -3,6 +3,7 @@ package com.toadstoolstudios.lilwings;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import com.toadstoolstudios.lilwings.registry.LilWingsEntities;
 import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
+import io.github.tropheusj.milk.Milk;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -25,8 +26,8 @@ import net.minecraft.world.biome.BiomeKeys;
 public class FabricLilWings implements ModInitializer {
     @Override
     public void onInitialize() {
-        //Milk.enableMilkFluid();
-        //Milk.enableCauldron();
+        Milk.enableMilkFluid();
+        Milk.enableCauldron();
         LilWings.init();
         LilWingsEntities.addSpawnPlacements();
         for (Butterfly butterfly : Butterfly.BUTTERFLIES.values()) {
