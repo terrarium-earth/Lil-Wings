@@ -23,13 +23,18 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import java.util.Map;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = "lilwings", bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = "lilwings", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeLilWingsClient {
+
+    public ForgeLilWingsClient() {
+    }
+
     @SubscribeEvent
     public static void init(FMLClientSetupEvent event) {
         LilWingsClient.init();
     }
 
+    @SubscribeEvent
     public static void addLayers(EntityRenderersEvent.AddLayers event) {
         PlayerEntityRenderer defaultRenderer = event.getSkin("default");
         PlayerEntityRenderer slimRenderer = event.getSkin("slim");
@@ -42,11 +47,12 @@ public class ForgeLilWingsClient {
         }
     }
 
+    @SubscribeEvent
     public static void addLayerDefinitons(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(PatreonButterflyModel.LAYER, PatreonButterflyModel::getTexturedModelData);
     }
 
-
+    @SubscribeEvent
     public static void particleEvent(ParticleFactoryRegisterEvent event) {
         LilWingsClient.initParticleFactories();
     }
