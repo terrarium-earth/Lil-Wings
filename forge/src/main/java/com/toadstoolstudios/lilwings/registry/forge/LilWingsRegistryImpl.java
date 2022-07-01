@@ -3,20 +3,19 @@ package com.toadstoolstudios.lilwings.registry.forge;
 import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.forge.ForgeButterflyElytra;
 import com.toadstoolstudios.lilwings.platform.services.IRegistryHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.*;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.Heightmap;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.ElytraItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -35,11 +34,11 @@ public class LilWingsRegistryImpl {
         return ITEMS.register(id, item);
     }
 
-    public static <T extends MobEntity> Supplier<SpawnEggItem> registerSpawnEgg(String id, Supplier<EntityType<T>> entity, int primaryColor, int secondaryColor, Item.Settings settings) {
+    public static <T extends Mob> Supplier<SpawnEggItem> registerSpawnEgg(String id, Supplier<EntityType<T>> entity, int primaryColor, int secondaryColor, Item.Properties settings) {
         return ITEMS.register(id, () -> new ForgeSpawnEggItem(entity, primaryColor, secondaryColor, settings));
     }
 
-    public static Supplier<ElytraItem> registerElytra(String id, Identifier texture) {
+    public static Supplier<ElytraItem> registerElytra(String id, ResourceLocation texture) {
         return ITEMS.register(id, () -> new ForgeButterflyElytra(texture));
     }
 
@@ -51,12 +50,12 @@ public class LilWingsRegistryImpl {
         return BLOCK_ENTITIES.register(id, blockEntity);
     }
 
-    public static <T extends DefaultParticleType> Supplier<T> registerParticleType(String name, Supplier<T> particle) {
+    public static <T extends SimpleParticleType> Supplier<T> registerParticleType(String name, Supplier<T> particle) {
         return PARTICLE_TYPES.register(name, particle);
     }
 
     public static <E extends BlockEntity> BlockEntityType<E> createBlockEntityType(IRegistryHelper.BlockEntityFactory<E> factory, Block... blocks) {
-        return BlockEntityType.Builder.create(factory::create, blocks).build(null);
+        return BlockEntityType.Builder.of(factory::create, blocks).build(null);
     }
 
     public static <T extends Entity> Supplier<EntityType<T>> registerEntity(String name, EntityType.EntityFactory<T> factory, SpawnGroup group, float width, float height) {
@@ -64,8 +63,8 @@ public class LilWingsRegistryImpl {
     }
 
 
-    public static <T extends MobEntity> void setSpawnRules(Supplier<EntityType<T>> entityType, SpawnRestriction.Location location, Heightmap.Type type, SpawnRestriction.SpawnPredicate<T> predicate) {
-        SpawnRestriction.register(entityType.get(), location, type, predicate);
+    public static <T extends Mob> void setSpawnRules(Supplier<EntityType<T>> entityType, Spawn.Location location, Heightmap.Type type, SpawnPlacements.SpawnPredicate<T> predicate) {
+        SpawnPlacements.register(entityType.get(), location, type, predicate);
     }
 
     public static ItemGroup registerCreativeTab(Identifier tab, Supplier<ItemStack> supplier) {
