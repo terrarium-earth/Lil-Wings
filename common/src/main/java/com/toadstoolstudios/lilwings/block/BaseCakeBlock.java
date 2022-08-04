@@ -1,60 +1,59 @@
 package com.toadstoolstudios.lilwings.block;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class BaseCakeBlock extends CakeBlock {
     private final int hunger;
     private final float saturation;
 
     public BaseCakeBlock(int hunger, float saturation) {
-        super(AbstractBlock.Settings.of(Material.CAKE).strength(0.5F).sounds(BlockSoundGroup.WOOL));
+        super(BlockBehaviour.Properties.of(Material.CAKE).strength(0.5F).sound(SoundType.WOOL));
         this.hunger = hunger;
         this.saturation = saturation;
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack itemStack = player.getStackInHand(hand);
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getItemInHand(hand);
         Item item = itemStack.getItem();
-        if (itemStack.isIn(ItemTags.CANDLES) && state.get(BITES) == 0) {
-            Block block = Block.getBlockFromItem(item);
+        if (itemStack.is(ItemTags.CANDLES) && state.getValue(BITES) == 0) {
+            Block block = Block.byItem(item);
             if (block instanceof CandleBlock) {
                 if (!player.isCreative()) {
-                    itemStack.decrement(1);
+                    itemStack.shrink(1);
                 }
 
-                world.playSound(null, pos, SoundEvents.BLOCK_CAKE_ADD_CANDLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                world.setBlockState(pos, CandleCakeBlock.getCandleCakeFromCandle(block));
-                world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                player.incrementStat(Stats.USED.getOrCreateStat(item));
-                return ActionResult.SUCCESS;
+                world.playSound(null, pos, SoundEvents.CAKE_ADD_CANDLE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                world.setBlockAndUpdate(pos, CandleCakeBlock.byCandle(block));
+                world.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                player.awardStat(Stats.ITEM_USED.get(item));
+                return InteractionResult.SUCCESS;
             }
         }
 
-        if (world.isClient) {
-            if (tryEatCake(world, pos, state, player).isAccepted()) {
-                return ActionResult.SUCCESS;
+        if (world.isClientSide()) {
+            if (tryEatCake(world, pos, state, player).consumesAction()) {
+                return InteractionResult.SUCCESS;
             }
-
             if (itemStack.isEmpty()) {
-                return ActionResult.CONSUME;
+                return InteractionResult.CONSUME;
             }
         }
 
@@ -62,26 +61,26 @@ public class BaseCakeBlock extends CakeBlock {
     }
 
 
-    public ActionResult tryEatCake(WorldAccess world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!player.canConsume(false)) {
-            return ActionResult.PASS;
+    public InteractionResult tryEatCake(LevelAccessor world, BlockPos pos, BlockState state, Player player) {
+        if (!player.canEat(false)) {
+            return InteractionResult.PASS;
         } else {
             onPlayerEat(player);
-            int i = state.get(BITES);
-            world.emitGameEvent(player, GameEvent.EAT, pos);
+            int i = state.getValue(BITES);
+            world.gameEvent(player, GameEvent.EAT, pos);
             if (i < 6) {
-                world.setBlockState(pos, state.with(BITES, i + 1), 3);
+                world.setBlock(pos, state.setValue(BITES, i + 1), 3);
             } else {
                 world.removeBlock(pos, false);
-                world.emitGameEvent(player, GameEvent.BLOCK_DESTROY, pos);
+                world.gameEvent(player, GameEvent.BLOCK_DESTROY, pos);
             }
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
     }
 
-    public void onPlayerEat(PlayerEntity player) {
-        player.incrementStat(Stats.EAT_CAKE_SLICE);
-        player.getHungerManager().add(hunger, saturation);
+    public void onPlayerEat(Player player) {
+        player.awardStat(Stats.EAT_CAKE_SLICE);
+        player.getFoodData().eat(hunger, saturation);
     }
 }

@@ -1,7 +1,6 @@
 package com.toadstoolstudios.lilwings.client.patron;
 
-import net.minecraft.util.Identifier;
-import software.bernie.geckolib3.model.provider.GeoModelProvider;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 public class PatreonFluttererRenderer implements IGeoRenderer<PatreonFlutteringButterfly> {
@@ -12,7 +11,7 @@ public class PatreonFluttererRenderer implements IGeoRenderer<PatreonFlutteringB
     }
 
     @Override
-    public Identifier getTextureLocation(PatreonFlutteringButterfly instance) {
+    public ResourceLocation getTextureResource(PatreonFlutteringButterfly instance) {
         return instance.getTexture();
     }
 }

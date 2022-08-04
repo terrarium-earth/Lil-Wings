@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#forge:is_swamp",
+  "spawners": {
+    "type": "lilwings:swamp_hopper_butterfly",
+    "weight": 7,
+    "minCount": 2,
+    "maxCount": 2
+  }
+}

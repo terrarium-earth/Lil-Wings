@@ -1,6 +1,6 @@
 package com.toadstoolstudios.lilwings.registry;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 
-public record SpawnData(EntityType<?> entityType, SpawnGroup group, int weight, int min, int max) {}
+public record SpawnData(EntityType<?> entityType, MobCategory group, int weight, int min, int max) {}

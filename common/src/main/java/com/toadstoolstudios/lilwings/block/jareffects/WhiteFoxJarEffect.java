@@ -1,14 +1,14 @@
 package com.toadstoolstudios.lilwings.block.jareffects;
 
 import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class WhiteFoxJarEffect implements JarEffect {
 
@@ -16,8 +16,8 @@ public class WhiteFoxJarEffect implements JarEffect {
     private int cooldown;
 
     @Override
-    public void tickEffect(World level, ButterflyJarBlockEntity blockEntity) {
-        if (level.isClient()) return;
+    public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
+        if (level.isClientSide()) return;
         cooldown++;
 
         if (cooldown >= MAX_COOLDOWN) {
@@ -28,10 +28,10 @@ public class WhiteFoxJarEffect implements JarEffect {
                 int tries = 0;
                 int areaTries = 0;
                 do {
-                    randomPos = blockEntity.getPos().add(getRandomPos().down());
+                    randomPos = blockEntity.getBlockPos().offset(getRandomPos().below());
                     isValid = isValidPos(level, randomPos);
 
-                    if (level.getBlockState(randomPos.up()).isOf(Blocks.SNOW)) {
+                    if (level.getBlockState(randomPos.above()).is(Blocks.SNOW)) {
                         areaTries++;
                     } else {
                         tries++;
@@ -39,10 +39,10 @@ public class WhiteFoxJarEffect implements JarEffect {
                 } while ((tries < 3 || areaTries < area.size()) && !isValid);
 
                 if (isValid) {
-                    ServerWorld serverLevel = (ServerWorld) level;
-                    BlockPos snowPos = randomPos.up();
-                    serverLevel.spawnParticles(getParticleType(), snowPos.getX() + 0.5, snowPos.getY() + 0.08f, snowPos.getZ() + 0.5, 100, 0, 0, 0, 0.25f);
-                    level.setBlockState(snowPos, Blocks.SNOW.getDefaultState(), Block.NOTIFY_ALL);
+                    ServerLevel serverLevel = (ServerLevel) level;
+                    BlockPos snowPos = randomPos.above();
+                    serverLevel.sendParticles(getParticleType(), snowPos.getX() + 0.5, snowPos.getY() + 0.08f, snowPos.getZ() + 0.5, 100, 0, 0, 0, 0.25f);
+                    level.setBlock(snowPos, Blocks.SNOW.defaultBlockState(), Block.UPDATE_ALL);
                 }
             }
 
@@ -51,15 +51,15 @@ public class WhiteFoxJarEffect implements JarEffect {
     }
 
     @Override
-    public ParticleEffect getParticleType() {
+    public ParticleOptions getParticleType() {
         return ParticleTypes.SNOWFLAKE;
     }
 
-    public boolean isValidPos(World level, BlockPos pos) {
+    public boolean isValidPos(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        BlockPos abovePos = pos.up();
+        BlockPos abovePos = pos.above();
 
-        return !state.getMaterial().isReplaceable() && level.isAir(abovePos) && level.isInBuildLimit(abovePos) &&
-                Blocks.SNOW.getDefaultState().canPlaceAt(level, abovePos);
+        return !state.getMaterial().isReplaceable() && level.isEmptyBlock(abovePos) && level.isInWorldBounds(abovePos) &&
+                Blocks.SNOW.defaultBlockState().canSurvive(level, abovePos);
     }
 }

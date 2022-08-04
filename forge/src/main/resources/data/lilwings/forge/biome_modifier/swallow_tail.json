@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#minecraft:has_structure/village_plains",
+  "spawners": {
+    "type": "lilwings:swallow_tail_butterfly",
+    "weight": 7,
+    "minCount": 2,
+    "maxCount": 2
+  }
+}

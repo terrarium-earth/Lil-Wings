@@ -2,20 +2,18 @@ package com.toadstoolstudios.lilwings.forge;
 
 import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.item.IButterflyElytra;
-import com.toadstoolstudios.lilwings.registry.LilWingsItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ElytraItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Rarity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ElytraItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import org.jetbrains.annotations.Nullable;
 
 public class ForgeButterflyElytra extends ElytraItem implements IButterflyElytra {
-    private final Identifier texture;
+    private final ResourceLocation texture;
 
-    public ForgeButterflyElytra(Identifier texture) {
-        super(new Settings().maxDamage(432).rarity(Rarity.RARE).group(LilWings.TAB));
+    public ForgeButterflyElytra(ResourceLocation texture) {
+        super(new Properties().durability(432).rarity(Rarity.RARE).tab(LilWings.TAB));
         this.texture = texture;
     }
 
@@ -26,7 +24,7 @@ public class ForgeButterflyElytra extends ElytraItem implements IButterflyElytra
     }
 
     @Override
-    public Identifier getTexture() {
+    public ResourceLocation getTexture() {
         return texture;
     }
 }

@@ -1,9 +1,8 @@
 package com.toadstoolstudios.lilwings.block;
 
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.stat.Stats;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 
 public class GoldenCakeBlock extends BaseCakeBlock {
 
@@ -12,9 +11,9 @@ public class GoldenCakeBlock extends BaseCakeBlock {
     }
 
     @Override
-    public void onPlayerEat(PlayerEntity player) {
+    public void onPlayerEat(Player player) {
         super.onPlayerEat(player);
-        player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 5 * 20, 2));
-        player.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 5 * 20));
+        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20, 2));
+        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 5 * 20));
     }
 }

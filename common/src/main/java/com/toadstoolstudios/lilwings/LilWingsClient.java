@@ -9,7 +9,7 @@ import com.toadstoolstudios.lilwings.platform.ClientServices;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import com.toadstoolstudios.lilwings.registry.LilWingsParticles;
 import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.renderer.RenderType;
 
 public class LilWingsClient {
 
@@ -18,7 +18,7 @@ public class LilWingsClient {
             ClientServices.CLIENT.registerEntityRenderers(butterfly.entityType(), renderProvider -> new ButterflyRenderer(renderProvider, butterfly.textureName()));
         }
 
-        ClientServices.CLIENT.renderBlockRenderers(LilWingsBlocks.BUTTERFLY_JAR, RenderLayer.getCutout());
+        ClientServices.CLIENT.renderBlockRenderers(LilWingsBlocks.BUTTERFLY_JAR, RenderType.cutout());
         ClientServices.CLIENT.registerBlockEntityRenderer(LilWingsBlocks.BUTTERFLY_JAR_ENTITY, (ctx) -> new JarEntityRenderer());
     }
 

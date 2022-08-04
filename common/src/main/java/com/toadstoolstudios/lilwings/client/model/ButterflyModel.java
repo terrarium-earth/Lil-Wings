@@ -5,35 +5,36 @@ import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
 import com.toadstoolstudios.lilwings.registry.LilWingsEntities;
 import com.toadstoolstudios.lilwings.registry.entity.GraylingType;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class ButterflyModel extends AnimatedGeoModel<ButterflyEntity> {
 
-    private final String butterflyTexture;
+    public final String butterflyTexture;
 
     public ButterflyModel(String butterflyTexture) {
         this.butterflyTexture = butterflyTexture;
     }
 
     @Override
-    public Identifier getModelLocation(ButterflyEntity object) {
-        //return object.getButterfly().equals(LilWingsEntities.ENDER_WING_BUTTERFLY) ? new Identifier(LilWings.MODID, "geo/enderwing.geo.json") : new Identifier(LilWings.MODID, "geo/butterfly.geo.json");
-        return new Identifier(LilWings.MODID, "geo/butterfly.geo.json");
+    public ResourceLocation getModelResource(ButterflyEntity object) {
+        //return object.getButterfly().equals(LilWingsEntities.ENDER_WING_BUTTERFLY) ? new ResourceLocation(LilWings.MODID, "geo/enderwing.geo.json") : new ResourceLocation(LilWings.MODID, "geo/butterfly.geo.json");
+        return new ResourceLocation(LilWings.MODID, "geo/butterfly.geo.json");
     }
 
+
+
     @Override
-    public Identifier getTextureLocation(ButterflyEntity object) {
+    public ResourceLocation getTextureResource(ButterflyEntity object) {
         if (object.getType() == LilWingsEntities.GRAYLING_BUTTERFLY.entityType().get() && object.getColorType() != null) {
             GraylingType type = object.getColorType();
-            return new Identifier(LilWings.MODID, "textures/entity/" + butterflyTexture + type.getTextureColor() + ".png");
+            return new ResourceLocation(LilWings.MODID, "textures/entity/" + butterflyTexture + type.getTextureColor() + ".png");
         }
-
-        return new Identifier(LilWings.MODID, "textures/entity/" + butterflyTexture + ".png");
+        return new ResourceLocation(LilWings.MODID, "textures/entity/" + butterflyTexture + ".png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(ButterflyEntity animatable) {
-        return new Identifier(LilWings.MODID, "animations/butterfly_idle.animation.json");
+    public ResourceLocation getAnimationResource(ButterflyEntity animatable) {
+        return new ResourceLocation(LilWings.MODID, "animations/butterfly_idle.animation.json");
     }
 }

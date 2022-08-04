@@ -1,17 +1,17 @@
 package com.toadstoolstudios.lilwings.entity.goals;
 
+import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.function.Predicate;
-
-import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 
 /**
  * Stolen from Resourceful Bees <3
@@ -25,8 +25,8 @@ public class FindFlowerGoal extends Goal {
     protected int pollinationTicks;
     protected boolean running = false;
     protected boolean completed = false;
-    protected Vec3d nextTarget;
-    protected Vec3d boundingBox;
+    protected Vec3 nextTarget;
+    protected Vec3 boundingBox;
 
     static {
         for (int i = 0; (double) i <= 5; i = i > 0 ? -i : 1 - i) {
@@ -42,7 +42,7 @@ public class FindFlowerGoal extends Goal {
 
     public FindFlowerGoal(ButterflyEntity butterfly) {
         this.butterfly = butterfly;
-        this.setControls(EnumSet.of(Control.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     @Override
@@ -74,8 +74,8 @@ public class FindFlowerGoal extends Goal {
     }
 
     @Override
-    public boolean canStart() {
-        if (butterfly.getFlowerCooldown() > 0 || butterfly.world.isRaining()) {
+    public boolean canUse() {
+        if (butterfly.getFlowerCooldown() > 0 || butterfly.level.isRaining()) {
             return false;
         } else {
             Optional<BlockPos> flowerPos = findFlower();
@@ -83,27 +83,26 @@ public class FindFlowerGoal extends Goal {
                 moveToFlower(flowerPos.get());
                 return true;
             } else {
-                updateCooldown(MathHelper.nextInt(butterfly.getRandom(), 400, 500));
+                updateCooldown(Mth.nextInt(butterfly.getRandom(), 400, 500));
             }
         }
 
         return false;
     }
 
-
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         return running && getSavedPos() != null && !this.completed;
     }
 
     protected void handleFlower() {
         if (getSavedPos() != null) {
-            Vec3d bottom = Vec3d.ofBottomCenter(getSavedPos()).add(0, 0.6f, 0);
+            Vec3 bottom = Vec3.atBottomCenterOf(getSavedPos()).add(0, 0.6f, 0);
             if (boundingBox != null) {
                 bottom = boundingBox;
             }
 
-            if (bottom.distanceTo(butterfly.getPos()) > 1) {
+            if (bottom.distanceTo(butterfly.position()) > 1) {
                 this.nextTarget = bottom;
                 this.moveToNextTarget();
             } else {
@@ -117,28 +116,28 @@ public class FindFlowerGoal extends Goal {
     }
 
     private void moveToNextTarget() {
-        butterfly.getMoveControl().moveTo(this.nextTarget.getX(), this.nextTarget.getY(), this.nextTarget.getZ(), (float) 0.5);
+        butterfly.getMoveControl().setWantedPosition(this.nextTarget.x(), this.nextTarget.y(), this.nextTarget.z(), (float) 0.5);
     }
 
     private double getRandomOffset() {
         return (butterfly.getRandom().nextFloat() * 2.0D - 1.0D) * 0.33333334D;
     }
 
-    private void pollinateFlower(Vec3d vector3d) {
-        boolean closeToTarget = butterfly.getPos().distanceTo(this.nextTarget) <= 0.1D;
+    private void pollinateFlower(Vec3 vector3d) {
+        boolean closeToTarget = butterfly.position().distanceTo(this.nextTarget) <= 0.1D;
         boolean shouldMoveToNewTarget = true;
         if (!closeToTarget && this.ticks > 600) {
             this.clearTasks();
         } else {
             if (closeToTarget) {
                 if (butterfly.getRandom().nextInt(25) == 0) {
-                    this.nextTarget = new Vec3d(vector3d.getX() + this.getRandomOffset(), vector3d.getY(), vector3d.getZ() + this.getRandomOffset());
+                    this.nextTarget = new Vec3(vector3d.x() + this.getRandomOffset(), vector3d.y(), vector3d.z() + this.getRandomOffset());
                     butterfly.getNavigation().stop();
                 } else {
                     shouldMoveToNewTarget = false;
                 }
 
-                butterfly.getLookControl().lookAt(vector3d.getX(), vector3d.getY(), vector3d.getZ());
+                butterfly.getLookControl().setLookAt(vector3d.x(), vector3d.y(), vector3d.z());
             }
 
             if (shouldMoveToNewTarget) {
@@ -150,11 +149,11 @@ public class FindFlowerGoal extends Goal {
     }
 
     public Optional<BlockPos> findFlower() {
-        BlockPos beePos = butterfly.getBlockPos();
-        BlockPos.Mutable flowerPos = beePos.mutableCopy();
+        BlockPos beePos = butterfly.blockPosition();
+        BlockPos.MutableBlockPos flowerPos = beePos.mutable();
 
         for (BlockPos blockPos : positionOffsets) {
-            flowerPos.set(beePos, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+            flowerPos.setWithOffset(beePos, blockPos.getX(), blockPos.getY(), blockPos.getZ());
             if (getFlowerBlockPredicate().test(flowerPos)) {
                 return Optional.of(flowerPos);
             }
@@ -170,7 +169,7 @@ public class FindFlowerGoal extends Goal {
 
     protected void moveToFlower(BlockPos flowerPos) {
         butterfly.setSavedFlowerPos(flowerPos);
-        butterfly.getNavigation().startMovingTo(flowerPos.getX() + 0.5D, flowerPos.getY() + 0.5D, flowerPos.getZ() + 0.5D, 1.2D);
+        butterfly.getNavigation().moveTo(flowerPos.getX() + 0.5D, flowerPos.getY() + 0.5D, flowerPos.getZ() + 0.5D, 1.2D);
     }
 
     public int getPollinationTime() {
@@ -187,10 +186,10 @@ public class FindFlowerGoal extends Goal {
 
     public Predicate<BlockPos> getFlowerBlockPredicate() {
         return pos -> {
-            if (!butterfly.world.isInBuildLimit(butterfly.getBlockPos())) return false;
-            BlockState state = butterfly.world.getBlockState(pos);
+            if (!butterfly.level.isInWorldBounds(butterfly.blockPosition())) return false;
+            BlockState state = butterfly.level.getBlockState(pos);
             if (state.isAir()) return false;
-            return state.isIn(BlockTags.FLOWERS);
+            return state.is(BlockTags.FLOWERS);
         };
     }
 }

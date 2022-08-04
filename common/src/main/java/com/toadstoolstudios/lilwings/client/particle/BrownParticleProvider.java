@@ -1,22 +1,22 @@
 package com.toadstoolstudios.lilwings.client.particle;
 
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleFactory;
-import net.minecraft.client.particle.SpriteProvider;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
-import java.util.Random;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 
-public class BrownParticleProvider implements ParticleFactory<DefaultParticleType> {
+public class BrownParticleProvider implements ParticleProvider<SimpleParticleType> {
 
-    private final SpriteProvider sprite;
+    private final SpriteSet sprite;
 
-    public BrownParticleProvider(SpriteProvider pSprites) {
+    public BrownParticleProvider(SpriteSet pSprites) {
         this.sprite = pSprites;
     }
 
-    public Particle createParticle(DefaultParticleType pType, ClientWorld pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-        Random random = pLevel.random;
+    public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+        RandomSource random = pLevel.random;
         double d0 = random.nextGaussian() * (double) 1.0E-6F;
         double d1 = random.nextGaussian() * (double) 1.0E-4F;
         double d2 = random.nextGaussian() * (double) 1.0E-6F;

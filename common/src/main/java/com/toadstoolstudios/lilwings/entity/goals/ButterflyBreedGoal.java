@@ -1,41 +1,41 @@
 package com.toadstoolstudios.lilwings.entity.goals;
 
 import java.util.List;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.goal.AnimalMateGoal;
-import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.animal.Animal;
 
-public class ButterflyBreedGoal extends AnimalMateGoal {
+public class ButterflyBreedGoal extends BreedGoal {
 
-    public ButterflyBreedGoal(AnimalEntity pAnimal, double pSpeedModifier) {
+    public ButterflyBreedGoal(Animal pAnimal, double pSpeedModifier) {
         this(pAnimal, pSpeedModifier, pAnimal.getClass());
     }
 
-    public ButterflyBreedGoal(AnimalEntity pAnimal, double pSpeedModifier, Class<? extends AnimalEntity> pPartnerClass) {
+    public ButterflyBreedGoal(Animal pAnimal, double pSpeedModifier, Class<? extends Animal> pPartnerClass) {
         super(pAnimal, pSpeedModifier, pPartnerClass);
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (!this.animal.isInLove()) {
             return false;
         } else {
-            this.mate = this.findMate();
-            return this.mate != null;
+            this.partner = this.findMate();
+            return this.partner != null;
         }
     }
 
-    private AnimalEntity findMate() {
-        List<Entity> list = world.getOtherEntities(this.animal, this.animal.getBoundingBox().expand(8), entity -> entity.getType() == this.animal.getType());
+    private Animal findMate() {
+        List<Entity> list = level.getEntities(this.animal, this.animal.getBoundingBox().inflate(8), entity -> entity.getType() == this.animal.getType());
         double d0 = Double.MAX_VALUE;
-        AnimalEntity animal = null;
+        Animal animal = null;
 
         for (Entity entity : list) {
-            if (!(entity instanceof AnimalEntity entityAnimal)) continue;
+            if (!(entity instanceof Animal entityAnimal)) continue;
 
-            if (this.animal.canBreedWith(entityAnimal) && this.animal.squaredDistanceTo(entityAnimal) < d0) {
+            if (this.animal.canMate(entityAnimal) && this.animal.distanceToSqr(entityAnimal) < d0) {
                 animal = entityAnimal;
-                d0 = this.animal.squaredDistanceTo(entityAnimal);
+                d0 = this.animal.distanceToSqr(entityAnimal);
             }
         }
 

@@ -1,23 +1,22 @@
 package com.toadstoolstudios.lilwings.forge;
 
-import com.toadstoolstudios.lilwings.registry.LilWingsItems;
-import net.minecraft.block.AbstractCauldronBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class MilkCauldron extends AbstractCauldronBlock {
 
     public MilkCauldron() {
-        super(Settings.copy(Blocks.CAULDRON), ForgeLilWings.MILK_INTERACTION);
+        super(Properties.copy(Blocks.CAULDRON), ForgeLilWings.MILK_INTERACTION);
         //this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, Integer.valueOf(1)));
     }
 
     @Override
-    public double getFluidHeight(BlockState state) {
+    protected double getContentHeight(BlockState arg) {
         return 0.9375D;
     }
 
@@ -27,9 +26,7 @@ public class MilkCauldron extends AbstractCauldronBlock {
     }
 
     @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        return Items.CAULDRON.getDefaultStack();
+    public ItemStack getCloneItemStack(BlockGetter arg, BlockPos arg2, BlockState arg3) {
+        return Items.CAULDRON.getDefaultInstance();
     }
-
-
 }

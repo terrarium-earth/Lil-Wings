@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:meadow"
+  ],
+  "spawners": {
+    "type": "lilwings:cloudy_puff_butterfly",
+    "weight": 7,
+    "minCount": 2,
+    "maxCount": 2
+  }
+}

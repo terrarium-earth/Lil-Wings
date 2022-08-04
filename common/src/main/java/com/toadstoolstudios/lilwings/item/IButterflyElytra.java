@@ -1,7 +1,7 @@
 package com.toadstoolstudios.lilwings.item;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 public interface IButterflyElytra {
-    Identifier getTexture();
+    ResourceLocation getTexture();
 }

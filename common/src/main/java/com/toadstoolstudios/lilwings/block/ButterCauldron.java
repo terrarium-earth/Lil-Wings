@@ -1,41 +1,35 @@
 package com.toadstoolstudios.lilwings.block;
 
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class ButterCauldron extends Block {
 
     public ButterCauldron() {
-        super(Settings.copy(Blocks.CAULDRON));
-    }
-
-
-
-    @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        return Items.CAULDRON.getDefaultStack();
+        super(Properties.copy(Blocks.CAULDRON));
     }
 
     @Override
-    public ActionResult onUse(BlockState pState, World pLevel, BlockPos pPos, PlayerEntity pPlayer, Hand pHand, BlockHitResult pHit) {
-        pLevel.setBlockState(pPos, Blocks.CAULDRON.getDefaultState(), 2);
+    public ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState) {
+        return Items.CAULDRON.getDefaultInstance();
+    }
+
+    @Override
+    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        level.setBlock(blockPos, Blocks.CAULDRON.defaultBlockState(), Block.UPDATE_CLIENTS);
         ItemStack butter = new ItemStack(LilWingsBlocks.BUTTER_BLOCK.get(), 1);
-        if(!pPlayer.getInventory().insertStack(butter)) {
-            pPlayer.dropItem(butter, false);
-        }
-        return ActionResult.SUCCESS;
+        player.getInventory().placeItemBackInInventory(butter, false);
+        return InteractionResult.SUCCESS;
     }
 }

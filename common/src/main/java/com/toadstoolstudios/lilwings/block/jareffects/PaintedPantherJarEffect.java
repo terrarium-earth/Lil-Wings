@@ -1,21 +1,20 @@
 package com.toadstoolstudios.lilwings.block.jareffects;
 
-import java.util.Random;
-
 import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
 import com.toadstoolstudios.lilwings.registry.LilWingsItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CocoaBlock;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CocoaBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class PaintedPantherJarEffect implements JarEffect {
 
@@ -29,15 +28,15 @@ public class PaintedPantherJarEffect implements JarEffect {
     private int lastParticle;
 
     @Override
-    public void tickEffect(World level, ButterflyJarBlockEntity blockEntity) {
-        if (level.isClient()) return;
-        ServerWorld serverLevel = (ServerWorld) level;
+    public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
+        if (level.isClientSide()) return;
+        ServerLevel serverLevel = (ServerLevel) level;
 
         if (pos == null) {
             checkCooldown++;
 
             if (checkCooldown >= MAX_TIME) {
-                pos = findNearestCocoa(level, blockEntity.getPos());
+                pos = findNearestCocoa(level, blockEntity.getBlockPos());
                 checkCooldown = 0;
             }
         } else {
@@ -51,11 +50,11 @@ public class PaintedPantherJarEffect implements JarEffect {
             }
 
             BlockState state = level.getBlockState(pos);
-            if (state.isOf(Blocks.COCOA) && state.get(CocoaBlock.AGE) >= 2) {
+            if (state.is(Blocks.COCOA) && state.getValue(CocoaBlock.AGE) >= 2) {
                 if (growTime >= MAX_GROW_TIME) {
-                    if (level.setBlockState(pos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL)) {
+                    if (level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL)) {
                         ItemEntity item = new ItemEntity(level, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, new ItemStack(LilWingsItems.CRIMSON_COCOA_BEANS.get(), Math.max(1, random.nextInt(2))));
-                        serverLevel.spawnEntity(item);
+                        serverLevel.addFreshEntity(item);
                     }
                     growTime = 0;
                     pos = null;
@@ -67,11 +66,11 @@ public class PaintedPantherJarEffect implements JarEffect {
         }
     }
 
-    public BlockPos findNearestCocoa(World level, BlockPos jarPos) {
+    public BlockPos findNearestCocoa(Level level, BlockPos jarPos) {
         for (BlockPos pos : area) {
-            BlockPos relativePos = jarPos.add(pos);
+            BlockPos relativePos = jarPos.offset(pos);
             BlockState state = level.getBlockState(relativePos);
-            if (!state.isAir() && state.isOf(Blocks.COCOA) && state.get(CocoaBlock.AGE) >= 2) {
+            if (!state.isAir() && state.is(Blocks.COCOA) && state.getValue(CocoaBlock.AGE) >= 2) {
                 return relativePos;
             }
         }
@@ -79,7 +78,7 @@ public class PaintedPantherJarEffect implements JarEffect {
         return null;
     }
 
-    public static void addGrowthParticles(ServerWorld pLevel, BlockPos pPos, int pData) {
+    public static void addGrowthParticles(ServerLevel pLevel, BlockPos pPos, int pData) {
         if (pData == 0) {
             pData = 2;
         }
@@ -87,9 +86,9 @@ public class PaintedPantherJarEffect implements JarEffect {
         BlockState blockstate = pLevel.getBlockState(pPos);
         if (!blockstate.isAir()) {
             double d0 = 0.5D;
-            double d1 = blockstate.getOutlineShape(pLevel, pPos).getMax(Direction.Axis.Y);
-            Random random = pLevel.getRandom();
-            pLevel.spawnParticles(ParticleTypes.HAPPY_VILLAGER, (double) pPos.getX() + 0.5D, (double) pPos.getY() + 0.5D, (double) pPos.getZ() + 0.5D, 1, 0, 0, 0, 0);
+            double d1 = blockstate.getShape(pLevel, pPos).max(Direction.Axis.Y);
+            RandomSource random = pLevel.getRandom();
+            pLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, (double) pPos.getX() + 0.5D, (double) pPos.getY() + 0.5D, (double) pPos.getZ() + 0.5D, 1, 0, 0, 0, 0);
 
 
             for (int i = 0; i < pData; ++i) {
@@ -100,8 +99,8 @@ public class PaintedPantherJarEffect implements JarEffect {
                 double d6 = (double) pPos.getX() + d5 + random.nextDouble() * d0 * 2.0D;
                 double d7 = (double) pPos.getY() + random.nextDouble() * d1;
                 double d8 = (double) pPos.getZ() + d5 + random.nextDouble() * d0 * 2.0D;
-                if (!pLevel.getBlockState((new BlockPos(d6, d7, d8)).down()).isAir()) {
-                    pLevel.spawnParticles(ParticleTypes.HAPPY_VILLAGER, d6, d7, d8, 1, d2, d3, d4, 1);
+                if (!pLevel.getBlockState((new BlockPos(d6, d7, d8)).below()).isAir()) {
+                    pLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, d6, d7, d8, 1, d2, d3, d4, 1);
                 }
             }
 
@@ -109,7 +108,7 @@ public class PaintedPantherJarEffect implements JarEffect {
     }
 
     @Override
-    public ParticleEffect getParticleType() {
+    public ParticleOptions getParticleType() {
         return ParticleTypes.COMPOSTER;
     }
 }

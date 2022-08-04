@@ -1,22 +1,21 @@
 package com.toadstoolstudios.lilwings.client.patron;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.IAnimatableModel;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class PatreonFlutteringButterfly implements IAnimatable {
 
-    private final Identifier texture;
+    private final ResourceLocation texture;
     private final PatreonFlutteringModel model = new PatreonFlutteringModel();
     private final AnimationFactory factory = new AnimationFactory(this);
 
-    public PatreonFlutteringButterfly(Identifier texture) {
+    public PatreonFlutteringButterfly(ResourceLocation texture) {
         this.texture = texture;
     }
 
@@ -42,7 +41,7 @@ public class PatreonFlutteringButterfly implements IAnimatable {
         return factory;
     }
 
-    public Identifier getTexture() {
+    public ResourceLocation getTexture() {
         return texture;
     }
 }

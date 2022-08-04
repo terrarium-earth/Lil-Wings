@@ -3,7 +3,7 @@ dependencies {
     // Do NOT use other classes from fabric loader
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modImplementation "software.bernie.geckolib:${rootProject.geckolib_fabric_version}"
-    compileOnly "vazkii.patchouli:Patchouli-xplat:1.18.2-66-SNAPSHOT"
+    compileOnly "vazkii.patchouli:Patchouli-xplat:1.19-74-SNAPSHOT"
 }
 
 architectury {

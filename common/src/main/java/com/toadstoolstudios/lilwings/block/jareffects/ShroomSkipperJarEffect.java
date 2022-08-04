@@ -1,11 +1,11 @@
 package com.toadstoolstudios.lilwings.block.jareffects;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public class ShroomSkipperJarEffect extends AponiJarEffect {
 
@@ -20,11 +20,11 @@ public class ShroomSkipperJarEffect extends AponiJarEffect {
     }
 
     @Override
-    public ParticleEffect getParticleType() {
+    public ParticleOptions getParticleType() {
         return ParticleTypes.CRIMSON_SPORE;
     }
 
-    public void addParticles(ServerWorld level, BlockPos pos) {
-        level.spawnParticles(getParticleType(), pos.getX() + 0.5, pos.getY() + 0.08f, pos.getZ() + 0.5, 25, 0, 0, 0, 0.25f);
+    public void addParticles(ServerLevel level, BlockPos pos) {
+        level.sendParticles(getParticleType(), pos.getX() + 0.5, pos.getY() + 0.08f, pos.getZ() + 0.5, 25, 0, 0, 0, 0.25f);
     }
 }

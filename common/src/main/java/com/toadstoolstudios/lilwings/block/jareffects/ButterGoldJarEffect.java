@@ -3,18 +3,18 @@ package com.toadstoolstudios.lilwings.block.jareffects;
 import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import net.minecraft.block.Block;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 public class ButterGoldJarEffect implements JarEffect {
 
     @Override
-    public void tickEffect(World level, ButterflyJarBlockEntity blockEntity) {
-        if(level.isClient) return;
-        if(level.getBlockState(blockEntity.getPos().down()).isOf(getMilkCauldron())) {
-            if ((int)(Math.random() * 1000) == 1) {
-                level.setBlockState(blockEntity.getPos().down(), LilWingsBlocks.BUTTER_CAULDRON.get().getDefaultState(), 2);
+    public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
+        if (level.isClientSide()) return;
+        if (level.getBlockState(blockEntity.getBlockPos().below()).is(getMilkCauldron())) {
+            if ((int) (Math.random() * 1000) == 1) {
+                level.setBlock(blockEntity.getBlockPos().below(), LilWingsBlocks.BUTTER_CAULDRON.get().defaultBlockState(), 2);
             }
         }
 
@@ -26,7 +26,7 @@ public class ButterGoldJarEffect implements JarEffect {
     }
 
     @Override
-    public ParticleEffect getParticleType() {
+    public ParticleOptions getParticleType() {
         return null;
     }
 }

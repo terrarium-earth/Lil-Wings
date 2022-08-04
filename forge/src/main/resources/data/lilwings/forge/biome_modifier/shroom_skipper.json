@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#forge:is_mushroom",
+  "spawners": {
+    "type": "lilwings:aponi_butterfly",
+    "weight": 7,
+    "minCount": 2,
+    "maxCount": 2
+  }
+}

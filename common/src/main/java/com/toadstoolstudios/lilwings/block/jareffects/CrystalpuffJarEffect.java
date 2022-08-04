@@ -1,18 +1,18 @@
 package com.toadstoolstudios.lilwings.block.jareffects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
 import com.toadstoolstudios.lilwings.registry.LilWingsParticles;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CrystalpuffJarEffect implements JarEffect {
 
@@ -24,8 +24,8 @@ public class CrystalpuffJarEffect implements JarEffect {
     List<BlockPos> amethystArea = Util.make(() -> {
         List<BlockPos> list = new ArrayList<>();
 
-        for (BlockPos pos : BlockPos.iterate(-3, -2, -3, 3, 5, 3)) {
-            list.add(pos.toImmutable());
+        for (BlockPos pos : BlockPos.betweenClosed(-3, -2, -3, 3, 5, 3)) {
+            list.add(pos.immutable());
         }
 
         return list;
@@ -36,15 +36,15 @@ public class CrystalpuffJarEffect implements JarEffect {
     private int checkCooldown;
 
     @Override
-    public void tickEffect(World level, ButterflyJarBlockEntity blockEntity) {
-        if (level.isClient()) return;
-        ServerWorld serverLevel = (ServerWorld) level;
+    public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
+        if (level.isClientSide()) return;
+        ServerLevel serverLevel = (ServerLevel) level;
 
         if (crystalPos == null) {
             checkCooldown++;
 
             if (checkCooldown >= MAX_TIME) {
-                crystalPos = findNearestCrystal(level, blockEntity.getPos());
+                crystalPos = findNearestCrystal(level, blockEntity.getBlockPos());
                 checkCooldown = 0;
             }
         } else {
@@ -59,11 +59,11 @@ public class CrystalpuffJarEffect implements JarEffect {
             }
 
             BlockState state = level.getBlockState(crystalPos);
-            if (state.isOf(Blocks.SMALL_AMETHYST_BUD)) {
+            if (state.is(Blocks.SMALL_AMETHYST_BUD)) {
                 checkAndGrow(level, Blocks.MEDIUM_AMETHYST_BUD);
-            } else if (state.isOf(Blocks.MEDIUM_AMETHYST_BUD)) {
+            } else if (state.is(Blocks.MEDIUM_AMETHYST_BUD)) {
                 checkAndGrow(level, Blocks.LARGE_AMETHYST_BUD);
-            } else if (state.isOf(Blocks.LARGE_AMETHYST_BUD)) {
+            } else if (state.is(Blocks.LARGE_AMETHYST_BUD)) {
                 checkAndGrow(level, Blocks.AMETHYST_CLUSTER);
             } else {
                 crystalPos = null;
@@ -72,28 +72,27 @@ public class CrystalpuffJarEffect implements JarEffect {
         }
     }
 
-    public void checkAndGrow(World level, Block targetBlock) {
+    public void checkAndGrow(Level level, Block targetBlock) {
         if (growTime >= MAX_GROW_TIME) {
-            level.setBlockState(crystalPos, targetBlock.getStateWithProperties(level.getBlockState(crystalPos)), Block.NOTIFY_ALL);
+            level.setBlock(crystalPos, targetBlock.withPropertiesOf(level.getBlockState(crystalPos)), Block.UPDATE_ALL);
             growTime = 0;
             crystalPos = null;
         }
     }
 
     @Override
-    public ParticleEffect getParticleType() {
+    public ParticleOptions getParticleType() {
         return LilWingsParticles.AMETHYST_GROW.get();
     }
 
-    public BlockPos findNearestCrystal(World level, BlockPos jarPos) {
+    public BlockPos findNearestCrystal(Level level, BlockPos jarPos) {
         for (BlockPos pos : amethystArea) {
-            BlockPos relativePos = jarPos.add(pos);
+            BlockPos relativePos = jarPos.offset(pos);
             BlockState state = level.getBlockState(relativePos);
-            if (!state.isAir() && (state.isOf(Blocks.SMALL_AMETHYST_BUD) || state.isOf(Blocks.MEDIUM_AMETHYST_BUD) || state.isOf(Blocks.LARGE_AMETHYST_BUD))) {
+            if (!state.isAir() && (state.is(Blocks.SMALL_AMETHYST_BUD) || state.is(Blocks.MEDIUM_AMETHYST_BUD) || state.is(Blocks.LARGE_AMETHYST_BUD))) {
                 return relativePos;
             }
         }
-
         return null;
     }
 }

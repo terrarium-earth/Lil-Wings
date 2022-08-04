@@ -1,12 +1,12 @@
 package com.toadstoolstudios.lilwings.entity.goals;
 
-import java.util.function.Predicate;
-
 import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
 import com.toadstoolstudios.lilwings.registry.entity.GraylingType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.function.Predicate;
 
 public class GraylingFlowerGoal extends FindFlowerGoal {
 
@@ -23,12 +23,12 @@ public class GraylingFlowerGoal extends FindFlowerGoal {
     @Override
     protected void moveToFlower(BlockPos flowerPos) {
         butterfly.setSavedOtherPos(flowerPos);
-        butterfly.getNavigation().startMovingTo(flowerPos.getX() + 0.5D, flowerPos.getY() + 0.5D, flowerPos.getZ() + 0.5D, 1.2D);
+        butterfly.getNavigation().moveTo(flowerPos.getX() + 0.5D, flowerPos.getY() + 0.5D, flowerPos.getZ() + 0.5D, 1.2D);
 
-        BlockState state = butterfly.world.getBlockState(flowerPos);
-        if (state.isOf(Blocks.SPORE_BLOSSOM)) {
+        BlockState state = butterfly.level.getBlockState(flowerPos);
+        if (state.is(Blocks.SPORE_BLOSSOM)) {
             butterfly.setColorType(GraylingType.SPORE_BLOSSOM);
-        } else if (state.isOf(Blocks.FLOWERING_AZALEA) || state.isOf(Blocks.FLOWERING_AZALEA_LEAVES)) {
+        } else if (state.is(Blocks.FLOWERING_AZALEA) || state.is(Blocks.FLOWERING_AZALEA_LEAVES)) {
             butterfly.setColorType(GraylingType.AZALEA);
         } else {
             butterfly.setColorType(GraylingType.NORMAL);
@@ -53,11 +53,11 @@ public class GraylingFlowerGoal extends FindFlowerGoal {
     @Override
     public Predicate<BlockPos> getFlowerBlockPredicate() {
         return pos -> {
-            if (!butterfly.world.isInBuildLimit(butterfly.getBlockPos())) return false;
-            BlockState state = butterfly.world.getBlockState(pos);
+            if (!butterfly.level.isInWorldBounds(butterfly.blockPosition())) return false;
+            BlockState state = butterfly.level.getBlockState(pos);
             if (state.isAir()) return false;
 
-            return state.isOf(Blocks.SPORE_BLOSSOM) || state.isOf(Blocks.FLOWERING_AZALEA) || state.isOf(Blocks.FLOWERING_AZALEA_LEAVES);
+            return state.is(Blocks.SPORE_BLOSSOM) || state.is(Blocks.FLOWERING_AZALEA) || state.is(Blocks.FLOWERING_AZALEA_LEAVES);
         };
     }
 }

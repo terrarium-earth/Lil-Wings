@@ -1,46 +1,44 @@
 package com.toadstoolstudios.lilwings.item;
 
 import com.toadstoolstudios.lilwings.LilWings;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.*;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
-import net.minecraft.world.World;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 
 public class JellyBucketItem extends Item {
 
-
     public JellyBucketItem() {
-        super(new Settings().group(LilWings.TAB).recipeRemainder(Items.BUCKET).maxCount(1).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.8F).snack().build()));
+        super(new Properties().tab(LilWings.TAB).craftRemainder(Items.BUCKET).stacksTo(1).food(new FoodProperties.Builder().nutrition(6).saturationMod(0.8F).fast().build()));
     }
 
-    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if (user instanceof ServerPlayerEntity) {
-            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)user;
-            Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
-            serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+    @Override
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {
+        if (user instanceof ServerPlayer serverPlayerEntity) {
+            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
+            serverPlayerEntity.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
-            stack.decrement(1);
+        if (user instanceof Player player && player.getAbilities().instabuild) {
+            stack.shrink(1);
         }
 
         return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
     }
 
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.DRINK;
+    @Override
+    public UseAnim getUseAnimation(ItemStack itemStack) {
+        return UseAnim.DRINK;
     }
 
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        return ItemUsage.consumeHeldItem(world, user, hand);
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        return ItemUtils.startUsingInstantly(level, player, hand);
     }
 }

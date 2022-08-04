@@ -1,19 +1,19 @@
 package com.toadstoolstudios.lilwings.block.jareffects.forge;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class SwampHopperJarEffectImpl {
 
-    public static void handleItemInsertion(World level, BlockEntity container, Direction direction, ItemEntity entity) {
+    public static void handleItemInsertion(Level level, BlockEntity container, Direction direction, ItemEntity entity) {
         container.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(iItemHandler -> {
-            ItemStack stack = ItemHandlerHelper.insertItem(iItemHandler, entity.getStack(), false);
-            entity.setStack(stack);
+            ItemStack stack = ItemHandlerHelper.insertItem(iItemHandler, entity.getItem(), false);
+            entity.setItem(stack);
         });
     }
 

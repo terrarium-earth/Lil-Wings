@@ -2,18 +2,18 @@ package com.toadstoolstudios.lilwings.registry.entity;
 
 
 import com.toadstoolstudios.lilwings.LilWings;
+import com.toadstoolstudios.lilwings.block.jareffects.JarEffect;
 import com.toadstoolstudios.lilwings.entity.ButterflyEntity;
 import com.toadstoolstudios.lilwings.entity.effects.CatchEffect;
-import com.toadstoolstudios.lilwings.block.jareffects.JarEffect;
 import com.toadstoolstudios.lilwings.platform.CommonServices;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.item.ElytraItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ElytraItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,17 +27,17 @@ public record Butterfly(
         Supplier<ElytraItem>[] elytras,
         Item breedingItem,
         Supplier<Item> netItem,
-        DefaultParticleType particleType,
+        SimpleParticleType particleType,
         float particleSpawnChance,
         float spawnScale, float childSpawnScale, float maxHealth,
         int catchAmount, CatchEffect catchEffect, Supplier<JarEffect> jarEffect,
         String textureName
 ) {
 
-    public static final Map<Identifier, Butterfly> BUTTERFLIES = new HashMap<>();
+    public static final Map<ResourceLocation, Butterfly> BUTTERFLIES = new HashMap<>();
 
     public static Butterfly getButterfly(EntityType<?> entityType) {
-        return BUTTERFLIES.get(EntityType.getId(entityType));
+        return BUTTERFLIES.get(EntityType.getKey(entityType));
     }
 
     public static class Builder {
@@ -52,7 +52,7 @@ public record Butterfly(
         private int eggBackgroundColor = 0xFFFFFF;
         private int eggOutlineColor = 0xFFFFFF;
 
-        private DefaultParticleType particleType = null;
+        private SimpleParticleType particleType = null;
         private float particleSpawnChance = 0.08f;
 
         private float spawnScale = 0.65f;
@@ -69,7 +69,7 @@ public record Butterfly(
         private CatchEffect catchEffect;
         private Supplier<JarEffect> jarEffect;
 
-        private ItemGroup creativeTab = LilWings.TAB;
+        private CreativeModeTab creativeTab = LilWings.TAB;
 
         private Builder(String name) {
             this.name = name;
@@ -115,7 +115,7 @@ public record Butterfly(
             return this;
         }
 
-        public Builder addParticles(DefaultParticleType particleType, float spawnChance) {
+        public Builder addParticles(SimpleParticleType particleType, float spawnChance) {
             this.particleType = particleType;
             this.particleSpawnChance = spawnChance;
             return this;
@@ -158,7 +158,7 @@ public record Butterfly(
             return this;
         }
 
-        public Builder setCreativeTab(ItemGroup tab) {
+        public Builder setCreativeTab(CreativeModeTab tab) {
             this.creativeTab = tab;
             return this;
         }
@@ -175,18 +175,18 @@ public record Butterfly(
             Supplier<ElytraItem>[] elytraItems = new Supplier[elytras != null ? elytras.length : 0];
 
             Supplier<EntityType<ButterflyEntity>> entityType = CommonServices.REGISTRY.registerEntity(name + "_butterfly", ButterflyEntity::new,
-                    SpawnGroup.AMBIENT, boundingWidth, boundingHeight);
+                    MobCategory.AMBIENT, boundingWidth, boundingHeight);
 
             Supplier<SpawnEggItem> spawnEggItem = null;
             if (spawnEgg) {
-                spawnEggItem = CommonServices.REGISTRY.registerSpawnEgg(name + "_egg", entityType, eggBackgroundColor, eggOutlineColor, new Item.Settings().group(creativeTab));
+                spawnEggItem = CommonServices.REGISTRY.registerSpawnEgg(name + "_egg", entityType, eggBackgroundColor, eggOutlineColor, new Item.Properties().tab(creativeTab));
             }
 
             if (wings != null) {
                 for (int i = 0; i < wings.length; i++) {
                     String wingName = wings[i];
                     wingItems[i] = CommonServices.REGISTRY.registerItem(name + (wingName.isEmpty() ? "" : "_" + wingName) + "_wings", () ->
-                            new Item(new Item.Settings().group(creativeTab)));
+                            new Item(new Item.Properties().tab(creativeTab)));
                 }
             }
 
@@ -194,7 +194,7 @@ public record Butterfly(
                 for (int i = 0; i < cottonBalls.length; i++) {
                     String cottonBallName = cottonBalls[i];
                     cottonBallsItems[i] = CommonServices.REGISTRY.registerItem(name + (cottonBallName.isEmpty() ? "" : "_" + cottonBallName) + "_cotton_ball", () ->
-                            new Item(new Item.Settings().group(creativeTab)));
+                            new Item(new Item.Properties().tab(creativeTab)));
                 }
             }
 
@@ -203,7 +203,7 @@ public record Butterfly(
                     String elytraName = elytras[i];
                     String regName = name + (elytraName.isEmpty() ? "" : "_" + elytraName) + "_elytra";
 
-                    elytraItems[i] = CommonServices.REGISTRY.registerElytra(regName, new Identifier(modid, "textures/elytra/" + regName + ".png"));
+                    elytraItems[i] = CommonServices.REGISTRY.registerElytra(regName, new ResourceLocation(modid, "textures/elytra/" + regName + ".png"));
                 }
             }
 
@@ -212,7 +212,7 @@ public record Butterfly(
                     particleType, particleSpawnChance, spawnScale, childSpawnScale, maxHealth,
                     catchAmount, catchEffect, jarEffect, name
             );
-            BUTTERFLIES.put(new Identifier(modid, name + "_butterfly"), butterfly);
+            BUTTERFLIES.put(new ResourceLocation(modid, name + "_butterfly"), butterfly);
             return butterfly;
         }
 
