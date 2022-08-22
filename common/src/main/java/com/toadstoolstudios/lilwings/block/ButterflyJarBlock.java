@@ -42,7 +42,7 @@ public class ButterflyJarBlock extends BlockWithEntity {
 
     @Override
     public void afterBreak(World level, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntityIn, ItemStack tool) {
-        if (!level.isClient() && blockEntityIn instanceof ButterflyJarBlockEntity blockEntity) {
+        if (!level.isClient() && blockEntityIn instanceof ButterflyJarBlockEntity blockEntity && blockEntity.getEntityType() != null) {
             ButterflyEntity butterfly = blockEntity.getEntityType().create(level);
             if (butterfly != null) {
                 ServerWorld serverLevel = (ServerWorld) level;

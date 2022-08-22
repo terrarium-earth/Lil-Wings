@@ -119,9 +119,9 @@ public class ButterflyJarBlockEntity extends BlockEntity {
         return tag;
     }
 
-    public ButterflyEntity getOrCreateEntity(World world, EntityType<? extends ButterflyEntity> entityType, NbtCompound butterflyData) {
-        if(renderEntity == null) {
-            renderEntity = new ButterflyEntity(this.getEntityType(), world, true);
+    public ButterflyEntity getOrCreateEntity(World world) {
+        if(renderEntity == null && getEntityType() != null) {
+            renderEntity = new ButterflyEntity(getEntityType(), world, true);
             renderEntity.readNbt(this.butterflyData);
             renderEntity.setPos(0,0,0);
             renderEntity.setBodyYaw(0);

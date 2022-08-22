@@ -84,7 +84,7 @@ public class ButterflyNetItem extends Item {
             }
         } else if(level.getBlockEntity(blockPos) instanceof ButterflyJarBlockEntity blockEntity) {
             NbtCompound butterflyData = blockEntity.getButterflyData();
-            if(butterflyData != null) {
+            if(butterflyData != null && blockEntity.getEntityType() != null) {
                 itemTag.put("butterfly", butterflyData);
                 itemTag.putString("butterflyId", EntityType.getId(blockEntity.getEntityType()).toString());
                 blockEntity.setEntityType(null);

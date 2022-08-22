@@ -17,7 +17,7 @@ public class JarEntityRenderer implements BlockEntityRenderer<ButterflyJarBlockE
     public void render(ButterflyJarBlockEntity blockEntity, float partialTicks, MatrixStack stack, VertexConsumerProvider bufferSource, int packedLight, int packedOverlay) {
         if (blockEntity.getEntityType() != null) {
             MinecraftClient mc = MinecraftClient.getInstance();
-            ButterflyEntity entity = blockEntity.getOrCreateEntity(blockEntity.getWorld(), blockEntity.getEntityType(), blockEntity.getButterflyData());
+            ButterflyEntity entity = blockEntity.getOrCreateEntity(blockEntity.getWorld());
             float reverseScale = 1.0f / entity.getButterfly().spawnScale();
             float scale = 0.35f;
             stack.push();
