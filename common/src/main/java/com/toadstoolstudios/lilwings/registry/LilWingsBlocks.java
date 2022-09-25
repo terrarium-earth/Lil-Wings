@@ -23,7 +23,7 @@ public class LilWingsBlocks {
     public static final Supplier<Block> BUTTERNITE_BLOCK = CommonServices.REGISTRY.registerBlock("butternite_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(4.0f)));
     public static final Supplier<Item> BUTTERNITE_BLOCK_ITEM = CommonServices.REGISTRY.registerItem("butternite_block", () -> new BlockItem(BUTTERNITE_BLOCK.get(), new Item.Properties().tab(LilWings.TAB)));
 
-    public static final Supplier<Block> BUTTER_BLOCK = CommonServices.REGISTRY.registerBlock("butter_block", () -> new Block(BlockBehaviour.Properties.of(Material.GRASS).sound(SoundType.HONEY_BLOCK).strength(0.5f)));
+    public static final Supplier<Block> BUTTER_BLOCK = CommonServices.REGISTRY.registerBlock("butter_block", () -> new Block(BlockBehaviour.Properties.of(Material.GRASS).sound(SoundType.HONEY_BLOCK).strength(0.5f).friction(.98f)));
     public static final Supplier<Item> BUTTER_BLOCK_ITEM = CommonServices.REGISTRY.registerItem("butter_block", () -> new BlockItem(BUTTER_BLOCK.get(), new Item.Properties().tab(LilWings.TAB)));
     //TODO make butter slippery
 
