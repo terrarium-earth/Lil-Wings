@@ -2,6 +2,7 @@ package com.toadstoolstudios.lilwings.block.jareffects;
 
 import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 public class SplurlingJarEffect implements JarEffect {
-    private final int cooldownTime = 1;// 20 * 5; // Time in ticks
+    private final int cooldownTime = 20 * 30;// 20 * 5; // Time in ticks
     private int timeUntilTick = 0;
 
     @Override
@@ -89,4 +90,5 @@ public class SplurlingJarEffect implements JarEffect {
 
         return false;
     }
+
 }
