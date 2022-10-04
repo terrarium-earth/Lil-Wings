@@ -156,13 +156,13 @@ public class LilWingsEntities {
             .build(LilWings.MODID);
 
     /* working on */
-
-    /* TODO
     public static Butterfly EMBER_BUTTERFLY = Butterfly.Builder.of("ember")
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
             .setJarEffect(EmberJarEffect::new)
             .build(LilWings.MODID);
+
+    /* TODO
 
     public static Butterfly MUSIC_BUTTERFLY = Butterfly.Builder.of("music")
             .setBreedingItem(Items.COCOA_BEANS)
