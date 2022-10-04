@@ -135,18 +135,19 @@ public class LilWingsEntities {
             .setJarEffect(GraylingJarEffect::new)
             .build(LilWings.MODID);
 
+    // TODO No textures, wings, elytras and spawnRules, SpawnEgg colors and Breeding items are placeholders
     public static Butterfly SPLURLING_BUTTERFLY = Butterfly.Builder.of("splurling")
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
             .setJarEffect(SplurlingJarEffect::new)
             .build(LilWings.MODID);
 
+    /* To review */
     public static Butterfly HARVEST_BUTTERFLY = Butterfly.Builder.of("harvest")
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
             .setJarEffect(HarvestJarEffect::new)
             .build(LilWings.MODID);
-    /* TODO No textures, wings, elytras and spawnRules, SpawnEgg colors and Breeding items are placeholders
 
     public static Butterfly CONDUICT_BUTTERFLY = Butterfly.Builder.of("conduict")
             .setBreedingItem(Items.COCOA_BEANS)
@@ -154,22 +155,26 @@ public class LilWingsEntities {
             .setJarEffect(ConduictJarEffect::new)
             .build(LilWings.MODID);
 
+    /* working on */
+
+    /* TODO
     public static Butterfly EMBER_BUTTERFLY = Butterfly.Builder.of("ember")
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
             .setJarEffect(EmberJarEffect::new)
             .build(LilWings.MODID);
 
-    public static Butterfly CHANNELING_BUTTERFLY = Butterfly.Builder.of("channeling")
-            .setBreedingItem(Items.COCOA_BEANS)
-            .addSpawnEgg(0x0A0A0A, 0x271F19)
-            .setJarEffect(ChannelingJarEffect::new)
-            .build(LilWings.MODID);
-
     public static Butterfly MUSIC_BUTTERFLY = Butterfly.Builder.of("music")
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
             .setJarEffect(MusicJarEffect::new)
+            .build(LilWings.MODID);
+
+    // Waiting for interface
+    public static Butterfly CHANNELING_BUTTERFLY = Butterfly.Builder.of("channeling")
+            .setBreedingItem(Items.COCOA_BEANS)
+            .addSpawnEgg(0x0A0A0A, 0x271F19)
+            .setJarEffect(ChannelingJarEffect::new)
             .build(LilWings.MODID);
 
     public static Butterfly MILK_SIPPER_BUTTERFLY = Butterfly.Builder.of("milk_sipper")

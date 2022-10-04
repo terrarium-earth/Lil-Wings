@@ -1,49 +1,44 @@
 package com.toadstoolstudios.lilwings.block.jareffects;
 
+import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class SplurlingJarEffect implements JarEffect {
-    private final int cooldownTime = 20 * 30;// 20 * 5; // Time in ticks
-    private int timeUntilTick = 0;
+    /* Tag for the ores that can be collected */
+    public static final TagKey<Block> COLLECTIBLE_ORES_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(LilWings.MODID, "collectible_ores__splurling_jar_effect"));
+
+    private final int cooldownTime = 20 * 30; // Time in ticks
+    private final int radius = 2; // Test for `getBlockPosInArea`
+
+    private int timeUntilTick = 100; // initial delay in ticks
 
     @Override
     public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
         if (level.isClientSide()) return;
 
         if (timeUntilTick == 0) {
-            List<BlockPos> valuableBlockPos = new ArrayList<>();
+            BlockPos jarPos = blockEntity.getBlockPos();
 
-            /* iterate in are to find valuables */
-            area.forEach((pos) -> {
-                Block selBlock = level.getBlockState(pos).getBlock();
-                if (isOre(selBlock) && pos != blockEntity.getBlockPos()) valuableBlockPos.add(pos);
-            });
-
-//            System.out.println(valuableBlockPos.size());
+            // Find ores
+            getBlockPosInArea(jarPos, radius).stream()
+                    .filter(pos -> level.getBlockState(pos).is(COLLECTIBLE_ORES_TAG))
+                    .findAny().ifPresent((pos) -> {
+                        level.destroyBlock(pos, false);
+                        /* TODO Implement recipe to drop `selOre` */
+                    });
 
             timeUntilTick = cooldownTime;
-
-            if (valuableBlockPos.size() == 0) return;
-
-            /* Randomly pick a block between the valuables */
-            Random rand = new Random();
-            BlockPos selOre = valuableBlockPos.get(rand.nextInt(valuableBlockPos.size()));
-
-            // ? Remove ore and drop it
-            level.removeBlock(selOre, false);
-
-            /* TODO Implement recipe to drop `selOre` */
-
         } else {
             timeUntilTick--;
         }
@@ -54,41 +49,21 @@ public class SplurlingJarEffect implements JarEffect {
         return null;
     }
 
-    private boolean isOre(Block block) {
-        /* TODO Implement tag for mod compatibility */
-        Block[] ores = {
-                // ? Overworld ores
-                Blocks.COAL_ORE,
-                Blocks.COPPER_ORE,
-                Blocks.IRON_ORE,
-                Blocks.GOLD_ORE,
-                Blocks.DIAMOND_ORE,
+    //    Temporary Method until area get fixed
+    private List<BlockPos> getBlockPosInArea(BlockPos startingPos, int radius) {
+        List<BlockPos> BlockPos = new ArrayList<>();
 
-                Blocks.LAPIS_ORE,
-                Blocks.REDSTONE_ORE,
-                Blocks.EMERALD_ORE,
+        BlockPos cornerPos = startingPos.relative(Direction.UP, radius).relative(Direction.SOUTH, radius).relative(Direction.WEST, radius);
 
-                // ? Deepslate ores
-                Blocks.DEEPSLATE_COAL_ORE,
-                Blocks.DEEPSLATE_COPPER_ORE,
-                Blocks.DEEPSLATE_IRON_ORE,
-                Blocks.DEEPSLATE_GOLD_ORE,
-                Blocks.DEEPSLATE_DIAMOND_ORE,
-
-                Blocks.DEEPSLATE_LAPIS_ORE,
-                Blocks.DEEPSLATE_REDSTONE_ORE,
-                Blocks.DEEPSLATE_EMERALD_ORE,
-
-                // ? Nether ores
-                Blocks.NETHER_GOLD_ORE,
-                Blocks.NETHER_QUARTZ_ORE
-        };
-
-        for (Block ore : ores) {
-            if (ore == block) return true;
+        for (var X = 0; X < radius * 2 + 1; X++) {
+            for (var Z = 0; Z < radius * 2 + 1; Z++) {
+                for (var Y = 0; Y < radius * 2 + 1; Y++) {
+                    BlockPos.add(cornerPos.relative(Direction.EAST, X).relative(Direction.DOWN, Y).relative(Direction.NORTH, Z));
+                }
+            }
         }
 
-        return false;
+        return BlockPos;
     }
 
 }

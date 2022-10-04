@@ -3,33 +3,43 @@ package com.toadstoolstudios.lilwings.block.jareffects;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.toadstoolstudios.lilwings.LilWings;
 import com.toadstoolstudios.lilwings.block.ButterflyJarBlockEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 public class HarvestJarEffect implements JarEffect {
-    private final int cooldownTime = 20 * 30; // Time in ticks
-    private final int radius = 2; // Test for new `getBlockPosInArea`
+    /* Tag of blocks that don't get destroyed */
+    public static final TagKey<Block> UNHARVESTABLE_BLOCKS_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(LilWings.MODID, "unharvestable_blocks__harvest_jar_effect"));
 
-    private int timeUntilTick = 100; // initial delay in ticks
+    private final int cooldownTime = 20 * 30; // Time in ticks
+    private final int radius = 2; // Test for `getBlockPosInArea`
+
+    private int timeUntilTick = 100; // Initial delay in ticks
 
     @Override
     public void tickEffect(Level level, ButterflyJarBlockEntity blockEntity) {
         if (level.isClientSide()) return;
         BlockPos jarPos = blockEntity.getBlockPos();
 
-        /* TODO Implement tag to blocks that can't be destroyed */
-
         if (timeUntilTick == 0) {
             BlockPos wantedBlockPos = jarPos.below(1);
             Block wantedBlock = level.getBlockState(wantedBlockPos).getBlock();
 
+            // Filter blocks and drop them
             getBlockPosInArea(jarPos, radius).stream()
-                    .filter(pos -> level.getBlockState(pos).is(wantedBlock) && !pos.equals(wantedBlockPos) && !pos.equals(jarPos))
+                    .filter(pos -> level.getBlockState(pos).is(wantedBlock)
+                            && !pos.equals(wantedBlockPos)
+                            && !pos.equals(jarPos)
+                            && !level.getBlockState(pos).is(UNHARVESTABLE_BLOCKS_TAG)
+                    )
                     .findAny().ifPresent((pos) -> level.destroyBlock(pos, true));
 
             timeUntilTick = cooldownTime;
@@ -43,6 +53,7 @@ public class HarvestJarEffect implements JarEffect {
         return null;
     }
 
+//    Temporary Method until area get fixed
     private List<BlockPos> getBlockPosInArea(BlockPos startingPos, int radius) {
         List<BlockPos> BlockPos = new ArrayList<>();
 
