@@ -15,12 +15,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class HarvestJarEffect implements JarEffect {
     /* Tag of blocks that don't get destroyed */
     public static final TagKey<Block> UNHARVESTABLE_BLOCKS_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(LilWings.MODID, "unharvestable_blocks__harvest_jar_effect"));
 
     private final int cooldownTime = 20 * 30; // Time in ticks
-    private final int radius = 2; // Test for `getBlockPosInArea`
+    private final int radius = 2; // Temp for `getBlockPosInArea`
 
     private int timeUntilTick = 100; // Initial delay in ticks
 

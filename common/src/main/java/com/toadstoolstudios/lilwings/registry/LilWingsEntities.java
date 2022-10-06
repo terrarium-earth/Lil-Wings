@@ -139,6 +139,8 @@ public class LilWingsEntities {
     public static Butterfly SPLURLING_BUTTERFLY = Butterfly.Builder.of("splurling")
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
+//            .addWings()
+//            .addElytra()
             .setJarEffect(SplurlingJarEffect::new)
             .build(LilWings.MODID);
 
@@ -146,12 +148,16 @@ public class LilWingsEntities {
     public static Butterfly HARVEST_BUTTERFLY = Butterfly.Builder.of("harvest")
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
+//            .addWings()
+//            .addElytra()
             .setJarEffect(HarvestJarEffect::new)
             .build(LilWings.MODID);
 
     public static Butterfly CONDUICT_BUTTERFLY = Butterfly.Builder.of("conduict")
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
+//            .addWings()
+//            .addElytra()
             .setJarEffect(ConduictJarEffect::new)
             .build(LilWings.MODID);
 
@@ -159,14 +165,25 @@ public class LilWingsEntities {
     public static Butterfly EMBER_BUTTERFLY = Butterfly.Builder.of("ember")
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
+//            .addWings()
+//            .addElytra()
             .setJarEffect(EmberJarEffect::new)
             .build(LilWings.MODID);
 
     /* TODO
+    public static Butterfly MILK_SIPPER_BUTTERFLY = Butterfly.Builder.of("milk_sipper")
+            .setBreedingItem(Items.COCOA_BEANS)
+            .addSpawnEgg(0x0A0A0A, 0x271F19)
+//            .addWings()
+//            .addElytra()
+            .setJarEffect(MilkSipperJarEffect::new)
+            .build(LilWings.MODID);
 
     public static Butterfly MUSIC_BUTTERFLY = Butterfly.Builder.of("music")
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
+            .addWings()
+            .addElytra()
             .setJarEffect(MusicJarEffect::new)
             .build(LilWings.MODID);
 
@@ -175,12 +192,6 @@ public class LilWingsEntities {
             .setBreedingItem(Items.COCOA_BEANS)
             .addSpawnEgg(0x0A0A0A, 0x271F19)
             .setJarEffect(ChannelingJarEffect::new)
-            .build(LilWings.MODID);
-
-    public static Butterfly MILK_SIPPER_BUTTERFLY = Butterfly.Builder.of("milk_sipper")
-            .setBreedingItem(Items.COCOA_BEANS)
-            .addSpawnEgg(0x0A0A0A, 0x271F19)
-            .setJarEffect(MilkSipperJarEffect::new)
             .build(LilWings.MODID);
     */
 

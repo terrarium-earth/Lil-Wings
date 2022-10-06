@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class ConduictJarEffect implements JarEffect {
     double radius = D(16); // Effect radius (radius + Jar + radius)
     private final int cooldownTime = 90; // Time in ticks
@@ -45,6 +46,7 @@ public class ConduictJarEffect implements JarEffect {
             if (isSame(0, 0, 0, new Block[]{LilWingsBlocks.BUTTERFLY_JAR.get()}, level, jarPos)) validBlocks++;
             if (isSame(0, -1, 0, new Block[]{Blocks.WATER}, level, jarPos)) validBlocks++;
 
+            /* Debug audio */
             if (isStructureValid == false && validBlocks == 10) {
                 level.playSound(null, jarPos, SoundEvents.CONDUIT_ACTIVATE, SoundSource.BLOCKS, 1.0F, 1.0F);
             } else if (isStructureValid == true && validBlocks != 10) {

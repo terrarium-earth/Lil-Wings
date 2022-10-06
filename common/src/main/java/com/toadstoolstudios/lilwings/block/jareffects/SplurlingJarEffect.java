@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class SplurlingJarEffect implements JarEffect {
     /* Tag for the ores that can be collected */
     public static final TagKey<Block> COLLECTIBLE_ORES_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(LilWings.MODID, "collectible_ores__splurling_jar_effect"));
