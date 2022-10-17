@@ -1,10 +1,7 @@
 package com.toadstoolstudios.lilwings;
 
 import com.toadstoolstudios.lilwings.platform.CommonServices;
-import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
-import com.toadstoolstudios.lilwings.registry.LilWingsEntities;
-import com.toadstoolstudios.lilwings.registry.LilWingsItems;
-import com.toadstoolstudios.lilwings.registry.LilWingsParticles;
+import com.toadstoolstudios.lilwings.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -21,5 +18,6 @@ public class LilWings {
         LilWingsItems.register();
         LilWingsBlocks.register();
         LilWingsParticles.register();
+        LilWingsRecipes.register();
     }
 }

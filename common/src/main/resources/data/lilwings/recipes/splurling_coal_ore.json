@@ -1,0 +1,9 @@
+{
+  "type": "lilwings:splurling",
+  "input": [
+    {
+      "item": "minecraft:raw_iron"
+    }
+  ],
+  "result": "minecraft:iron_ingot"
+}
