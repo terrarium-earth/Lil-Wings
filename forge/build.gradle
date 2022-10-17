@@ -20,6 +20,7 @@ dependencies {
     modImplementation "software.bernie.geckolib:${rootProject.geckolib_forge_version}"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+    include modApi("com.teamresourceful.resourcefullib:resourcefullib-forge-$rootProject.resourcefullib_version")
     // modCompileOnly ("mcjty.theoneprobe:theoneprobe:${top_version}:api") { transitive = false }
     // modRuntimeOnly ("mcjty.theoneprobe:theoneprobe:${top_version}") { transitive = false }
 }
