@@ -6,7 +6,9 @@ import com.toadstoolstudios.lilwings.compat.TOPCompat;
 import com.toadstoolstudios.lilwings.forge.platform.ForgeRegistryHelper;
 import com.toadstoolstudios.lilwings.registry.LilWingsBlocks;
 import com.toadstoolstudios.lilwings.registry.LilWingsEntities;
+import com.toadstoolstudios.lilwings.registry.LilWingsRecipes;
 import com.toadstoolstudios.lilwings.registry.entity.Butterfly;
+import com.toadstoolstudios.lilwings.registry.forge.LilWingsRecipesImpl;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.cauldron.CauldronInteraction;
@@ -56,6 +58,8 @@ public class ForgeLilWings {
         ForgeRegistryHelper.ITEMS.register(bus);
         ForgeRegistryHelper.SOUNDS.register(bus);
         ForgeRegistryHelper.PARTICLE_TYPES.register(bus);
+        LilWingsRecipesImpl.RECIPES.register(bus);
+        LilWingsRecipesImpl.SERIALIZERS.register(bus);
         MinecraftForge.EVENT_BUS.register(this);
         bus.addListener(this::imcEvent);
     }
