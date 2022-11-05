@@ -1,0 +1,9 @@
+{
+  "values": [
+    "lilwings:milk_cauldron",
+    {
+      "required": false,
+      "id": "neapolitan:milk_cauldron"
+    }
+  ]
+}
