@@ -1,3 +1,3 @@
 # Lil-Wings
 Beautiful Butterflies!
-![BH_NU_LOGO](https://user-images.githubusercontent.com/78245153/200379809-020e8f9a-aa3c-4276-b2f3-23ed48f50742.png)
+![BH_NU_LOGO_25](https://user-images.githubusercontent.com/78245153/200380452-0af8f286-3b20-4e34-9820-45901d8807c0.png)
