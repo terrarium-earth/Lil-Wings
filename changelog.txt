@@ -1,0 +1,2 @@
+> Updated Geckolib Dependency
+> Fixed crash with Patreon renderer (sorry JaidenAnimations)
