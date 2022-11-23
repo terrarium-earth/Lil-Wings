@@ -108,7 +108,9 @@ subprojects {
                         required.project "geckolib"
                     }
                 } else {
-                    required.project "geckolib"
+                    dependencies {
+                        required.project "geckolib"
+                    }
                 }
             }
         }
@@ -131,7 +133,9 @@ subprojects {
                             requiredDependency "geckolib"
                         }
                     } else {
-                        requiredDependency "geckolib"
+                        relations {
+                            requiredDependency "geckolib"
+                        }
                     }
                 }
             }
