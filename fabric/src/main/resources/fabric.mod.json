@@ -18,14 +18,15 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "earth.toadstoolstudios.lilwings.fabric.FabricLilWings"
+      "earth.terrarium.lilwings.fabric.FabricLilWings"
     ],
     "client": [
-      "earth.toadstoolstudios.lilwings.fabric.FabricLilWingsClient"
+      "earth.terrarium.lilwings.fabric.FabricLilWingsClient"
     ]
   },
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.18.2"
+    "minecraft": ">=1.18.2",
+    "geckolib": ">=3.1.38"
   }
 }
