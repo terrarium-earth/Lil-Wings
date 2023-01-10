@@ -4,7 +4,7 @@
   "package": "com.toadstoolstudios.lilwings.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "PlayerEntityMixin"
+    "earth.toadstoolstudios.lilwings.mixin.PlayerEntityMixin"
   ],
   "client": [
   ],

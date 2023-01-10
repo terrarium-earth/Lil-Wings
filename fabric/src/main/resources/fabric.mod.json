@@ -18,10 +18,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.toadstoolstudios.lilwings.fabric.FabricLilWings"
+      "earth.toadstoolstudios.lilwings.fabric.FabricLilWings"
     ],
     "client": [
-      "com.toadstoolstudios.lilwings.fabric.FabricLilWingsClient"
+      "earth.toadstoolstudios.lilwings.fabric.FabricLilWingsClient"
     ]
   },
   "depends": {
