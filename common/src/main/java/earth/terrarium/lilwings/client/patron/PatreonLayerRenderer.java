@@ -58,7 +58,7 @@ public class PatreonLayerRenderer extends RenderLayer<AbstractClientPlayer, Play
             PatreonFlutteringModel modelProvider = data.getModel();
             var model = modelProvider.getModel(data);
             AnimationEvent<PatreonFlutteringButterfly> event = new AnimationEvent<>(data, 0, 0, Minecraft.getInstance().getDeltaFrameTime(), false, Collections.emptyList());
-            modelProvider.setLivingAnimations(data, renderer.getUniqueID(data), event);
+            modelProvider.setCustomAnimations(data, renderer.getInstanceId(data), event);
             RenderType renderLayer = RenderType.entityCutoutNoCull(data.getTexture());
             matrices.pushPose();
             matrices.translate(0, 0.9, 0);
