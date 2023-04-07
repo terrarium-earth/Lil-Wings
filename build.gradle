@@ -152,10 +152,8 @@ allprojects {
             url = "https://dvs1.progwml6.com/files/maven/"
         }
 
-        maven { // TOP
-            name 'tterrag maven'
-            url "https://maven.tterrag.com/"
-        }
+        // TheOneProbe
+        maven { url = "https://maven.k-4u.nl" }
 
         maven {
             // location of a maven mirror for JEI files, as a fallback
